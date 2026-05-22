@@ -1,2 +1,2 @@
 # UNI-NEXUS-
-UNI-NEXUS is one platform for all on campus and off campus events , events included categories like hackathons, conferences, sports, dance and music, annual fest, art &amp; crafts . Most special things about it is it also manage all clubs information so that students can see all clubs and choose clubs according to their interests
+UNI-NEXUS is a platform for managing on-campus and off-campus events like hackathons, conferences, sports, dance, music, annual fests, art & crafts, and clubs. Students can explore, filter, and join clubs based on their interests, making campus engagement more organized, interactive, and accessible.
