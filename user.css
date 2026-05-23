@@ -67,7 +67,7 @@ body{
     text-align:center;
     color:#cbd5e1;
     padding:10px;
-    border-bottom:1px solid #1b2940;
+    border-bottom:2px solid #1b2940;
 }
 
 /* Top Bar */
@@ -186,6 +186,7 @@ body{
     width:1200px;
     border-radius:8px;
     height : 600px;
+    margin-left: 20px;
 }
 
 /* Upcoming */
