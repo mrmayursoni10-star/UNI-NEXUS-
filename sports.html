@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNI-NEXUS</title>
+    <link rel="stylesheet" href="krishna.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="menu" onclick="toggleSidebar()">&#9776;</div>
+    </header>
+
+    <div class="container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <h2><span>Sports</span></h2>
+            <p class="tagline">Play Hard. Win Big. 🏆</p>
+
+            <ul>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#upcoming">Upcoming</a></li>
+                <li><a href="#domains">Domains</a></li>
+                <li><a href="#recruitment">Recruitment</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#team">Team Members</a></li>
+                <li><a href="#coordinator">Coordinator</a></li>
+            </ul>
+
+            <div class="contact">
+                <p><strong>Contact:</strong></p>
+                <p>123xxxxxxx</p>
+                <p><strong>Email:</strong></p>
+                <p>abcd</p>
+            </div>
+
+            <button class="subscribe">Subscribe</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="card">
+
+                <div class="card-header">
+                    <span>Gallery</span>
+                    <a href="#">View</a>
+                </div>
+
+                <img src="sports.jpeg"
+                     alt="concert">
+
+                <div class="description">
+                    <h3>Description</h3>
+                    <p>
+                        Our Sports Club is dedicated to promoting fitness, teamwork, and a healthy lifestyle among students. We provide opportunities to participate in various indoor and outdoor sports, helping members develop physical strength, discipline, and leadership skills.
+                    </p>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+    </script>
+
+</body>
+</html>
