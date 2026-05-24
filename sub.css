@@ -1,0 +1,177 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #e2e8f0;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* HEADER */
+.main-header {
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.logo span {
+    color: #6366f1;
+}
+
+/* TITLE SECTION */
+.title-section {
+    margin-bottom: 25px;
+}
+
+.title-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.title-section p {
+    margin-top: 6px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* CATEGORY */
+.category-title {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #cbd5f5;
+}
+
+/* CARD */
+.club-card {
+    display: flex;
+    gap: 15px;
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #334155;
+
+    transition: all 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.club-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.25);
+}
+
+/* LOGO */
+.logo-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-side img {
+    width: 50px;
+    height: 50px;
+}
+
+/* INFO */
+.info-side {
+    flex: 1;
+}
+
+.info-side h4 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.info-side p {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+/* CARD BOTTOM */
+.card-bottom {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* BADGES */
+.badges {
+    display: flex;
+    gap: 8px;
+}
+
+.badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* BADGE COLORS */
+.badge.red {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+}
+
+.badge.yellow {
+    background: rgba(234, 179, 8, 0.15);
+    color: #facc15;
+}
+
+/* BUTTON */
+.btn {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    transform: scale(1.05);
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .club-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .card-bottom {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
