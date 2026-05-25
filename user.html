@@ -849,15 +849,15 @@
         <!-- TOP NAVIGATION & FILTER BAR -->
         <div class="top-bar">
             <div class="search-category">
-                <select>
-                    <option>View Categories</option>
-                    <option>Sports</option>
-                    <option>Clubs</option>
-                    <option>Hackathons</option>
-                    <option>Conferences</option>
-                    <option>Internships</option>
-                    <option>Workshops</option>
-                </select>
+               <select id="categorySelect">
+    <option value="">View Categories</option>
+    <option value="sports.html">Sports</option>
+    <option value="clubs.html">Clubs</option>
+    <option value="hackathons.html">Hackathons</option>
+    <option value="conferences.html">Conferences</option>
+    <option value="internships.html">Internships</option>
+    <option value="workshops.html">Workshops</option>
+</select>
                 <div class="search-box">
                     <input type="text" placeholder="Search events...">
                 </div>
@@ -1071,6 +1071,16 @@
 
     <!-- DYNAMIC EVENT SWAPPING SCRIPT -->
     <script>
+        // CATEGORY PAGE REDIRECTION
+const categorySelect = document.getElementById('categorySelect');
+
+categorySelect.addEventListener('change', function () {
+    const selectedPage = this.value;
+
+    if (selectedPage !== "") {
+        window.location.href = selectedPage;
+    }
+});
         document.addEventListener('DOMContentLoaded', () => {
             const toggle = document.getElementById('event-type-toggle');
             const track = document.getElementById('upcoming-track');
