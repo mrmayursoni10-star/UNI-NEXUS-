@@ -3,867 +3,1115 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>UNI~NEXUS Sports</title>
+    <title>UNI~NEXUS Sports</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FONT -->
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-<style>
+    <!-- ICONS -->
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-body{
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    background:
-    radial-gradient(circle at top,#0f1d63 0%, #020817 45%, #000814 100%);
+        body {
 
-    color:white;
-    overflow:hidden;
-    position:relative;
-}
+            background:
+                radial-gradient(circle at top, #0f1d63 0%, #020817 45%, #000814 100%);
 
-/* ================= BACKGROUND ================= */
+            color: white;
 
-.bg-glow{
+            overflow: hidden;
 
-    position:fixed;
+            position: relative;
+        }
 
-    width:700px;
-    height:700px;
+        /* ================= BACKGROUND ================= */
 
-    background:radial-gradient(
-    circle,
-    rgba(43,179,255,0.18),
-    transparent 70%);
+        .bg-glow {
 
-    top:-200px;
-    left:-150px;
+            position: fixed;
 
-    z-index:-1;
+            width: 700px;
+            height: 700px;
 
-    filter:blur(40px);
-}
+            background:
+                radial-gradient(circle,
+                    rgba(43, 179, 255, 0.18),
+                    transparent 70%);
 
-.bg-glow2{
+            top: -200px;
+            left: -150px;
 
-    position:fixed;
+            z-index: -1;
 
-    width:500px;
-    height:500px;
+            filter: blur(40px);
+        }
 
-    background:radial-gradient(
-    circle,
-    rgba(255,0,140,0.10),
-    transparent 70%);
+        .bg-glow2 {
 
-    bottom:-150px;
-    right:-100px;
+            position: fixed;
 
-    z-index:-1;
+            width: 500px;
+            height: 500px;
 
-    filter:blur(40px);
-}
+            background:
+                radial-gradient(circle,
+                    rgba(255, 0, 140, 0.10),
+                    transparent 70%);
 
-/* ================= NAVBAR ================= */
+            bottom: -150px;
+            right: -100px;
 
-.navbar{
+            z-index: -1;
 
-    width:97%;
-    margin:18px auto;
-    height:90px;
+            filter: blur(40px);
+        }
 
-    background:rgba(2,11,34,0.72);
+        /* ================= NAVBAR ================= */
 
-    border:1px solid rgba(255,255,255,0.05);
+        .navbar {
 
-    backdrop-filter:blur(16px);
+            width: 97%;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+            margin: 16px auto;
 
-    padding:0 50px;
+            height: 82px;
 
-    position:sticky;
-    top:10px;
-    z-index:1000;
+            background: rgba(3, 10, 35, 0.82);
 
-    border-radius:28px;
-}
+            border: 1px solid rgba(255, 255, 255, 0.06);
 
-/* left */
+            backdrop-filter: blur(18px);
 
-.nav-left{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
+            padding: 0 28px;
 
-.nav-left img{
+            position: sticky;
+            top: 10px;
 
-    width:60px;
-    height:60px;
-    border-radius:16px;
-    object-fit:cover;
-}
+            z-index: 1000;
 
-.nav-left span{
+            border-radius: 28px;
 
-    font-size:15px;
-    color:#9bb7ff;
-}
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.35);
+        }
 
-/* center */
+        /* left */
 
-.nav-center h1{
+        .nav-left {
 
-    font-size:56px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
 
-    font-weight:700;
+        .nav-left img {
 
-    letter-spacing:-1px;
+            width: 56px;
+            height: 56px;
 
-    background:linear-gradient(
-    90deg,
-    #ffffff,
-    #d9f3ff,
-    #2bb3ff);
+            border-radius: 18px;
 
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+            object-fit: cover;
 
-    text-shadow:
-    0 0 18px rgba(43,179,255,0.18);
-}
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-/* right */
+        /* center */
 
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:24px;
-}
+        .nav-center h1 {
 
-.portal-btn{
+            font-size: 38px;
 
-    background:linear-gradient(90deg,#1477ff,#39b8ff);
+            font-weight: 700;
 
-    color:white;
-    border:none;
+            letter-spacing: -1px;
 
-    padding:14px 34px;
+            background:
+                linear-gradient(90deg,
+                    #ffffff,
+                    #9fdcff,
+                    #38bdf8);
 
-    border-radius:40px;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
 
-    font-size:15px;
-    font-weight:600;
+            text-shadow:
+                0 0 18px rgba(56, 189, 248, 0.18);
+        }
 
-    cursor:pointer;
-    transition:0.3s;
-}
+        /* right */
 
-.portal-btn:hover{
+        .nav-right {
 
-    transform:translateY(-2px);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
 
-    box-shadow:0 10px 30px rgba(43,179,255,0.35);
-}
+        /* portal button */
 
-.bell{
+        .portal-btn {
 
-    width:54px;
-    height:54px;
+            background:
+                linear-gradient(135deg,
+                    #38bdf8,
+                    #0ea5e9);
 
-    border-radius:50%;
+            color: white;
 
-    border:1px solid rgba(255,255,255,0.08);
+            border: none;
 
-    background:rgba(255,255,255,0.03);
+            padding: 13px 28px;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+            border-radius: 40px;
 
-    font-size:20px;
+            font-size: 14px;
 
-    cursor:pointer;
-}
+            font-weight: 600;
 
-/* ================= SIDEBAR BUTTON ================= */
+            cursor: pointer;
 
-.menu-toggle{
+            transition: 0.35s;
 
-    position:fixed;
+            box-shadow:
+                0 8px 20px rgba(56, 189, 248, 0.22);
+        }
 
-    left:14px;
-    top:50%;
+        .portal-btn:hover {
 
-    transform:translateY(-50%);
+            transform: translateY(-2px);
 
-    width:62px;
-    height:120px;
+            box-shadow:
+                0 12px 28px rgba(56, 189, 248, 0.35);
+        }
 
-    border:none;
+        /* instagram */
 
-    border-radius:24px;
+        .instagram {
 
-    background:rgba(255,255,255,0.08);
+            width: 48px;
+            height: 48px;
 
-    backdrop-filter:blur(24px);
+            border-radius: 50%;
 
-    border:1px solid rgba(255,255,255,0.12);
+            background:
+                linear-gradient(135deg,
+                    #feda75,
+                    #fa7e1e,
+                    #d62976,
+                    #962fbf,
+                    #4f5bd5);
 
-    color:white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    font-size:28px;
+            cursor: pointer;
 
-    cursor:pointer;
+            transition: 0.35s;
 
-    z-index:1200;
+            box-shadow:
+                0 8px 18px rgba(214, 41, 118, 0.28);
+        }
 
-    transition:0.35s;
+        .instagram i {
 
-    box-shadow:
-    0 0 20px rgba(43,179,255,0.15),
-    0 20px 40px rgba(0,0,0,0.4);
-}
+            color: white;
 
-.menu-toggle:hover{
+            font-size: 20px;
+        }
 
-    transform:translateY(-50%) scale(1.08);
+        .instagram:hover {
 
-    background:rgba(43,179,255,0.18);
+            transform: scale(1.08) rotate(6deg);
+        }
 
-    box-shadow:
-    0 0 25px rgba(43,179,255,0.25),
-    0 15px 40px rgba(0,0,0,0.35);
-}
+        /* notification */
 
-/* ================= MAIN ================= */
+        .notification {
 
-.main{
+            width: 48px;
+            height: 48px;
 
-    padding:30px;
-    height:calc(100vh - 120px);
+            border-radius: 50%;
 
-    transition:0.45s ease;
+            background: rgba(255, 255, 255, 0.05);
 
-    margin-left:0;
-}
+            border: 1px solid rgba(255, 255, 255, 0.08);
 
-.main.shifted{
-    margin-left:270px;
-}
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-/* ================= SIDEBAR ================= */
+            cursor: pointer;
 
-.sidebar{
+            transition: 0.35s;
+        }
 
-    width:270px;
+        .notification i {
 
-    background:rgba(3,10,35,0.96);
+            color: #ffd43b;
 
-    backdrop-filter:blur(20px);
+            font-size: 18px;
+        }
 
-    height:calc(100vh - 120px);
+        .notification:hover {
 
-    position:fixed;
+            transform: scale(1.08);
 
-    left:-270px;
-    top:110px;
+            background:
+                linear-gradient(135deg,
+                    #ffd43b,
+                    #ffb703);
 
-    z-index:999;
+            box-shadow:
+                0 10px 25px rgba(255, 212, 59, 0.35);
+        }
 
-    transition:0.45s ease;
+        .notification:hover i {
+            color: black;
+        }
 
-    padding:20px;
+        /* ================= SIDEBAR TOGGLE ================= */
 
-    overflow-y:auto;
+        .menu-toggle {
 
-    border-right:1px solid rgba(255,255,255,0.08);
+            position: fixed;
 
-    border-top-right-radius:28px;
-    border-bottom-right-radius:28px;
+            left: 14px;
+            top: 50%;
 
-    box-shadow:
-    0 20px 40px rgba(0,0,0,0.35);
-}
+            transform: translateY(-50%);
 
-.sidebar.active{
-    left:0;
-}
+            width: 62px;
+            height: 120px;
 
-.sidebar-box{
+            border: none;
 
-    background:rgba(255,255,255,0.04);
+            border-radius: 24px;
 
-    border:1px solid rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.08);
 
-    border-radius:22px;
+            backdrop-filter: blur(24px);
 
-    padding:24px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
 
-    margin-bottom:20px;
-}
+            color: white;
 
-/* ================= SIDEBAR MENU ================= */
+            font-size: 28px;
 
-.sidebar-menu{
+            cursor: pointer;
 
-    display:flex;
-    flex-direction:column;
-    gap:22px;
-}
+            z-index: 1200;
 
-.sidebar-menu a{
+            transition: 0.35s;
 
-    text-decoration:none;
+            box-shadow:
+                0 0 20px rgba(43, 179, 255, 0.15),
+                0 20px 40px rgba(0, 0, 0, 0.4);
+        }
 
-    color:white;
+        .menu-toggle:hover {
 
-    font-size:15px;
+            transform: translateY(-50%) scale(1.08);
 
-    transition:0.3s;
+            background: rgba(43, 179, 255, 0.18);
+        }
 
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
+        /* ================= MAIN ================= */
 
-.sidebar-menu a:hover{
+        .main {
 
-    color:#2bb3ff;
+            padding: 30px;
 
-    transform:translateX(6px);
-}
+            height: calc(100vh - 120px);
 
-/* ================= HEAD BOX ================= */
+            transition: 0.45s ease;
 
-.head-box{
+            margin-left: 0;
+        }
 
-    color:#d1d5db;
+        .main.shifted {
+            margin-left: 270px;
+        }
 
-    line-height:2;
-    font-size:14px;
-}
+        /* ================= SIDEBAR ================= */
 
-/* ================= SOCIALS ================= */
+        .sidebar {
 
-.socials{
+            width: 270px;
 
-    display:flex;
-    gap:12px;
+            background: rgba(3, 10, 35, 0.96);
 
-    margin-top:22px;
-}
+            backdrop-filter: blur(20px);
 
-.socials button{
+            height: calc(100vh - 120px);
 
-    border:none;
+            position: fixed;
 
-    height:45px;
+            left: -270px;
+            top: 110px;
 
-    border-radius:14px;
+            z-index: 999;
 
-    cursor:pointer;
+            transition: 0.45s ease;
 
-    transition:0.3s;
+            padding: 18px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+            overflow-y: auto;
 
-    font-size:18px;
-}
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
 
-.subscribe{
+            border-top-right-radius: 28px;
+            border-bottom-right-radius: 28px;
 
-    padding:0 18px;
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.35);
+        }
 
-    background:red;
+        .sidebar.active {
+            left: 0;
+        }
 
-    color:white;
+        /* box */
 
-    font-weight:600;
-}
+        .sidebar-box {
 
-.subscribe:hover{
-    transform:translateY(-3px);
-}
+            background: rgba(255, 255, 255, 0.04);
 
-.insta-btn{
+            border: 1px solid rgba(255, 255, 255, 0.06);
 
-    width:45px;
+            border-radius: 24px;
 
-    background:#ff2d75;
+            padding: 20px;
 
-    color:white;
-}
+            margin-bottom: 20px;
+        }
 
-.insta-btn:hover{
+        /* title */
 
-    transform:translateY(-3px);
+        .sidebar-title {
 
-    box-shadow:0 8px 20px rgba(255,45,117,0.4);
-}
+            font-size: 14px;
 
-.notify{
+            font-weight: 700;
 
-    width:45px;
+            letter-spacing: 1px;
 
-    background:gold;
+            color: #38bdf8;
 
-    color:black;
-}
+            margin-bottom: 20px;
+        }
 
-.notify:hover{
-    transform:translateY(-3px);
-}
+        /* menu */
 
-/* ================= SPORTS HEADER ================= */
+        .sidebar-menu {
 
-.sports-header{
+            display: flex;
 
-    width:100%;
+            flex-direction: column;
 
-    min-height:150px;
+            gap: 14px;
+        }
 
-    background:rgba(9,20,60,0.82);
+        .sidebar-menu a {
 
-    border:1px solid rgba(255,255,255,0.05);
+            text-decoration: none;
 
-    border-radius:30px;
+            color: white;
 
-    padding:30px 40px;
+            background: rgba(255, 255, 255, 0.03);
 
-    display:flex;
+            border: 1px solid rgba(255, 255, 255, 0.04);
 
-    justify-content:space-between;
-    align-items:center;
+            padding: 14px 16px;
 
-    margin-bottom:24px;
+            border-radius: 16px;
 
-    backdrop-filter:blur(14px);
+            transition: 0.35s;
 
-    overflow:hidden;
+            display: flex;
 
-    position:relative;
-}
+            align-items: center;
 
-.sports-header::before{
+            gap: 14px;
 
-    content:'';
+            font-size: 14px;
 
-    position:absolute;
+            font-weight: 500;
+        }
 
-    width:350px;
-    height:350px;
+        .sidebar-menu a i {
 
-    background:radial-gradient(
-    circle,
-    rgba(43,179,255,0.14),
-    transparent 70%);
+            width: 18px;
 
-    right:-120px;
-    top:-120px;
-}
+            text-align: center;
 
-.sports-left h2{
+            color: #38bdf8;
+        }
 
-    font-size:76px;
+        .sidebar-menu a:hover {
 
-    font-weight:700;
+            transform: translateX(4px);
 
-    letter-spacing:-2px;
+            background: rgba(56, 189, 248, 0.12);
 
-    margin-bottom:10px;
-}
+            border-color: #38bdf8;
+        }
 
-.sports-left p{
+        /* ================= HEAD BOX ================= */
 
-    color:#b8c4dc;
+        .head-box {
 
-    font-size:18px;
-}
+            display: flex;
 
-.sports-right{
+            flex-direction: column;
 
-    font-size:70px;
+            gap: 16px;
+            text-align: center;
+        }
 
-    z-index:2;
+        /* member */
 
-    filter:drop-shadow(
-    0 0 15px rgba(255,215,0,0.35));
-}
+        .member-card {
 
-/* ================= SPORTS CONTAINER ================= */
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.06),
+                    rgba(255, 255, 255, 0.03));
 
-.sports-container{
+            border: 1px solid rgba(255, 255, 255, 0.05);
 
-    height:58vh;
+            border-radius: 20px;
 
-    overflow-y:auto;
+            padding: 14px;
 
-    scroll-behavior:smooth;
+            display: flex;
+            flex-direction: column;
 
-    padding-right:10px;
+            align-items: center;
 
-    display:flex;
+            gap: 14px;
 
-    flex-direction:column;
+            transition: 0.35s;
+        }
 
-    gap:20px;
-}
+        .member-card:hover {
 
-.sports-container::-webkit-scrollbar{
-    width:6px;
-}
+            transform: translateY(-3px);
 
-.sports-container::-webkit-scrollbar-thumb{
+            border-color: #38bdf8;
 
-    background:#1ea7ff;
+            box-shadow:
+                0 10px 25px rgba(56, 189, 248, 0.15);
+        }
 
-    border-radius:20px;
-}
+        /* image */
 
-/* ================= SPORTS CARD ================= */
+        .member-img {
 
-.sport-card{
+            width: 80px;
+            height: 80px;
 
-    min-height:170px;
+            border-radius: 18px;
 
-    background:linear-gradient(
-    135deg,
-    rgba(255,255,255,0.06),
-    rgba(255,255,255,0.02));
+            object-fit: cover;
 
-    border:1px solid rgba(255,255,255,0.08);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+        }
 
-    backdrop-filter:blur(22px);
+        /* info */
 
-    border-radius:30px;
+        .member-info {
 
-    padding:18px;
+            flex: 1;
+        }
 
-    display:flex;
+        .member-info h3 {
 
-    gap:20px;
+            font-size: 14px;
 
-    transition:0.45s;
+            color: #38bdf8;
 
-    overflow:hidden;
+            margin-bottom: 4px;
+        }
 
-    position:relative;
+        .member-name {
 
-    flex-shrink:0;
-}
+            font-size: 15px;
 
-.sport-card::before{
+            font-weight: 600;
 
-    content:'';
+            color: white;
 
-    position:absolute;
+            margin-bottom: 3px;
+        }
 
-    width:250px;
-    height:250px;
+        .member-email {
 
-    background:radial-gradient(
-    circle,
-    rgba(43,179,255,0.10),
-    transparent 70%);
+            font-size: 12px;
 
-    right:-100px;
-    top:-100px;
-}
+            color: #cbd5e1;
 
-.sport-card:hover{
+            word-break: break-word;
+        }
 
-    transform:translateY(-6px);
+        /* socials */
 
-    border-color:#2bb3ff;
+        .socials {
 
-    box-shadow:
-    0 0 25px rgba(43,179,255,0.15),
-    0 20px 45px rgba(43,179,255,0.08);
-}
+            display: flex;
 
-/* image */
+            gap: 10px;
 
-.sport-image{
+            margin-top: 22px;
+        }
 
-    width:38%;
+        .subscribe {
 
-    border-radius:22px;
+            flex: 1;
 
-    overflow:hidden;
+            border: none;
 
-    position:relative;
-}
+            height: 45px;
 
-.sport-image::after{
+            border-radius: 14px;
 
-    content:'';
+            background:
+                linear-gradient(135deg,
+                    #ff004f,
+                    #ff2d75);
 
-    position:absolute;
+            color: white;
 
-    inset:0;
+            font-size: 14px;
 
-    background:linear-gradient(
-    to top,
-    rgba(0,0,0,0.35),
-    transparent);
+            font-weight: 600;
 
-    z-index:2;
-}
+            cursor: pointer;
+        }
 
-.sport-image img{
+        .insta-btn {
 
-    width:100%;
-    height:100%;
+            width: 45px;
 
-    object-fit:cover;
+            border: none;
 
-    transition:0.7s;
-}
+            border-radius: 14px;
 
-.sport-card:hover img{
+            background:
+                linear-gradient(135deg,
+                    #feda75,
+                    #fa7e1e,
+                    #d62976,
+                    #962fbf);
 
-    transform:scale(1.1);
-}
+            color: white;
 
-/* info */
+            font-size: 18px;
 
-.sport-info{
+            cursor: pointer;
+        }
 
-    width:62%;
+        .notify {
 
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
+            width: 45px;
 
-.sport-info h3{
+            border: none;
 
-    font-size:32px;
+            border-radius: 14px;
 
-    margin-bottom:10px;
-}
+            background:
+                linear-gradient(135deg,
+                    #ffd43b,
+                    #ffb703);
 
-.sport-info p{
+            color: black;
 
-    color:#c4d2ee;
+            font-size: 18px;
 
-    line-height:1.7;
+            cursor: pointer;
+        }
 
-    font-size:14px;
+        /* ================= HERO ================= */
 
-    margin-bottom:18px;
-}
+        .hero {
 
-/* bottom box */
+            width: 100%;
 
-.bottom-box{
+            min-height: 150px;
 
-    width:280px;
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.05),
+                    rgba(255, 255, 255, 0.02));
 
-    display:flex;
+            border: 1px solid rgba(255, 255, 255, 0.06);
 
-    overflow:hidden;
+            border-radius: 30px;
 
-    border-radius:16px;
+            padding: 28px 38px;
 
-    background:linear-gradient(
-    90deg,
-    #16a34a,
-    #38d66b);
-}
+            display: flex;
 
-.captain,
-.image-btn{
+            justify-content: space-between;
+            align-items: center;
 
-    flex:1;
+            margin-bottom: 24px;
 
-    padding:14px;
+            backdrop-filter: blur(18px);
 
-    text-align:center;
+            overflow: hidden;
 
-    color:black;
+            position: relative;
+        }
 
-    font-weight:600;
-}
+        .hero::before {
 
-.captain{
-    border-right:1px solid rgba(0,0,0,0.15);
-}
+            content: '';
 
-/* ================= FOOTER ================= */
+            position: absolute;
 
-.footer{
+            width: 320px;
+            height: 320px;
 
-    text-align:center;
+            background:
+                radial-gradient(circle,
+                    rgba(56, 189, 248, 0.12),
+                    transparent 70%);
 
-    color:#94a3b8;
+            right: -80px;
+            top: -100px;
+        }
 
-    padding:18px;
-}
+        .hero-left h2 {
 
-/* ================= RESPONSIVE ================= */
+            font-size: 58px;
 
-@media(max-width:950px){
+            font-weight: 700;
 
-    body{
-        overflow:auto;
-    }
+            letter-spacing: -2px;
 
-    .main.shifted{
-        margin-left:0;
-    }
+            margin-bottom: 8px;
+        }
 
-    .sports-header{
-        flex-direction:column;
-        text-align:center;
-        gap:20px;
-    }
+        .hero-left p {
 
-    .sports-left h2{
-        font-size:48px;
-    }
+            color: #cbd5e1;
 
-    .sport-card{
-        flex-direction:column;
-    }
+            font-size: 16px;
 
-    .sport-image,
-    .sport-info{
-        width:100%;
-    }
+            line-height: 1.7;
+        }
 
-    .sport-image{
-        height:230px;
-    }
+        .hero-right {
 
-    .bottom-box{
-        width:100%;
-    }
+            font-size: 72px;
 
-    .nav-center h1{
-        font-size:34px;
-    }
+            z-index: 2;
+        }
 
-    .portal-btn{
-        display:none;
-    }
+        /* ================= SPORTS ================= */
 
-    .navbar{
-        padding:0 20px;
-    }
-}
+        .sports-container {
 
-</style>
+            height: 58vh;
+
+            overflow-y: auto;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 20px;
+
+            padding-right: 10px;
+        }
+
+        .sports-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sports-container::-webkit-scrollbar-thumb {
+
+            background: #1ea7ff;
+
+            border-radius: 20px;
+        }
+
+        /* card */
+
+        .sport-card {
+
+            min-height: 270px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.06),
+                    rgba(255, 255, 255, 0.02));
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(22px);
+
+            border-radius: 30px;
+
+            padding: 18px;
+
+            display: flex;
+
+            gap: 20px;
+
+            transition: 0.45s;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .sport-card:hover {
+
+            transform: translateY(-6px);
+
+            border-color: #2bb3ff;
+
+            box-shadow:
+                0 0 25px rgba(43, 179, 255, 0.15),
+                0 20px 45px rgba(43, 179, 255, 0.08);
+        }
+
+        .sport-image {
+
+            width: 38%;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+        }
+
+        .sport-image img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: 0.7s;
+        }
+
+        .sport-card:hover img {
+
+            transform: scale(1.1);
+        }
+
+        .sport-info {
+
+            width: 62%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .sport-info h3 {
+
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        .sport-info p {
+
+            color: #c4d2ee;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+
+            margin-bottom: 18px;
+        }
+
+        .bottom-box {
+
+            width: 280px;
+
+            display: flex;
+
+            overflow: hidden;
+
+            border-radius: 16px;
+        }
+
+        .captain,
+        .type {
+
+            flex: 1;
+
+            padding: 14px;
+
+            text-align: center;
+
+            color: white;
+
+            font-weight: 600;
+        }
+
+        .captain {
+
+            background:
+                linear-gradient(135deg,
+                    #16a34a,
+                    #22c55e);
+        }
+
+        .type {
+
+            background:
+                linear-gradient(135deg,
+                    #0ea5e9,
+                    #38bdf8);
+        }
+
+        /* footer */
+
+        .footer {
+
+            text-align: center;
+
+            color: #94a3b8;
+
+            padding: 18px;
+        }
+
+        /* responsive */
+
+        @media(max-width:950px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .main.shifted {
+                margin-left: 0;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .hero-left h2 {
+                font-size: 42px;
+            }
+
+            .sport-card {
+                flex-direction: column;
+            }
+
+            .sport-image,
+            .sport-info {
+                width: 100%;
+            }
+
+            .sport-image {
+                height: 230px;
+            }
+
+            .bottom-box {
+                width: 100%;
+            }
+
+            .nav-center h1 {
+                font-size: 28px;
+            }
+
+            .portal-btn {
+                display: none;
+            }
+        }
+    </style>
 
 </head>
 
 <body>
 
-<div class="bg-glow"></div>
-<div class="bg-glow2"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow2"></div>
 
-<!-- SIDEBAR TOGGLE -->
+    <!-- TOGGLE -->
 
-<button class="menu-toggle" id="toggleBtn">
-❯
-</button>
+    <button class="menu-toggle" id="toggleBtn">
+        ❯
+    </button>
 
-<!-- NAVBAR -->
+    <!-- NAVBAR -->
 
-<div class="navbar">
+    <div class="navbar">
 
-    <div class="nav-left">
+        <div class="nav-left">
 
-        <img src="logo.jpeg">
+            <img src="logo.jpeg">
 
-        
-
-    </div>
-
-    <div class="nav-center">
-
-        <h1>
-            UNI~NEXUS
-        </h1>
-
-    </div>
-
-    <div class="nav-right">
-
-        <button class="portal-btn">
-            USER PORTAL
-        </button>
-
-        <div class="bell">
-            🔔
         </div>
 
-    </div>
+        <div class="nav-center">
 
-</div>
+            <h1>UNI~NEXUS</h1>
 
-<!-- SIDEBAR -->
+        </div>
 
-<div class="sidebar">
+        <div class="nav-right">
 
-    <div class="sidebar-box">
+            <button class="portal-btn">
+                USER PORTAL
+            </button>
 
-        <div class="sidebar-menu">
-
-            <a href="#"><i class="fas fa-users"></i> My Team</a>
-
-            <a href="#"><i class="fas fa-calendar"></i> Upcoming Matches</a>
-
-            <a href="#"><i class="fas fa-trophy"></i> Tournaments</a>
-
-            <a href="#"><i class="fas fa-medal"></i> Achievements</a>
-
-            <a href="#"><i class="fas fa-ranking-star"></i> Player Ranking</a>
-
-            <a href="#"><i class="fas fa-broadcast-tower"></i> Live Scores</a>
-
-            <a href="#"><i class="fas fa-newspaper"></i> Sports News</a>
-
-            <a href="#"><i class="fas fa-clock"></i> Team Schedule</a>
+            <div class="notification">
+                <i class="fas fa-bell"></i>
+            </div>
 
         </div>
 
     </div>
 
-    <div class="sidebar-box">
+    <!-- SIDEBAR -->
 
-        <div class="head-box">
+    <div class="sidebar">
 
-            <p><b>Head of Sports</b></p>
-            <p>Image</p>
-            <p>Name</p>
-            <p>Email</p>
+        <!-- MENU -->
 
-            <br>
+        <div class="sidebar-box">
 
-            <p><b>Vice Head</b></p>
-            <p>Image</p>
-            <p>Name</p>
-            <p>Email</p>
+            <div class="sidebar-title">
+                SPORTS MENU
+            </div>
+
+            <div class="sidebar-menu">
+
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    <span>My Team</span>
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-calendar"></i>
+                    <span>Upcoming Matches</span>
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-trophy"></i>
+                    <span>Tournaments</span>
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-medal"></i>
+                    <span>Achievements</span>
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-ranking-star"></i>
+                    <span>Player Ranking</span>
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <span>Live Scores</span>
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Sports News</span>
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-clock"></i>
+                    <span>Team Schedule</span>
+                </a>
+
+            </div>
 
         </div>
+
+        <!-- HEADS -->
+
+        <div class="sidebar-box">
+
+            <div class="sidebar-title">
+                SPORTS HEADS
+            </div>
+
+            <div class="head-box">
+
+                <!-- HEAD -->
+
+
+                <div class="member-card">
+                    <img src="Images/Mayur.png" class="member-img">
+
+
+
+                    <div class="member-info">
+
+                        <h3>Head of Sports</h3>
+
+                        <p class="member-name">
+                            Rahul Sharma
+                        </p>
+
+                        <p class="member-email">
+                            rahul@uninexus.edu
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- VICE HEAD -->
+
+
+                <div class="member-card">
+                    <img src="Images/Mayur.png" class="member-img">
+
+
+
+                    <div class="member-info">
+
+                        <h3>Vice Head</h3>
+
+                        <p class="member-name">
+                            Aryan Verma
+                        </p>
+
+                        <p class="member-email">
+                            aryan@uninexus.edu
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <!-- SOCIALS -->
 
         <div class="socials">
 
@@ -881,172 +1129,169 @@ body{
 
         </div>
 
+
     </div>
 
-</div>
+    <!-- MAIN -->
 
-<!-- MAIN -->
+    <div class="main">
 
-<div class="main">
+        <!-- HERO -->
 
-<!-- SPORTS HEADER -->
+        <div class="hero">
 
-<div class="sports-header">
+            <div class="hero-left">
 
-    <div class="sports-left">
+                <h2>SPORTS</h2>
 
-        <h2>SPORTS</h2>
+                <p>
+                    Indoor & Outdoor University Sports Activities,
+                    Tournaments and Championships.
+                </p>
+
+            </div>
+
+            <div class="hero-right">
+                🏆
+            </div>
+
+        </div>
+
+        <!-- SPORTS -->
+
+        <div class="sports-container">
+
+            <!-- Cricket -->
+
+            <div class="sport-card">
+
+                <div class="sport-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+                <div class="sport-info">
+
+                    <h3>Cricket</h3>
+
+                    <p>
+                        University cricket leagues and tournaments.
+                    </p>
+
+                    <div class="bottom-box">
+
+                        <div class="captain">
+                            Captain
+                        </div>
+
+                        <div class="type">
+                            Outdoor
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Football -->
+
+            <div class="sport-card">
+
+                <div class="sport-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+                <div class="sport-info">
+
+                    <h3>Football</h3>
+
+                    <p>
+                        Competitive football matches and leagues.
+                    </p>
+
+                    <div class="bottom-box">
+
+                        <div class="captain">
+                            Captain
+                        </div>
+
+                        <div class="type">
+                            Outdoor
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Basketball -->
+
+            <div class="sport-card">
+
+                <div class="sport-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+                <div class="sport-info">
+
+                    <h3>Basketball</h3>
+
+                    <p>
+                        Basketball tournaments and training sessions.
+                    </p>
+
+                    <div class="bottom-box">
+
+                        <div class="captain">
+                            Captain
+                        </div>
+
+                        <div class="type">
+                            Indoor
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- Volleyball -->
+
+<div class="sport-card">
+
+    <div class="sport-image">
+
+        <img
+            src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1200&auto=format&fit=crop">
+
+    </div>
+
+    <div class="sport-info">
+
+        <h3>Volleyball</h3>
 
         <p>
-            Explore all university sports activities and tournaments.
+            University volleyball championships and indoor competitions.
         </p>
 
-    </div>
+        <div class="bottom-box">
 
-    <div class="sports-right">
-        🏆
-    </div>
-
-</div>
-
-<!-- SPORTS -->
-
-<div class="sports-container">
-
-    <!-- CRICKET -->
-
-    <div class="sport-card">
-
-        <div class="sport-image">
-
-            <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop">
-
-        </div>
-
-        <div class="sport-info">
-
-            <h3>Cricket</h3>
-
-            <p>
-                Participate in university cricket leagues, inter-college championships,
-                practice sessions, and knockout tournaments with the best players.
-            </p>
-
-            <div class="bottom-box">
-
-                <div class="captain">
-                    Captain Name
-                </div>
-
-                <div class="image-btn">
-                    Team
-                </div>
-
+            <div class="captain">
+                Captain
             </div>
 
-        </div>
-
-    </div>
-
-    <!-- FOOTBALL -->
-
-    <div class="sport-card">
-
-        <div class="sport-image">
-
-            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200&auto=format&fit=crop">
-
-        </div>
-
-        <div class="sport-info">
-
-            <h3>Football</h3>
-
-            <p>
-                Join football tournaments, campus leagues, and competitive matches
-                organized for students throughout the academic year.
-            </p>
-
-            <div class="bottom-box">
-
-                <div class="captain">
-                    Captain Name
-                </div>
-
-                <div class="image-btn">
-                    Team
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- BADMINTON -->
-
-    <div class="sport-card">
-
-        <div class="sport-image">
-
-            <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=1200&auto=format&fit=crop">
-
-        </div>
-
-        <div class="sport-info">
-
-            <h3>Badminton</h3>
-
-            <p>
-                Compete in indoor badminton championships, doubles tournaments,
-                and university sports festivals with professional-level courts.
-            </p>
-
-            <div class="bottom-box">
-
-                <div class="captain">
-                    Captain Name
-                </div>
-
-                <div class="image-btn">
-                    Team
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- BASKETBALL -->
-
-    <div class="sport-card">
-
-        <div class="sport-image">
-
-            <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200&auto=format&fit=crop">
-
-        </div>
-
-        <div class="sport-info">
-
-            <h3>Basketball</h3>
-
-            <p>
-                Showcase your dribbling, shooting, and teamwork skills in fast-paced
-                basketball tournaments and university leagues.
-            </p>
-
-            <div class="bottom-box">
-
-                <div class="captain">
-                    Captain Name
-                </div>
-
-                <div class="image-btn">
-                    Team
-                </div>
-
+            <div class="type">
+                Indoor
             </div>
 
         </div>
@@ -1055,39 +1300,220 @@ body{
 
 </div>
 
-<!-- FOOTER -->
+<!-- Badminton -->
 
-<div class="footer">
-    © UNI~NEXUS | Made By ❤️ Team Delta
+<div class="sport-card">
+
+    <div class="sport-image">
+
+        <img
+            src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=1200&auto=format&fit=crop">
+
+    </div>
+
+    <div class="sport-info">
+
+        <h3>Badminton</h3>
+
+        <p>
+            Fast paced badminton matches and university tournaments.
+        </p>
+
+        <div class="bottom-box">
+
+            <div class="captain">
+                Captain
+            </div>
+
+            <div class="type">
+                Indoor
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
+<!-- Tennis -->
+
+<div class="sport-card">
+
+    <div class="sport-image">
+
+        <img
+            src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=1200&auto=format&fit=crop">
+
+    </div>
+
+    <div class="sport-info">
+
+        <h3>Tennis</h3>
+
+        <p>
+            Singles and doubles tennis competitions for university players.
+        </p>
+
+        <div class="bottom-box">
+
+            <div class="captain">
+                Captain
+            </div>
+
+            <div class="type">
+                Outdoor
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
-<!-- SCRIPT -->
+<!-- Kabaddi -->
 
-<script>
+<div class="sport-card">
 
-const toggleBtn = document.getElementById("toggleBtn");
+    <div class="sport-image">
 
-const sidebar = document.querySelector(".sidebar");
+        <img
+            src="https://images.unsplash.com/photo-1593766827228-8737b4534aa6?q=80&w=1200&auto=format&fit=crop">
 
-const main = document.querySelector(".main");
+    </div>
 
-toggleBtn.onclick = () => {
+    <div class="sport-info">
 
-    sidebar.classList.toggle("active");
+        <h3>Kabaddi</h3>
 
-    main.classList.toggle("shifted");
+        <p>
+            Traditional kabaddi tournaments and inter-college events.
+        </p>
 
-    if(sidebar.classList.contains("active")){
-        toggleBtn.innerHTML = "❮";
-    } else {
-        toggleBtn.innerHTML = "❯";
-    }
+        <div class="bottom-box">
 
-}
+            <div class="captain">
+                Captain
+            </div>
 
-</script>
+            <div class="type">
+                Outdoor
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Chess -->
+
+<div class="sport-card">
+
+    <div class="sport-image">
+
+        <img
+            src="https://images.unsplash.com/photo-1528819622765-d6bcf132f793?q=80&w=1200&auto=format&fit=crop">
+
+    </div>
+
+    <div class="sport-info">
+
+        <h3>Chess</h3>
+
+        <p>
+            Strategic chess battles and university mind sport competitions.
+        </p>
+
+        <div class="bottom-box">
+
+            <div class="captain">
+                Captain
+            </div>
+
+            <div class="type">
+                Indoor
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Athletics -->
+
+<div class="sport-card">
+
+    <div class="sport-image">
+
+        <img
+            src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=1200&auto=format&fit=crop">
+
+    </div>
+
+    <div class="sport-info">
+
+        <h3>Athletics</h3>
+
+        <p>
+            Running, jumping and track field university competitions.
+        </p>
+
+        <div class="bottom-box">
+
+            <div class="captain">
+                Captain
+            </div>
+
+            <div class="type">
+                Outdoor
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+            
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+            © UNI~NEXUS | Made By ❤️ Team Delta
+        </div>
+
+    </div>
+
+    <!-- SCRIPT -->
+
+    <script>
+
+        const toggleBtn = document.getElementById("toggleBtn");
+
+        const sidebar = document.querySelector(".sidebar");
+
+        const main = document.querySelector(".main");
+
+        toggleBtn.onclick = () => {
+
+            sidebar.classList.toggle("active");
+
+            main.classList.toggle("shifted");
+
+            if (sidebar.classList.contains("active")) {
+                toggleBtn.innerHTML = "❮";
+            }
+
+            else {
+
+                toggleBtn.innerHTML = "❯";
+            }
+        }
+
+    </script>
 
 </body>
+
 </html>
