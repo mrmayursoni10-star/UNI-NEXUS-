@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#050816;
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+}
+
+/* BACKGROUND GLOW */
+
+body::before,
+body::after{
+    content:'';
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(120px);
+    z-index:-1;
+}
+
+body::before{
+    background:#00e5ff30;
+    top:-150px;
+    left:-120px;
+}
+
+body::after{
+    background:#7c3aed30;
+    bottom:-180px;
+    right:-100px;
+}
+
+/* HERO */
+
+.hero{
+    position:relative;
+    width:100%;
+    height:340px;
+
+    background-size:cover !important;
+    background-position:center !important;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+.hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.45),
+        rgba(5,8,22,0.9)
+    );
+}
+
+.hero::after{
+    content:'';
+    position:absolute;
+    inset:0;
+
+    background:
+    radial-gradient(circle at top right,
+    rgba(0,229,255,0.25),
+    transparent 35%);
+}
+
+/* HERO CONTENT */
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding:20px;
+    animation:fadeUp 1s ease;
+}
+
+.hero-content h1{
+    font-size:56px;
+    font-weight:800;
+    letter-spacing:-1px;
+
+    margin-bottom:16px;
+
+    text-shadow:0 0 25px rgba(0,229,255,0.4);
+}
+
+.hero-content p{
+    font-size:18px;
+    color:#d1d5db;
+    letter-spacing:1px;
+}
+
+/* PAGE */
+
+.page-container{
+    width:90%;
+    max-width:1300px;
+
+    margin:auto;
+    padding:70px 0;
+}
+
+/* SECTION TITLE */
+
+.section-title{
+    font-size:34px;
+    font-weight:800;
+
+    margin-bottom:40px;
+
+    text-align:center;
+
+    position:relative;
+}
+
+.section-title::after{
+    content:'';
+    width:120px;
+    height:4px;
+
+    background:linear-gradient(
+        90deg,
+        #00e5ff,
+        #7c3aed
+    );
+
+    border-radius:10px;
+
+    position:absolute;
+    left:50%;
+    bottom:-14px;
+
+    transform:translateX(-50%);
+}
+
+/* CLUBS GRID */
+
+.clubs-container{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+    gap:30px;
+
+    margin-top:30px;
+}
+
+/* CLUB CARD */
+
+.club-card{
+    position:relative;
+
+    background:
+    rgba(255,255,255,0.06);
+
+    border:
+    1px solid rgba(255,255,255,0.08);
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(16px);
+
+    transition:0.4s ease;
+
+    cursor:pointer;
+}
+
+.club-card:hover{
+    transform:
+    translateY(-10px)
+    scale(1.02);
+
+    border-color:#00e5ff;
+
+    box-shadow:
+    0 0 35px rgba(0,229,255,0.25);
+}
+
+/* IMAGE */
+
+.club-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+
+    transition:0.5s ease;
+}
+
+.club-card:hover img{
+    transform:scale(1.08);
+}
+
+/* INFO */
+
+.club-info{
+    padding:24px;
+}
+
+.club-info h3{
+    font-size:24px;
+    font-weight:700;
+
+    margin-bottom:12px;
+}
+
+.club-info p{
+    color:#b6c0d1;
+    line-height:1.7;
+    font-size:15px;
+}
+
+/* EMPTY STATE */
+
+.empty-box{
+    width:100%;
+
+    padding:90px 30px;
+
+    border-radius:30px;
+
+    background:
+    rgba(255,255,255,0.05);
+
+    border:
+    1px dashed rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(20px);
+
+    text-align:center;
+
+    margin-top:40px;
+
+    transition:0.4s ease;
+}
+
+.empty-box:hover{
+    border-color:#00e5ff;
+
+    box-shadow:
+    0 0 30px rgba(0,229,255,0.18);
+}
+
+.empty-box h2{
+    font-size:38px;
+    font-weight:800;
+
+    margin-bottom:15px;
+
+    color:white;
+}
+
+.empty-box p{
+    color:#9ca3af;
+    font-size:17px;
+}
+
+/* AUTO HIDE EMPTY STATE */
+
+.clubs-container:not(:empty) + .empty-box{
+    display:none;
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .hero{
+        height:260px;
+    }
+
+    .hero-content h1{
+        font-size:34px;
+    }
+
+    .hero-content p{
+        font-size:14px;
+    }
+
+    .section-title{
+        font-size:28px;
+    }
+
+    .empty-box{
+        padding:60px 20px;
+    }
+
+    .empty-box h2{
+        font-size:28px;
+    }
+
+    .club-card img{
+        height:190px;
+    }
+}
