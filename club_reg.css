@@ -243,6 +243,7 @@ body::after{
     align-items:center;
 
     justify-content:center;
+    object-fit:cover;
 
     overflow:hidden;
 

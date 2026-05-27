@@ -477,6 +477,67 @@
         }
 
         /* ================= HEAD BOX ================= */
+       .sidebar-buttons {
+
+            display: flex;
+            justify-content: space-between;
+
+            margin-top: 30px;
+            margin-left: 30px;
+            margin-right: 30px;
+            background: rgba(6, 6, 6, 0.15);;
+        }
+
+        .sidebar-btn {
+
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(56, 189, 248, 0.18),
+                    rgba(14, 165, 233, 0.08));
+
+            border: 1px solid rgba(56, 189, 248, 0.25);
+
+            padding: 14px 16px;
+
+            border-radius: 16px;
+
+            transition: 0.35s;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .sidebar-btn i {
+
+            color: #38bdf8;
+
+            width: 18px;
+
+            text-align: center;
+        }
+
+        .sidebar-btn:hover {
+
+            transform: translateX(4px);
+
+            background:
+                linear-gradient(135deg,
+                    rgba(56, 189, 248, 0.28),
+                    rgba(14, 165, 233, 0.15));
+
+            border-color: #38bdf8;
+        }
 
         .head-box {
 
@@ -990,6 +1051,20 @@
         </div>
 
     </div>
+    <!-- ADD THIS JUST BELOW </div> OF HEAD-BOX SECTION -->
+
+    <div class="sidebar-buttons">
+
+        <a href="Home.html" class="sidebar-btn">
+            <span>Home</span>
+        </a>
+
+        <a href="#" class="sidebar-btn">
+            <span>M</span>
+        </a>
+
+    </div>
+
 
     <!-- SIDEBAR -->
 
@@ -1110,6 +1185,7 @@
             </div>
 
 
+
         </div>
         <!-- SOCIALS -->
 
@@ -1134,11 +1210,14 @@
 
     <!-- MAIN -->
 
+
     <div class="main">
+
 
         <!-- HERO -->
 
         <div class="hero">
+
 
             <div class="hero-left">
 
@@ -1267,214 +1346,214 @@
             </div>
             <!-- Volleyball -->
 
-<div class="sport-card">
+            <div class="sport-card">
 
-    <div class="sport-image">
+                <div class="sport-image">
 
-        <img
-            src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1200&auto=format&fit=crop">
+                    <img
+                        src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1200&auto=format&fit=crop">
 
-    </div>
+                </div>
 
-    <div class="sport-info">
+                <div class="sport-info">
 
-        <h3>Volleyball</h3>
+                    <h3>Volleyball</h3>
 
-        <p>
-            University volleyball championships and indoor competitions.
-        </p>
+                    <p>
+                        University volleyball championships and indoor competitions.
+                    </p>
 
-        <div class="bottom-box">
+                    <div class="bottom-box">
 
-            <div class="captain">
-                Captain
+                        <div class="captain">
+                            Captain
+                        </div>
+
+                        <div class="type">
+                            Indoor
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="type">
-                Indoor
+            <!-- Badminton -->
+
+            <div class="sport-card">
+
+                <div class="sport-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+                <div class="sport-info">
+
+                    <h3>Badminton</h3>
+
+                    <p>
+                        Fast paced badminton matches and university tournaments.
+                    </p>
+
+                    <div class="bottom-box">
+
+                        <div class="captain">
+                            Captain
+                        </div>
+
+                        <div class="type">
+                            Indoor
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-        </div>
+            <!-- Tennis -->
 
-    </div>
+            <div class="sport-card">
 
-</div>
+                <div class="sport-image">
 
-<!-- Badminton -->
+                    <img
+                        src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=1200&auto=format&fit=crop">
 
-<div class="sport-card">
+                </div>
 
-    <div class="sport-image">
+                <div class="sport-info">
 
-        <img
-            src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=1200&auto=format&fit=crop">
+                    <h3>Tennis</h3>
 
-    </div>
+                    <p>
+                        Singles and doubles tennis competitions for university players.
+                    </p>
 
-    <div class="sport-info">
+                    <div class="bottom-box">
 
-        <h3>Badminton</h3>
+                        <div class="captain">
+                            Captain
+                        </div>
 
-        <p>
-            Fast paced badminton matches and university tournaments.
-        </p>
+                        <div class="type">
+                            Outdoor
+                        </div>
 
-        <div class="bottom-box">
+                    </div>
 
-            <div class="captain">
-                Captain
+                </div>
+
             </div>
 
-            <div class="type">
-                Indoor
+            <!-- Kabaddi -->
+
+            <div class="sport-card">
+
+                <div class="sport-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1593766827228-8737b4534aa6?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+                <div class="sport-info">
+
+                    <h3>Kabaddi</h3>
+
+                    <p>
+                        Traditional kabaddi tournaments and inter-college events.
+                    </p>
+
+                    <div class="bottom-box">
+
+                        <div class="captain">
+                            Captain
+                        </div>
+
+                        <div class="type">
+                            Outdoor
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-        </div>
+            <!-- Chess -->
 
-    </div>
+            <div class="sport-card">
 
-</div>
+                <div class="sport-image">
 
-<!-- Tennis -->
+                    <img
+                        src="https://images.unsplash.com/photo-1528819622765-d6bcf132f793?q=80&w=1200&auto=format&fit=crop">
 
-<div class="sport-card">
+                </div>
 
-    <div class="sport-image">
+                <div class="sport-info">
 
-        <img
-            src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=1200&auto=format&fit=crop">
+                    <h3>Chess</h3>
 
-    </div>
+                    <p>
+                        Strategic chess battles and university mind sport competitions.
+                    </p>
 
-    <div class="sport-info">
+                    <div class="bottom-box">
 
-        <h3>Tennis</h3>
+                        <div class="captain">
+                            Captain
+                        </div>
 
-        <p>
-            Singles and doubles tennis competitions for university players.
-        </p>
+                        <div class="type">
+                            Indoor
+                        </div>
 
-        <div class="bottom-box">
+                    </div>
 
-            <div class="captain">
-                Captain
+                </div>
+
             </div>
 
-            <div class="type">
-                Outdoor
+            <!-- Athletics -->
+
+            <div class="sport-card">
+
+                <div class="sport-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+                <div class="sport-info">
+
+                    <h3>Athletics</h3>
+
+                    <p>
+                        Running, jumping and track field university competitions.
+                    </p>
+
+                    <div class="bottom-box">
+
+                        <div class="captain">
+                            Captain
+                        </div>
+
+                        <div class="type">
+                            Outdoor
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Kabaddi -->
-
-<div class="sport-card">
-
-    <div class="sport-image">
-
-        <img
-            src="https://images.unsplash.com/photo-1593766827228-8737b4534aa6?q=80&w=1200&auto=format&fit=crop">
-
-    </div>
-
-    <div class="sport-info">
-
-        <h3>Kabaddi</h3>
-
-        <p>
-            Traditional kabaddi tournaments and inter-college events.
-        </p>
-
-        <div class="bottom-box">
-
-            <div class="captain">
-                Captain
-            </div>
-
-            <div class="type">
-                Outdoor
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Chess -->
-
-<div class="sport-card">
-
-    <div class="sport-image">
-
-        <img
-            src="https://images.unsplash.com/photo-1528819622765-d6bcf132f793?q=80&w=1200&auto=format&fit=crop">
-
-    </div>
-
-    <div class="sport-info">
-
-        <h3>Chess</h3>
-
-        <p>
-            Strategic chess battles and university mind sport competitions.
-        </p>
-
-        <div class="bottom-box">
-
-            <div class="captain">
-                Captain
-            </div>
-
-            <div class="type">
-                Indoor
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Athletics -->
-
-<div class="sport-card">
-
-    <div class="sport-image">
-
-        <img
-            src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=1200&auto=format&fit=crop">
-
-    </div>
-
-    <div class="sport-info">
-
-        <h3>Athletics</h3>
-
-        <p>
-            Running, jumping and track field university competitions.
-        </p>
-
-        <div class="bottom-box">
-
-            <div class="captain">
-                Captain
-            </div>
-
-            <div class="type">
-                Outdoor
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-            
 
         </div>
 
