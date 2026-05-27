@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNI~NEXUS Hackathon</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #020817, #07142b, #0b1d3a);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at top left, rgba(0, 119, 255, 0.25), transparent 25%),
+                radial-gradient(circle at bottom right, rgba(108, 99, 255, 0.25), transparent 25%);
+            z-index: -1;
+            animation: moveBg 8s infinite alternate;
+        }
+
+        @keyframes moveBg {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.08);
+            }
+        }
+
+        /* Navbar */
+
+        .navbar {
+            height: 70px;
+            background: rgba(5, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            border-bottom: 1px solid #16325c;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .menu-btn {
+            font-size: 28px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .menu-btn:hover {
+            color: #60a5fa;
+            transform: scale(1.1);
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #60a5fa;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px #2563eb;
+        }
+
+        .user-btn {
+            background: linear-gradient(45deg, #2563eb, #3b82f6);
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .user-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px #3b82f6;
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: rgba(7, 17, 40, 0.98);
+            position: fixed;
+            top: 0;
+            left: -300px;
+            padding-top: 80px;
+            transition: 0.4s ease;
+            z-index: 999;
+            border-right: 1px solid #1e3a8a;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #60a5fa;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            margin: 8px 15px;
+            border-radius: 12px;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .sidebar a:hover {
+            background: linear-gradient(90deg, #2563eb, #1d4ed8);
+            transform: translateX(8px);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Hero */
+
+        .hero {
+            padding: 80px 10%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            margin-bottom: 20px;
+            color: #93c5fd;
+            text-shadow: 0 0 20px #2563eb;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 15px #2563eb;
+            }
+
+            to {
+                text-shadow: 0 0 35px #60a5fa;
+            }
+        }
+
+        .hero p {
+            font-size: 22px;
+            color: #cbd5e1;
+            margin-bottom: 35px;
+        }
+
+        .hero button {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #2563eb, #60a5fa);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .hero button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 25px #3b82f6;
+        }
+
+        /* Cards */
+
+        .section-title {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 36px;
+            color: #93c5fd;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            padding: 40px 8%;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid #1e40af;
+            border-radius: 20px;
+            padding: 30px;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg,
+                    transparent,
+                    rgba(59, 130, 246, 0.15),
+                    transparent);
+            top: -100%;
+            left: -100%;
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            top: 100%;
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+        }
+
+        .card h3 {
+            color: #60a5fa;
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        .card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #1e3a8a;
+            color: #94a3b8;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive */
+
+        @media(max-width:768px) {
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .sidebar {
+                width: 240px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+
+        <div class="title">UNI~NEXUS</div>
+
+        <button class="user-btn">Profile</button>
+
+    </nav>
+
+    <!-- Sidebar -->
+
+    <div class="sidebar" id="sidebar">
+
+        <h2>Domains</h2>
+
+        <a href="#">💻 Web Development</a>
+        <a href="#">📱 App Development</a>
+        <a href="#">🤖 AI / ML</a>
+        <a href="#">📊 Data Science</a>
+        <a href="#">🔐 Cyber Security</a>
+        <a href="#">🎨 UI / UX Design</a>
+        <a href="#">📢 Marketing</a>
+        <a href="#">🖌 Graphic Design</a>
+        <a href="#">✍ Content Writing</a>
+        <a href="#">🚀 Startup Pitching</a>
+        <a href="#">🧠 Competitive Programming</a>
+        <a href="#">☁ Cloud Computing</a>
+        <a href="#">🎮 Game Development</a>
+        <a href="#">🛰 Government Internships</a>
+        <a href="#">🏛 ISRO Internship</a>
+        <a href="#">🛡 DRDO Internship</a>
+        <a href="#">📡 IoT Projects</a>
+        <a href="#">⛓ Blockchain</a>
+        <a href="#">📹 Video Editing</a>
+        <a href="#">🎤 Public Speaking</a>
+
+    </div>
+
+    <!-- Hero Section -->
+
+    <section class="hero">
+
+        <h1>Discover Internships</h1>
+
+        <p>
+            Innovate • Collaborate • Build the Future
+        </p>
+
+        <button>Register Now</button>
+
+    </section>
+
+    <!-- Featured Domains -->
+
+    <h2 class="section-title">Trending Categories</h2>
+
+    <section class="cards">
+
+        <div class="card">
+            <h3>AI Revolution</h3>
+            <p>
+                Build next-gen AI solutions using Machine Learning,
+                Deep Learning and Generative AI.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Cyber Security</h3>
+            <p>
+                Solve real-world security problems and create
+                advanced protection systems.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Web Development</h3>
+            <p>
+                Design modern, responsive and animated websites
+                with futuristic interfaces.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Cloud & DevOps</h3>
+            <p>
+                Work on scalable cloud infrastructure and
+                deployment automation.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Startup Pitching</h3>
+            <p>
+                Present innovative startup ideas to mentors
+                and investors.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Game Development</h3>
+            <p>
+                Create immersive gaming experiences with
+                modern engines and graphics.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer>
+        © 2026 UNI~NEXUS | Designed with 💙 by Team Delta
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+    </script>
+
+</body>
+
+</html>

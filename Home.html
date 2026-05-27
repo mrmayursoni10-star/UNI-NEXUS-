@@ -1174,10 +1174,10 @@
                 <select id="categorySelect">
                     <option value="">View Categories</option>
                     <option value="sports.html">Sports</option>
-                    <option value="clubs.html">Clubs</option>
+                    <option value="club_page.html">Clubs</option>
                     <option value="hackathons.html">Hackathons</option>
                     <option value="conferences.html">Conferences</option>
-                    <option value="internships.html">Internships</option>
+                    <option value="Internships.html">Internships</option>
                     <option value="workshops.html">Workshops</option>
                 </select>
                 <div class="search-box">
@@ -1663,6 +1663,51 @@
                 dropdownMenu.classList.remove('show');
             }
         });
+        // PROFILE DROPDOWN OPTIONS CLICKABLE
+
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+        // PROFILE PAGE
+        dropdownItems[0].addEventListener('click', () => {
+            window.location.href = "profile.html";
+        });
+
+        // MEMBERSHIP PAGE
+        dropdownItems[1].addEventListener('click', () => {
+            window.location.href = "membership.html";
+        });
+
+        // SETTINGS PAGE
+        dropdownItems[2].addEventListener('click', () => {
+            window.location.href = "settings.html";
+        });
+
+        // LOGOUT
+        dropdownItems[3].addEventListener('click', () => {
+
+            const confirmLogout = confirm("Are you sure you want to logout?");
+
+            if (confirmLogout) {
+                window.location.href = "login.html";
+            }
+
+        });
+        // TOP NAVIGATION BUTTONS
+
+        const navButtons = document.querySelectorAll('.tabs button');
+
+        navButtons[0].addEventListener('click', () => {
+            window.location.href = "Home.html";
+        });
+
+        navButtons[1].addEventListener('click', () => {
+            window.location.href = "Participation.html";
+        });
+
+        navButtons[2].addEventListener('click', () => {
+            window.location.href = "Certificates.html";
+        });
+
 
     </script>
 </body>

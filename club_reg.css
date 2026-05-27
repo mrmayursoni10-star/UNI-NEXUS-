@@ -225,38 +225,25 @@ body::after{
    LOGO
 ========================================================= */
 
-.nav-logo{
+.logo img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            border-radius: 18px;
+            border: 1px solid var(--border-primary);
+            box-shadow: var(--shadow-glow);
+            transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.02);
+        }
 
-    width:52px;
-    height:52px;
-
-    border-radius:18px;
-
-    background:
-    rgba(255,255,255,0.04);
-
-    border:
-    1px solid rgba(255,255,255,0.08);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-    object-fit:cover;
-
-    overflow:hidden;
-
-    position:relative;
-
-    transition:var(--transition);
-}
-
-
-
+        .logo img:hover {
+            transform: rotate(-4deg) scale(1.06);
+            border-color: rgba(56, 189, 248, 0.5);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
+        }
 /* LOGO PLACEHOLDER */
 
-.nav-logo::before{
+/* .nav-logo::before{
 
     content:"LOGO";
 
@@ -267,7 +254,7 @@ body::after{
     font-weight:700;
 
     letter-spacing:1px;
-}
+} */
 
 
 

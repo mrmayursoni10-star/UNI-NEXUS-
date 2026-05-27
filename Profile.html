@@ -1,0 +1,1111 @@
+<!-- =========================
+     PREMIUM WORLD-CLASS PROFILE
+     FULL EDITABLE VERSION
+========================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Premium Editable Profile</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #020617;
+            --card: #081121;
+            --card2: #0d172b;
+
+            --blue: #38bdf8;
+            --blue2: #2563eb;
+            --cyan: #22d3ee;
+
+            --white: #ffffff;
+            --text: #94a3b8;
+
+            --glass: rgba(255, 255, 255, 0.03);
+
+            --shadow:
+                0 35px 90px rgba(0, 0, 0, 0.65),
+                0 0 40px rgba(56, 189, 248, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top left,
+                    rgba(37, 99, 235, 0.22),
+                    transparent 30%),
+
+                radial-gradient(circle at bottom right,
+                    rgba(56, 189, 248, 0.14),
+                    transparent 30%),
+
+                #020617;
+
+            font-family: 'Plus Jakarta Sans', sans-serif;
+
+            min-height: 100vh;
+        }
+
+        /* MAIN WRAPPER */
+
+        .profile-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+            padding: 20px 20px 80px;
+        }
+
+        /* CARD */
+
+        .premium-profile {
+            width: 1200px;
+            min-height: 720px;
+
+            display: grid;
+            grid-template-columns: 380px 1fr;
+
+            background:
+                linear-gradient(145deg,
+                    rgba(8, 17, 33, 0.97),
+                    rgba(3, 8, 18, 0.98));
+
+            border: 1px solid rgba(56, 189, 248, 0.12);
+
+            border-radius: 40px;
+
+            overflow: hidden;
+
+            position: relative;
+
+            box-shadow: var(--shadow);
+
+            backdrop-filter: blur(24px);
+        }
+
+        /* TOP LIGHT */
+
+        .premium-profile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 4px;
+
+            background:
+                linear-gradient(90deg,
+                    transparent,
+                    #38bdf8,
+                    #2563eb,
+                    #38bdf8,
+                    transparent);
+        }
+
+        /* LEFT */
+
+        .profile-left {
+            padding: 42px 32px;
+
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+
+            background:
+                linear-gradient(180deg,
+                    rgba(56, 189, 248, 0.04),
+                    transparent);
+        }
+
+        /* PROFILE IMAGE */
+
+        .image-box {
+            position: relative;
+
+            width: 170px;
+            height: 170px;
+
+            margin: auto;
+        }
+
+        .image-ring {
+            position: absolute;
+            inset: -8px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(135deg,
+                    #38bdf8,
+                    #2563eb,
+                    #22d3ee);
+
+            animation: rotate 8s linear infinite;
+        }
+
+        .image-ring::after {
+            content: '';
+            position: absolute;
+            inset: 8px;
+
+            background: #020617;
+            border-radius: 50%;
+        }
+
+        .profile-img {
+            position: relative;
+            z-index: 2;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border: 5px solid #020617;
+        }
+
+        .edit-profile {
+            position: absolute;
+
+            right: 5px;
+            bottom: 12px;
+
+            z-index: 5;
+
+            width: 44px;
+            height: 44px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #38bdf8);
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 24px rgba(37, 99, 235, 0.35);
+
+            transition: .35s;
+        }
+
+        .edit-profile:hover {
+            transform: scale(1.1) rotate(8deg);
+        }
+
+        /* NAME */
+
+        .profile-title {
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        .profile-title h1 {
+            color: white;
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .profile-title p {
+            margin-top: 10px;
+
+            color: #38bdf8;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        /* BIO */
+
+        .bio {
+            margin-top: 30px;
+
+            padding: 22px;
+
+            border-radius: 24px;
+
+            background: rgba(255, 255, 255, 0.03);
+
+            border: 1px solid rgba(255, 255, 255, 0.05);
+
+            color: #cbd5e1;
+
+            line-height: 1.8;
+            font-size: 14px;
+
+            text-align: center;
+        }
+
+        /* QUICK INFO */
+
+        .quick-info {
+            margin-top: 30px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .quick-card {
+            padding: 18px 20px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(56, 189, 248, 0.06),
+                    rgba(37, 99, 235, 0.03));
+
+            border: 1px solid rgba(56, 189, 248, 0.08);
+
+            transition: .35s;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .quick-card span {
+            color: #64748b;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .quick-card h3 {
+            margin-top: 8px;
+
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* RIGHT */
+
+        .profile-right {
+            padding: 42px;
+        }
+
+        /* TOP SECTION */
+
+        .profile-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* BADGE */
+
+        .elite-badge {
+            padding: 14px 24px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(56, 189, 248, 0.12),
+                    rgba(37, 99, 235, 0.05));
+
+            border: 1px solid rgba(56, 189, 248, 0.12);
+
+            color: #38bdf8;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        /* ACTIONS */
+
+        .top-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .top-btn {
+            padding: 14px 24px;
+
+            border: none;
+
+            border-radius: 18px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            transition: .35s;
+        }
+
+        .primary {
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #38bdf8);
+
+            color: white;
+
+            box-shadow:
+                0 14px 28px rgba(37, 99, 235, 0.35);
+        }
+
+        .primary:hover {
+            transform: translateY(-4px);
+        }
+
+        .secondary {
+            background: rgba(255, 255, 255, 0.03);
+
+            border: 1px solid rgba(255, 255, 255, 0.06);
+
+            color: #cbd5e1;
+        }
+
+        /* STATS */
+
+        .stats-row {
+            margin-top: 34px;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 18px;
+        }
+
+        .stat {
+            padding: 28px 20px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(56, 189, 248, 0.07),
+                    rgba(37, 99, 235, 0.03));
+
+            border: 1px solid rgba(56, 189, 248, 0.08);
+
+            transition: .35s;
+        }
+
+        .stat:hover {
+            transform: translateY(-6px);
+        }
+
+        .stat h2 {
+            color: white;
+
+            font-size: 34px;
+            font-weight: 800;
+        }
+
+        .stat p {
+            margin-top: 10px;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        /* ACHIEVEMENTS */
+
+        .section-title {
+            margin-top: 40px;
+            margin-bottom: 22px;
+
+            color: white;
+
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .achievement {
+            padding: 24px;
+
+            border-radius: 28px;
+
+            background: rgba(255, 255, 255, 0.025);
+
+            border: 1px solid rgba(255, 255, 255, 0.05);
+
+            transition: .35s;
+        }
+
+        .achievement:hover {
+            transform: translateY(-6px);
+
+            border-color: rgba(56, 189, 248, 0.16);
+        }
+
+        .achievement h3 {
+            color: white;
+
+            margin-top: 14px;
+
+            font-size: 18px;
+        }
+
+        .achievement p {
+            margin-top: 10px;
+
+            color: #94a3b8;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+        .icon {
+            width: 56px;
+            height: 56px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #38bdf8);
+
+            font-size: 24px;
+        }
+
+        /* ACTIVITY */
+
+        .activity-box {
+            margin-top: 40px;
+
+            padding: 28px;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(56, 189, 248, 0.06),
+                    rgba(37, 99, 235, 0.03));
+
+            border: 1px solid rgba(56, 189, 248, 0.08);
+        }
+
+        .activity-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-title h2 {
+            color: white;
+            font-size: 24px;
+        }
+
+        .progress {
+            margin-top: 24px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 14px;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-fill {
+            width: 89%;
+            height: 100%;
+
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #38bdf8);
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 0 20px rgba(56, 189, 248, 0.45);
+        }
+
+        .progress-text {
+            margin-top: 12px;
+
+            display: flex;
+            justify-content: space-between;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+        }
+
+        /* MODAL */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.75);
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 999;
+        }
+
+        .modal-content {
+            width: 500px;
+            max-width: 95%;
+
+            background: #081121;
+
+            border: 1px solid rgba(56, 189, 248, 0.15);
+
+            border-radius: 30px;
+
+            padding: 30px;
+        }
+
+        .modal-content h2 {
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .input-box {
+            margin-bottom: 18px;
+        }
+
+        .input-box label {
+            display: block;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .input-box input,
+        .input-box textarea {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+            outline: none;
+
+            border-radius: 16px;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            color: white;
+
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .save-btn,
+        .close-btn {
+            flex: 1;
+            padding: 14px;
+
+            border: none;
+            border-radius: 16px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #2563eb, #38bdf8);
+            color: white;
+        }
+
+        .close-btn {
+            background: #1e293b;
+            color: white;
+        }
+
+        /* ANIMATION */
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1100px) {
+
+            .premium-profile {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-left {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .achievement-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:650px) {
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .achievement-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="profile-wrapper">
+
+        <div class="premium-profile">
+
+            <!-- LEFT -->
+
+            <div class="profile-left">
+
+                <div class="image-box">
+
+                    <div class="image-ring"></div>
+
+                    <img src="Images/Mayur.png" class="profile-img" id="profileImage">
+
+                    <button class="edit-profile" onclick="openModal()">✎</button>
+
+                    <input type="file" id="imageInput" hidden accept="image/*">
+
+                </div>
+
+                <div class="profile-title">
+
+                    <h1 id="profileName">Mayur Soni</h1>
+
+                    <p id="profileRole">MITS • UNI~NEXUS • USER</p>
+
+                </div>
+
+                <div class="bio" id="profileBio">
+                    Passionate about Artificial Intelligence,
+                    futuristic UI engineering, competitive coding,
+                    and building next-generation university ecosystems.
+                </div>
+
+                <div class="quick-info">
+
+                    <div class="quick-card">
+                        <span>Enrollment No</span>
+                        <h3 id="enrollment">BTAM25O1045</h3>
+                    </div>
+
+                    <div class="quick-card">
+                        <span>Branch & Semester</span>
+                        <h3 id="branch">AIML • Semester 2</h3>
+                    </div>
+
+                    <div class="quick-card">
+                        <span>Membership Status</span>
+                        <h3 id="membership">03 Club Member</h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="profile-right">
+
+                <!-- ADD THIS INSIDE .profile-top -->
+
+                <div class="profile-top">
+
+                    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+
+                        <!-- HOME BUTTON -->
+                        <button class="top-btn secondary" onclick="goHome()">
+                            ⬅ Home
+                        </button>
+
+                        <div class="elite-badge">
+                            ★ Top University Contributor
+                        </div>
+                        <div class="top-actions">
+
+                            <button class="top-btn primary" onclick="openModal()">
+                                Edit Profile
+                            </button>
+
+                            <button class="top-btn secondary">
+                                Share Profile
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+                <!-- STATS -->
+
+                <div class="stats-row">
+
+                    <div class="stat">
+                        <h2 id="events">24</h2>
+                        <p>Events Joined</p>
+                    </div>
+
+                    <div class="stat">
+                        <h2 id="certificates">12</h2>
+                        <p>Certificates</p>
+                    </div>
+
+                    <div class="stat">
+                        <h2 id="participation">89%</h2>
+                        <p>Participation</p>
+                    </div>
+
+                    <div class="stat">
+                        <h2>#17</h2>
+                        <p>College Rank</p>
+                    </div>
+
+                </div>
+
+                <!-- ACHIEVEMENTS -->
+
+                <h2 class="section-title">
+                    Achievements
+                </h2>
+
+                <div class="achievement-grid">
+
+                    <div class="achievement">
+                        <div class="icon">🏆</div>
+                        <h3>Hackathon Finalist</h3>
+                        <p>
+                            Selected among top teams in the national-level
+                            AI innovation challenge.
+                        </p>
+                    </div>
+
+                    <div class="achievement">
+                        <div class="icon">⚡</div>
+                        <h3>Top Contributor</h3>
+                        <p>
+                            Recognized for active participation
+                            in university technical communities.
+                        </p>
+                    </div>
+
+                    <div class="achievement">
+                        <div class="icon">🚀</div>
+                        <h3>Project Showcase</h3>
+                        <p>
+                            Presented futuristic university platform
+                            concepts at innovation summit.
+                        </p>
+                    </div>
+
+                    <div class="achievement">
+                        <div class="icon">🎖</div>
+                        <h3>Elite Member</h3>
+                        <p>
+                            Awarded premium student membership
+                            for outstanding activity engagement.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- ACTIVITY -->
+
+                <div class="activity-box">
+
+                    <div class="activity-title">
+
+                        <h2>Participation Rate</h2>
+
+                        <span style="color:#38bdf8;font-weight:800;" id="participation2">
+                            89%
+                        </span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+
+                        <div class="progress-text">
+
+                            <span>Excellent Activity Level</span>
+
+                            <span>Top 5%</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+
+    <div class="modal" id="editModal">
+
+        <div class="modal-content">
+
+            <h2>Edit Profile</h2>
+
+            <div class="input-box">
+                <label>Name</label>
+                <input type="text" id="inputName">
+            </div>
+
+            <div class="input-box">
+                <label>Role</label>
+                <input type="text" id="inputRole">
+            </div>
+
+            <div class="input-box">
+                <label>Bio</label>
+                <textarea id="inputBio"></textarea>
+            </div>
+
+            <div class="input-box">
+                <label>Enrollment</label>
+                <input type="text" id="inputEnroll">
+            </div>
+
+            <div class="input-box">
+                <label>Branch</label>
+                <input type="text" id="inputBranch">
+            </div>
+
+            <div class="input-box">
+                <label>Membership</label>
+                <input type="text" id="inputMembership">
+            </div>
+
+            <div class="input-box">
+                <label>Events</label>
+                <input type="number" id="inputEvents">
+            </div>
+
+            <div class="input-box">
+                <label>Certificates</label>
+                <input type="number" id="inputCertificates">
+            </div>
+
+            <div class="input-box">
+                <label>Participation %</label>
+                <input type="number" id="inputParticipation">
+            </div>
+
+            <div class="modal-buttons">
+
+                <button class="save-btn" onclick="saveProfile()">
+                    Save Changes
+                </button>
+
+                <button class="close-btn" onclick="closeModal()">
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = "Home.html";
+        }
+
+        function openModal() {
+
+            document.getElementById("editModal").style.display = "flex";
+
+            document.getElementById("inputName").value =
+                document.getElementById("profileName").innerText;
+
+            document.getElementById("inputRole").value =
+                document.getElementById("profileRole").innerText;
+
+            document.getElementById("inputBio").value =
+                document.getElementById("profileBio").innerText;
+
+            document.getElementById("inputEnroll").value =
+                document.getElementById("enrollment").innerText;
+
+            document.getElementById("inputBranch").value =
+                document.getElementById("branch").innerText;
+
+            document.getElementById("inputMembership").value =
+                document.getElementById("membership").innerText;
+
+            document.getElementById("inputEvents").value =
+                document.getElementById("events").innerText;
+
+            document.getElementById("inputCertificates").value =
+                document.getElementById("certificates").innerText;
+
+            document.getElementById("inputParticipation").value =
+                document.getElementById("participation").innerText.replace("%", "");
+        }
+
+        function closeModal() {
+            document.getElementById("editModal").style.display = "none";
+        }
+
+        function saveProfile() {
+
+            document.getElementById("profileName").innerText =
+                document.getElementById("inputName").value;
+
+            document.getElementById("profileRole").innerText =
+                document.getElementById("inputRole").value;
+
+            document.getElementById("profileBio").innerText =
+                document.getElementById("inputBio").value;
+
+            document.getElementById("enrollment").innerText =
+                document.getElementById("inputEnroll").value;
+
+            document.getElementById("branch").innerText =
+                document.getElementById("inputBranch").value;
+
+            document.getElementById("membership").innerText =
+                document.getElementById("inputMembership").value;
+
+            document.getElementById("events").innerText =
+                document.getElementById("inputEvents").value;
+
+            document.getElementById("certificates").innerText =
+                document.getElementById("inputCertificates").value;
+
+            let participation =
+                document.getElementById("inputParticipation").value + "%";
+
+            document.getElementById("participation").innerText =
+                participation;
+
+            document.getElementById("participation2").innerText =
+                participation;
+
+            document.getElementById("progressFill").style.width =
+                participation;
+
+            closeModal();
+        }
+
+        /* IMAGE CHANGE */
+
+        document.querySelector(".edit-profile").addEventListener("dblclick", function () {
+            document.getElementById("imageInput").click();
+        });
+
+        document.getElementById("imageInput").addEventListener("change", function (e) {
+
+            const file = e.target.files[0];
+
+            if (file) {
+
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+
+                    document.getElementById("profileImage").src =
+                        event.target.result;
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
