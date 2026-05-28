@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandish - Creative Domains</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Syne:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #020205; color: #fff; font-family: 'Space Grotesk', sans-serif; padding: 60px 20px; }
+        .title { text-align: center; font-family: 'Syne', sans-serif; font-size: 2.5rem; margin-bottom: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .card {
+            background: linear-gradient(145deg, #0d0d1a, #07070f); border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 24px; padding: 35px; text-align: center; position: relative; overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .card:hover { transform: translateY(-8px); border-color: #7000ff; }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #7000ff, #00f0ff); opacity: 0; transition: opacity 0.3s;
+        }
+        .card:hover::before { opacity: 1; }
+        .icon { font-size: 2.5rem; margin-bottom: 20px; background: linear-gradient(45deg, #7000ff, #00f0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card h3 { font-size: 1.5rem; margin-bottom: 12px; font-family: 'Syne', sans-serif; }
+        .card p { color: #8e9bb0; font-size: 0.95rem; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <h2 class="title">Creative Domain Quadrants</h2>
+    <div class="grid">
+        <div class="card">
+            <div class="icon"><i class="fa-solid fa-microphone-lines"></i></div>
+            <h3>Vocal Core</h3>
+            <p>Specializing in Classical, semi-classical, contemporary pop, and indie-rock harmony arrangements.</p>
+        </div>
+        <div class="card">
+            <div class="icon"><i class="fa-solid fa-keyboard"></i></div>
+            <h3>Instrumental Core</h3>
+            <p>Dedicated to rhythm guitarists, bassists, percussive drummers, and classical instrumental talents.</p>
+        </div>
+        <div class="card">
+            <div class="icon"><i class="fa-solid fa-headset"></i></div>
+            <h3>Production & Beats</h3>
+            <p>Synthesizing, digital multi-track mixing, sound engineering, and live concert acoustics monitoring.</p>
+        </div>
+    </div>
+</body>
+</html>

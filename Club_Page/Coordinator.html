@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandish - Command Gateway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #010103; color: #00ffcc; font-family: 'Space Grotesk', sans-serif;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;
+        }
+        .console {
+            background: #05050a; border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 16px; max-width: 650px; width: 100%; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+        }
+        .bar { background: rgba(255,255,255,0.03); padding: 14px; display: flex; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #ff5f56; }
+        .dot:nth-child(2) { background: #ffbd2e; }
+        .dot:nth-child(3) { background: #27c93f; }
+        .body { padding: 30px; display: flex; flex-direction: column; gap: 14px; line-height: 1.6; }
+        .input-line { display: flex; gap: 12px; align-items: center; margin-top: 10px; }
+        .input-line span { color: #ff2a5f; }
+        input { background: transparent; border: none; color: #fff; font-family: inherit; font-size: 1rem; outline: none; flex: 1; }
+    </style>
+</head>
+<body>
+    <div class="console">
+        <div class="bar">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="body">
+            <p>// BANDISH INTERNAL SECURITY PROTOCOLS ENFORCED</p>
+            <p>-- Core Admin Management Gateway Active.</p>
+            <div class="input-line">
+                <span>bandish-root@nexus:~$</span>
+                <input type="text" id="cmd" placeholder="Enter security passphrase..." onkeydown="processCmd(event)">
+            </div>
+        </div>
+    </div>
+    <script>
+        function processCmd(e) {
+            if(e.key === 'Enter') {
+                alert('Validating dynamic authorization key layers against local index registry configurations...');
+                document.getElementById('cmd').value = '';
+            }
+        }
+    </script>
+</body>
+</html>
