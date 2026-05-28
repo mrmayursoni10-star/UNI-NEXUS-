@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UNI~NEXUS Intro</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      width:100%;
+      height:100vh;
+      overflow:hidden;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      background:
+      radial-gradient(circle at top,
+      #08152e 0%,
+      #030916 55%,
+      #00030b 100%);
+
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .container{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* ================= LOGO ================= */
+
+    .logo{
+      width:230px;
+
+      opacity:0;
+
+      transform:
+      scale(0.2)
+      translateY(70px);
+
+      animation:logoPop 1.8s ease forwards;
+
+      filter:
+      drop-shadow(0 0 20px rgba(0,140,255,0.4))
+      drop-shadow(0 0 60px rgba(0,89,255,0.25));
+    }
+
+    /* ================= TITLE ================= */
+
+    .title{
+
+      position:relative;
+      overflow:hidden;
+
+      margin-top:28px;
+
+      display:flex;
+      align-items:center;
+
+      font-size:90px;
+      font-weight:900;
+
+      letter-spacing:4px;
+      text-transform:uppercase;
+    }
+
+    .title span{
+
+      opacity:0;
+
+      transform:
+      translateY(40px)
+      scale(0.5);
+
+      display:inline-block;
+
+     background:
+linear-gradient(
+90deg,
+#ffffff 0%,
+#f4f8ff 25%,
+#cfe4ff 50%,
+#a59cff 75%,
+#d287ff 100%);
+
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+
+      
+
+      text-shadow:
+0 0 6px rgba(255,255,255,0.08),
+0 0 18px rgba(70,140,255,0.12);
+
+      animation:
+      letterPop 0.45s ease forwards;
+    }
+
+    /* ===== CONTINUOUS MIRROR SHINE ===== */
+
+    
+
+    /* ===== LETTER DELAYS ===== */
+
+    .title span:nth-child(1){ animation-delay:1.1s; }
+    .title span:nth-child(2){ animation-delay:1.2s; }
+    .title span:nth-child(3){ animation-delay:1.3s; }
+    .title span:nth-child(4){ animation-delay:1.4s; }
+    .title span:nth-child(5){ animation-delay:1.5s; }
+    .title span:nth-child(6){ animation-delay:1.6s; }
+    .title span:nth-child(7){ animation-delay:1.7s; }
+    .title span:nth-child(8){ animation-delay:1.8s; }
+    .title span:nth-child(9){ animation-delay:1.9s; }
+
+    /* ================= TAGLINE ================= */
+
+    .tagline{
+      margin-top:18px;
+
+      font-size:24px;
+      letter-spacing:10px;
+      font-weight:500;
+
+      opacity:0;
+
+      background:
+      linear-gradient(
+      90deg,
+      #0084ff 0%,
+      #d9e7ff 50%,
+      #9b36ff 100%);
+
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+
+      animation:fadeUp 1.2s ease forwards;
+      animation-delay:2.3s;
+    }
+
+    /* ================= LOGO POP ================= */
+
+    @keyframes logoPop{
+
+      0%{
+        opacity:0;
+
+        transform:
+        scale(0.2)
+        translateY(80px);
+      }
+
+      60%{
+        opacity:1;
+
+        transform:
+        scale(1.1)
+        translateY(0);
+      }
+
+      100%{
+        opacity:1;
+
+        transform:
+        scale(1)
+        translateY(0);
+      }
+    }
+
+    /* ================= LETTER POP ================= */
+
+    @keyframes letterPop{
+
+      0%{
+        opacity:0;
+
+        transform:
+        translateY(40px)
+        scale(0.5);
+      }
+
+      70%{
+        opacity:1;
+
+        transform:
+        translateY(-5px)
+        scale(1.08);
+      }
+
+      100%{
+        opacity:1;
+
+        transform:
+        translateY(0)
+        scale(1);
+      }
+    }
+
+    /* ================= FULL TEXT SHINE ================= */
+
+   
+
+    /* ================= TAGLINE FADE ================= */
+
+    @keyframes fadeUp{
+
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- LOGO IMAGE PATH YAHA DALO -->
+    <img src="uninexus_logo.png" class="logo">
+
+    <div class="title">
+
+      <span>U</span>
+      <span>N</span>
+      <span>I</span>
+      <span>~</span>
+      <span>N</span>
+      <span>E</span>
+      <span>X</span>
+      <span>U</span>
+      <span>S</span>
+
+    </div>
+
+    <div class="tagline">
+      CONNECT • INNOVATE • GROW
+    </div>
+
+  </div>
+
+</body>
+</html>
