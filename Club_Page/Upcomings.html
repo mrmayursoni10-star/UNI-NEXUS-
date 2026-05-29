@@ -1,59 +1,1191 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bandish - Upcoming Schedules</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <title>UNI~NEXUS presents BANDISH - Music Club Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        :root {
-            --bg: #07070f;
-            --accent: #00ffcc;
-            --text: #f8fafc;
+          :root {
+            /* Cosmic Cyberpunk Deep Luxury Theme */
+            --bg-deep: #030712;
+            --bg-card: rgba(13, 21, 45, 0.45);
+            --bg-sidebar: rgba(7, 11, 26, 0.65);
+            --accent-blue: #00f0ff;
+            --accent-neon: #7000ff;
+            --accent-cyan: #00ffcc;
+            --accent-red: #ff2a5f;
+            --accent-red-glow: rgba(255, 42, 95, 0.4);
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --neon-glow: rgba(0, 240, 255, 0.3);
+            --radius: 24px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); padding: 50px 20px; }
-        .container { max-width: 800px; margin: 0 auto; }
-        h1 { font-family: 'Space Grotesk', sans-serif; margin-bottom: 40px; text-align: center; font-size: 2.2rem; }
-        .timeline { position: relative; padding-left: 40px; }
-        .timeline::before { content: ''; position: absolute; left: 19px; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.05); }
-        .node { position: relative; margin-bottom: 40px; }
-        .node::before { content: ''; position: absolute; left: -26px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); box-shadow: 0 0 10px var(--accent); }
-        .date { font-family: 'Space Grotesk', sans-serif; color: var(--accent); font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; }
-        .box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 24px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; }
-        .info h3 { font-size: 1.25rem; margin-bottom: 6px; }
-        .info p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
-        .btn-remind { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 0.85rem; }
-        .btn-remind:hover { background: var(--accent); color: #000; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-deep);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(112, 0, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 240, 255, 0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(255, 42, 95, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Container Layout */
+       .dashboard-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px;
+
+    align-items: stretch;
+}
+
+        /* SIDEBAR STYLE (Glassmorphism Overhaul) */
+        .sidebar {
+            background: var(--bg-sidebar);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--glass-shadow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: visible;
+            /* Changed to visible so profile dropdown overflows cleanly */
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.05), transparent);
+            transform: skewX(-25deg);
+            transition: 0.75s;
+            pointer-events: none;
+            max-height: 800;
+        }
+
+        .sidebar:hover::before {
+            left: 120%;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .presentation-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+            font-weight: 700;
+        }
+
+        .brand-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin: 8px 0;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-blue) 70%, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 15px rgba(0, 240, 255, 0.4));
+        }
+
+        .brand-tagline {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+
+        .nav-header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .btn-home {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-home:hover,
+        .btn-home.active {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-home.active {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05));
+        }
+
+        /* Profile Wrapper & Dropdown Menu */
+        .profile-container {
+            position: relative;
+        }
+
+        .avatar-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-neon), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 15px rgba(112, 0, 255, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .avatar-circle:hover,
+        .avatar-circle.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent-blue);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            width: 220px;
+            background: rgba(7, 11, 26, 0.95);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .profile-dropdown.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-item i {
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-item.sign-out {
+            color: var(--accent-red);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 4px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .dropdown-item.sign-out:hover {
+            background: var(--accent-red-glow);
+            color: white;
+        }
+
+        /* Navigation Links List */
+        .navigation-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .nav-item {
+            padding: 14px 18px;
+            border-radius: 14px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid transparent;
+        }
+
+        .nav-item i {
+            width: 22px;
+            text-align: center;
+            font-size: 1.15rem;
+            transition: var(--transition);
+        }
+
+        .nav-item:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.05);
+            padding-left: 24px;
+        }
+
+        .nav-item:hover i {
+            color: var(--accent-blue);
+            transform: scale(1.1);
+        }
+
+        .nav-item.active {
+            color: #030712;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
+            font-weight: 700;
+        }
+
+        .nav-item.active i {
+            color: #030712;
+        }
+
+        .contact-divider {
+            margin: 20px 0 8px 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #475569;
+            padding-left: 18px;
+            font-weight: 700;
+        }
+
+        .contact-info-clickable:hover {
+            color: var(--accent-cyan) !important;
+            background: rgba(0, 255, 204, 0.05) !important;
+            border-color: rgba(0, 255, 204, 0.1) !important;
+        }
+
+        /* Sidebar Footer Controls */
+        .sidebar-footer {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 24px;
+        }
+
+        /* PREMIUM NEON RED SUBSCRIBE BUTTON STYLE */
+        .btn-subscribe {
+            flex: 1;
+            background: linear-gradient(135deg, #ff0044, var(--accent-red));
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px var(--accent-red-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-subscribe::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            padding: 1.5px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .btn-subscribe:hover {
+            transform: scale(1.03) translateY(-1px);
+            box-shadow: 0 6px 25px rgba(255, 42, 95, 0.6), 0 0 10px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #ff1a56, #ff4171);
+        }
+
+        .btn-subscribe.subscribed {
+            background: transparent;
+            border: 2px solid var(--accent-red);
+            color: var(--accent-red);
+            box-shadow: inset 0 0 10px var(--accent-red-glow);
+        }
+
+        .btn-subscribe.subscribed:hover {
+            background: var(--accent-red-glow);
+            color: #fff;
+        }
+
+        .social-icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1.25rem;
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
+        }
+
+        .social-icon-btn:hover {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-blue);
+            transform: translateY(-3px);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.15);
+        }
+
+        .notification-badge::after {
+            content: '1';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px var(--accent-red);
+        }
+        /* MAIN MASTER CONTENT CAROUSEL */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+             .sidebar,
+.main-content {
+    height: 100%;
+}
+
+        /* Dynamic Stage Window view wrapper */
+        .master-carousel-viewport {
+            width: 100%;
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Master Global Event Block Architecture representing single state */
+        .event-master-slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            flex-shrink: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Top Module Image Showcase */
+        .showcase-frame {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 240, 255, 0.6);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15), var(--glass-shadow);
+            position: relative;
+        }
+
+        .showcase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .showcase-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .showcase-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 20px;
+            background: linear-gradient(to bottom, var(--accent-blue), var(--accent-cyan));
+            border-radius: 4px;
+            box-shadow: 0 0 12px var(--accent-blue);
+        }
+
+        .stage-viewport {
+            width: 100%;
+            height: 380px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stage-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 8s linear;
+        }
+
+        .stage-viewport:hover .stage-image {
+            transform: scale(1.08);
+        }
+
+        .stage-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(3, 7, 18, 0.8) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Unified Controls Placement Absolute Overlays */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(3, 7, 18, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .slider-arrow:hover {
+            background: var(--accent-blue);
+            color: var(--bg-deep);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px var(--accent-blue);
+        }
+
+        .arrow-left { left: 40px; }
+        .arrow-right { right: 40px; }
+
+        /* Unified Pagination Tracking Container */
+        .slider-indicators-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 4px 0;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--accent-blue);
+            width: 32px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px var(--accent-blue);
+        }
+
+        /* Split Meta Container Architecture Blueprint */
+        .details-split-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* Dynamic Meta Content Panels */
+        .meta-details-sheet {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--glass-shadow);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .meta-header-block {
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 16px;
+        }
+
+        .meta-primary-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .meta-subtitle {
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .meta-profile-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .meta-profile-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: var(--transition);
+        }
+
+        .meta-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .meta-content-box {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .meta-value {
+            font-size: 1.05rem;
+            color: white;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* WhatsApp QR Terminal Base Sheets */
+        .qr-terminal-sheet {
+            background: #ffffff;
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            box-shadow: var(--glass-shadow);
+            color: #0d152d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            min-height: 380px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-header-block h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #070b1a;
+            margin-bottom: 4px;
+        }
+
+        .qr-header-block p {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Matrix simulation QR */
+        .qr-matrix-envelope {
+            width: 170px;
+            height: 170px;
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.06);
+            margin: 16px 0;
+            position: relative;
+        }
+
+        .qr-procedural-graphics {
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000),
+                linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
+            background-size: 16px 16px;
+            background-position: 0 0, 8px 8px;
+            opacity: 0.85;
+            border: 4px solid #fff;
+            position: relative;
+        }
+
+        .qr-procedural-graphics::before,
+        .qr-procedural-graphics::after {
+            content: '';
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background: #000;
+            border: 6px solid #fff;
+            outline: 6px solid #000;
+        }
+
+        .qr-procedural-graphics::before { top: 2px; left: 2px; }
+        .qr-procedural-graphics::after { bottom: 2px; left: 2px; }
+
+        .qr-secondary-anchor {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            background: #000;
+            border: 6px solid #fff;
+            outline: 6px solid #000;
+            z-index: 2;
+        }
+
+        .btn-terminal-action {
+            width: 100%;
+            background: #25d366;
+            color: #ffffff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-terminal-action:hover {
+            background: #20ba59;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* GLOBAL FOOTER BRANDING */
+        .global-footer {
+            text-align: center;
+            padding: 32px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(3, 7, 18, 0.9);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .footer-heart {
+            color: var(--accent-red);
+            animation: pulse 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+            display: inline-block;
+            margin: 0 6px;
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 5px var(--accent-red));
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.25); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        /* RESPONSIVE ENHANCEMENTS */
+        @media (max-width: 1100px) {
+            .details-split-grid {
+                grid-template-columns: 1fr;
+            }
+            .qr-terminal-sheet {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 16px;
+            }
+            .sidebar {
+                padding: 24px;
+            }
+            .stage-viewport {
+                height: 300px;
+            }
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+            }
+            .arrow-left { left: 15px; }
+            .arrow-right { right: 15px; }
+        }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Upcoming Project Timelines</h1>
-        <div class="timeline">
-            <div class="node">
-                <div class="date">June 15, 2026</div>
-                <div class="box">
-                    <div class="info">
-                        <h3>Midsummer Jam Session</h3>
-                        <p>An informal jam arena curated for incoming club applicants.</p>
-                    </div>
-                    <button class="btn-remind" onclick="alert('Notification alert locked in for June 15th!')">Remind Me</button>
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+            <div>
+                <div class="brand-header">
+                    <span class="presentation-tag">UNI~NEXUS Presents</span>
+                    <h1 class="brand-title">BANDISH</h1>
+                    <p class="brand-tagline">// Harmony Unleashed</p>
                 </div>
-            </div>
-            <div class="node">
-                <div class="date">August 02, 2026</div>
-                <div class="box">
-                    <div class="info">
-                        <h3>Bandish Fusion Labs v2</h3>
-                        <p>Exploration session focusing on bridging traditional and modern synth tracks.</p>
+
+                <div class="nav-header-controls">
+                    <button class="btn-home" onclick="window.location.href='club_interface.html'">
+                        <i class="fa-solid fa-house-chimney"></i> Back
+                    </button>
+
+                    <div class="profile-container" id="profileContainer">
+                        <div class="avatar-circle" id="avatarCircle" title="User Menu" onclick="toggleProfileDropdown(event)">M</div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="dropdown-item" onclick="handleProfileOption('My Profile')">
+                                <i class="fa-solid fa-user-gear"></i> My Profile
+                            </div>
+                            <div class="dropdown-item" onclick="handleProfileOption('Settings')">
+                                <i class="fa-solid fa-sliders"></i> Settings
+                            </div>
+                            <div class="dropdown-item sign-out" onclick="handleProfileOption('Sign Out')">
+                                <i class="fa-solid fa-power-off"></i> Sign Out
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn-remind" onclick="alert('Notification alert locked in for August 2nd!')">Remind Me</button>
                 </div>
+
+                <ul class="navigation-menu">
+                    <li class="nav-item active" onclick="window.location.href='Events.html'">
+                        <i class="fa-solid fa-calendar-star"></i> Events
+                    </li>
+                    <li class="nav-item" onclick="window.location.href='Upcomings.html'">
+                        <i class="fa-solid fa-bolt"></i> Upcoming
+                    </li>
+                    <li class="nav-item" onclick="window.location.href='Domains.html'">
+                        <i class="fa-solid fa-guitars"></i> Domains
+                    </li>
+                    <li class="nav-item" onclick="window.location.href='Recruitment.html'">
+                        <i class="fa-solid fa-user-plus"></i> Recruitment
+                    </li>
+                    <li class="nav-item" onclick="window.location.href='Achievements.html'">
+                        <i class="fa-solid fa-trophy-award"></i> Achievements
+                    </li>
+                    <li class="nav-item" onclick="window.location.href='Team.html'">
+                        <i class="fa-solid fa-users"></i> Team Members
+                    </li>
+                    <li class="nav-item" onclick="window.location.href='Coordinator.html'">
+                        <i class="fa-solid fa-user-tie"></i> Coordinator
+                    </li>
+
+                    <div class="contact-divider">Direct Registry</div>
+                    <li class="nav-item contact-info-clickable" onclick="window.location.href='tel:123xxxxxxx'">
+                        <i class="fa-solid fa-phone-volume"></i> 123xxxxxxx
+                    </li>
+                    <li class="nav-item contact-info-clickable" onclick="window.location.href='mailto:abcd@club.com'">
+                        <i class="fa-solid fa-envelope-open-text"></i> abcd@club.com
+                    </li>
+                </ul>
             </div>
-        </div>
+
+            <div class="sidebar-footer">
+                <button class="btn-subscribe" id="subscribeBtn" onclick="toggleSubscription()">
+                    <i class="fa-solid fa-bell"></i> <span>Subscribe</span>
+                </button>
+                <a href="https://instagram.com" target="_blank" class="social-icon-btn" title="Live Instagram Feed Link">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <button class="social-icon-btn notification-badge" title="Live Alerts Center" onclick="alert('System alert: Bandish Registrations are processing via UNI~NEXUS gateway.')">
+                    <i class="fa-solid fa-envelope"></i>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <button class="slider-arrow arrow-left" onclick="changeSlide(-1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="slider-arrow arrow-right" onclick="changeSlide(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <div class="master-carousel-viewport" id="masterCarouselViewport">
+
+                <div class="event-master-slide">
+                    <section class="showcase-frame">
+                        <div class="showcase-header">
+                            <h2 class="showcase-title">Event Showcase // Echoes Live</h2>
+                        </div>
+                        <div class="stage-viewport">
+                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop" alt="Bandish Stage Performance Live" class="stage-image">
+                            <div class="stage-overlay"></div>
+                        </div>
+                    </section>
+
+                    <div class="details-split-grid">
+                        <div class="meta-details-sheet">
+                            <div class="meta-header-block">
+                                <h2 class="meta-primary-title">Bandish Mega Symphony</h2>
+                                <span class="meta-subtitle">Annual Flagship Concert</span>
+                            </div>
+                            <div class="meta-profile-list">
+                                <div class="meta-profile-item">
+                                    <div class="meta-icon-box"><i class="fa-solid fa-calendar-day"></i></div>
+                                    <div class="meta-content-box">
+                                        <span class="meta-label">Date & Timing Structure</span>
+                                        <span class="meta-value">October 14th, 2026 // 18:00 HRS onwards</span>
+                                    </div>
+                                </div>
+                                <div class="meta-profile-item">
+                                    <div class="meta-icon-box"><i class="fa-solid fa-map-location-dot"></i></div>
+                                    <div class="meta-content-box">
+                                        <span class="meta-label">Assigned Venue Location</span>
+                                        <span class="meta-value">Grand Auditorium Arena, Central Campus Ground</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qr-terminal-sheet">
+                            <div class="qr-header-block">
+                                <h3>Join Wavefront</h3>
+                                <p>Scan code or access link directly</p>
+                            </div>
+                            <div class="qr-matrix-envelope">
+                                <div class="qr-procedural-graphics"><div class="qr-secondary-anchor"></div></div>
+                            </div>
+                            <button class="btn-terminal-action" onclick="window.open('https://whatsapp.com', '_blank')">
+                                <i class="fa-brands fa-whatsapp"></i> Connect Hub
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-master-slide">
+                    <section class="showcase-frame">
+                        <div class="showcase-header">
+                            <h2 class="showcase-title">Event Showcase // Sonic Pulse</h2>
+                        </div>
+                        <div class="stage-viewport">
+                            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1200&auto=format&fit=crop" alt="Live Concert Stage crowd" class="stage-image">
+                            <div class="stage-overlay"></div>
+                        </div>
+                    </section>
+
+                    <div class="details-split-grid">
+                        <div class="meta-details-sheet">
+                            <div class="meta-header-block">
+                                <h2 class="meta-primary-title">Rock Distortion Battle</h2>
+                                <span class="meta-subtitle">Inter-University Clash</span>
+                            </div>
+                            <div class="meta-profile-list">
+                                <div class="meta-profile-item">
+                                    <div class="meta-icon-box"><i class="fa-solid fa-calendar-day"></i></div>
+                                    <div class="meta-content-box">
+                                        <span class="meta-label">Date & Timing Structure</span>
+                                        <span class="meta-value">November 22nd, 2026 // 17:00 HRS onwards</span>
+                                    </div>
+                                </div>
+                                <div class="meta-profile-item">
+                                    <div class="meta-icon-box"><i class="fa-solid fa-map-location-dot"></i></div>
+                                    <div class="meta-content-box">
+                                        <span class="meta-label">Assigned Venue Location</span>
+                                        <span class="meta-value">Open Air Theater (OAT), Western Complex</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qr-terminal-sheet">
+                            <div class="qr-header-block">
+                                <h3>Battle Group</h3>
+                                <p>Scan code or access link directly</p>
+                            </div>
+                            <div class="qr-matrix-envelope">
+                                <div class="qr-procedural-graphics"><div class="qr-secondary-anchor"></div></div>
+                            </div>
+                            <button class="btn-terminal-action" onclick="window.open('https://whatsapp.com', '_blank')">
+                                <i class="fa-brands fa-whatsapp"></i> Battle Feed
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-master-slide">
+                    <section class="showcase-frame">
+                        <div class="showcase-header">
+                            <h2 class="showcase-title">Event Showcase // Neon Mix</h2>
+                        </div>
+                        <div class="stage-viewport">
+                            <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=1200&auto=format&fit=crop" alt="Music Mixer Lights" class="stage-image">
+                            <div class="stage-overlay"></div>
+                        </div>
+                    </section>
+
+                    <div class="details-split-grid">
+                        <div class="meta-details-sheet">
+                            <div class="meta-header-block">
+                                <h2 class="meta-primary-title">Electronic Horizon Lounge</h2>
+                                <span class="meta-subtitle">Synth & DJ Production Night</span>
+                            </div>
+                            <div class="meta-profile-list">
+                                <div class="meta-profile-item">
+                                    <div class="meta-icon-box"><i class="fa-solid fa-calendar-day"></i></div>
+                                    <div class="meta-content-box">
+                                        <span class="meta-label">Date & Timing Structure</span>
+                                        <span class="meta-value">December 18th, 2026 // 19:30 HRS onwards</span>
+                                    </div>
+                                </div>
+                                <div class="meta-profile-item">
+                                    <div class="meta-icon-box"><i class="fa-solid fa-map-location-dot"></i></div>
+                                    <div class="meta-content-box">
+                                        <span class="meta-label">Assigned Venue Location</span>
+                                        <span class="meta-value">Tech Roof-Deck Lounge, Nexus Tower</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qr-terminal-sheet">
+                            <div class="qr-header-block">
+                                <h3>VIP Backstage</h3>
+                                <p>Scan code or access link directly</p>
+                            </div>
+                            <div class="qr-matrix-envelope">
+                                <div class="qr-procedural-graphics"><div class="qr-secondary-anchor"></div></div>
+                            </div>
+                            <button class="btn-terminal-action" onclick="window.open('https://whatsapp.com', '_blank')">
+                                <i class="fa-brands fa-whatsapp"></i> RSVP Registry
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="slider-indicators-container" id="sliderIndicatorsContainer"></div>
+        </main>
     </div>
+
+    <footer class="global-footer">
+       @U~N Made By <span class="footer-heart"><i class="fa-solid fa-heart"></i></span> Team Delta
+    </footer>
+
+    <script>
+        /* Carousel Logic Controllers */
+        const masterViewport = document.getElementById('masterCarouselViewport');
+        const masterSlides = document.querySelectorAll('.event-master-slide');
+        const indicatorsContainer = document.getElementById('sliderIndicatorsContainer');
+        
+        let currentSlideIndex = 0;
+        const totalSlidesCount = masterSlides.length;
+
+        // Dynamic pagination engine construction
+        masterSlides.forEach((_, index) => {
+            const dynamicDot = document.createElement('div');
+            dynamicDot.classList.add('dot');
+            if (index === 0) dynamicDot.classList.add('active');
+            dynamicDot.addEventListener('click', () => jumpToSlide(index));
+            indicatorsContainer.appendChild(dynamicDot);
+        });
+
+        const trackingDots = document.querySelectorAll('.dot');
+
+        function jumpToSlide(targetIndex) {
+            currentSlideIndex = targetIndex;
+            
+            // Transform matrix calculation wrapper for smooth translation offset shifting
+            masterViewport.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            
+            // Sync dot indicator nodes status
+            trackingDots.forEach(dotNode => dotNode.classList.remove('active'));
+            trackingDots[currentSlideIndex].classList.add('active');
+        }
+
+        function changeSlide(directionStep) {
+            let nextIndex = currentSlideIndex + directionStep;
+            
+            // Infinite loop wrapping checks
+            if (nextIndex >= totalSlidesCount) nextIndex = 0;
+            if (nextIndex < 0) nextIndex = totalSlidesCount - 1;
+            
+            jumpToSlide(nextIndex);
+        }
+
+        /* Keyboard Accessibility Event Bindings */
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        /* Sidebar Profile State Interactions Toggle */
+        function toggleProfileDropdown(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function handleProfileOption(optionName) {
+            alert(`Accessing Profile Route Secure Link: ${optionName}`);
+            document.getElementById('profileDropdown').classList.remove('show');
+        }
+
+        /* Subscription Action Handlers */
+        function toggleSubscription() {
+            const subBtn = document.getElementById('subscribeBtn');
+            const subText = subBtn.querySelector('span');
+            
+            if (subBtn.classList.contains('subscribed')) {
+                subBtn.classList.remove('subscribed');
+                subText.innerText = "Subscribe";
+                subBtn.querySelector('i').className = "fa-solid fa-bell";
+            } else {
+                subBtn.classList.add('subscribed');
+                subText.innerText = "Subscribed";
+                subBtn.querySelector('i').className = "fa-solid fa-bell-check";
+                alert('Alerts registered successfully via UNI~NEXUS ecosystem gateway.');
+            }
+        }
+
+        // Close UI Dropdowns when clicking away
+        window.addEventListener('click', () => {
+            document.getElementById('profileDropdown').classList.remove('show');
+        });
+    </script>
 </body>
 </html>

@@ -57,13 +57,13 @@
         /* Container Layout */
         .dashboard-container {
             display: grid;
-            grid-template-columns: 310px 1fr;
+            grid-template-columns: 280px 1fr;
             gap: 32px;
-            max-width: 1440px;
             width: 100%;
-            margin: 0 auto;
-            padding: 32px;
-            flex: 1;
+            min-height: 100vh;
+            padding: 24px;
+
+            align-items: stretch;
         }
 
         /* SIDEBAR STYLE (Glassmorphism Overhaul) */
@@ -80,6 +80,7 @@
             box-shadow: var(--glass-shadow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: visible;
+            /* Changed to visible so profile dropdown overflows cleanly */
         }
 
         .sidebar::before {
@@ -93,6 +94,7 @@
             transform: skewX(-25deg);
             transition: 0.75s;
             pointer-events: none;
+            max-height: 800;
         }
 
         .sidebar:hover::before {
@@ -344,6 +346,7 @@
             padding-top: 24px;
         }
 
+        /* PREMIUM NEON RED SUBSCRIBE BUTTON STYLE */
         .btn-subscribe {
             flex: 1;
             background: linear-gradient(135deg, #ff0044, var(--accent-red));
@@ -437,6 +440,7 @@
             justify-content: center;
             box-shadow: 0 0 10px var(--accent-red);
         }
+
 
         /* MAIN CONTENT SECTION */
         .main-content {
@@ -665,9 +669,20 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.25); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.25);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
         }
 
         @media (max-width: 1024px) {
@@ -706,8 +721,8 @@
                 </div>
 
                 <div class="nav-header-controls">
-                    <button class="btn-home" onclick="window.location.href='Home.html'">
-                        <i class="fa-solid fa-house-chimney"></i> Home
+                    <button class="btn-home" onclick="window.location.href='club_interface.html'">
+                        <i class="fa-solid fa-house-chimney"></i> Back
                     </button>
 
                     <div class="profile-container" id="profileContainer">
@@ -793,20 +808,23 @@
 
                 <form id="recruitmentForm" onsubmit="handleRegistrationSubmit(event)">
                     <div class="recruitment-form-grid">
-                        
+
                         <div class="form-field-group">
                             <label class="field-label" for="applicantName">Name</label>
-                            <input type="text" id="applicantName" class="premium-input" placeholder="Enter your full name" required>
+                            <input type="text" id="applicantName" class="premium-input"
+                                placeholder="Enter your full name" required>
                         </div>
 
                         <div class="form-field-group">
                             <label class="field-label" for="enrollmentNo">Enrollment No</label>
-                            <input type="text" id="enrollmentNo" class="premium-input" placeholder="Enter enrollment number" required>
+                            <input type="text" id="enrollmentNo" class="premium-input"
+                                placeholder="Enter enrollment number" required>
                         </div>
 
                         <div class="form-field-group">
                             <label class="field-label" for="semesterSelect">Semester</label>
-                            <select id="semesterSelect" class="premium-input" onchange="updateBranchSelection()" required>
+                            <select id="semesterSelect" class="premium-input" onchange="updateBranchSelection()"
+                                required>
                                 <option value="" disabled selected>Select your semester</option>
                                 <option value="sem1">1st Semester</option>
                                 <option value="sem2">2nd Semester</option>
@@ -821,7 +839,8 @@
 
                         <div class="form-field-group">
                             <label class="field-label" for="branchName">Branch</label>
-                            <select id="branchName" class="premium-input" onchange="updateDomainSelection()" disabled required>
+                            <select id="branchName" class="premium-input" onchange="updateDomainSelection()" disabled
+                                required>
                                 <option value="" disabled selected>Please select semester first</option>
                             </select>
                         </div>
@@ -838,19 +857,23 @@
                             <div class="file-drop-area" onclick="document.getElementById('hiddenFileInput').click()">
                                 <i class="fa-solid fa-cloud-arrow-up"></i>
                                 <span id="fileDropLabel">Choose or Drag Image</span>
-                                <input type="file" id="hiddenFileInput" class="file-hidden-input" accept="image/*" onchange="handleFileSelection(this)">
+                                <input type="file" id="hiddenFileInput" class="file-hidden-input" accept="image/*"
+                                    onchange="handleFileSelection(this)">
                             </div>
                         </div>
 
                         <div class="form-field-group full-width">
                             <label class="field-label" for="domainReason">Why do you choose this domain</label>
-                            <textarea id="domainReason" class="premium-input premium-textarea" placeholder="Express your passion, previous experiences, or alignment with this specific choice..." required></textarea>
+                            <textarea id="domainReason" class="premium-input premium-textarea"
+                                placeholder="Express your passion, previous experiences, or alignment with this specific choice..."
+                                required></textarea>
                         </div>
 
                     </div>
 
                     <div class="form-actions-row">
-                        <button type="button" class="btn-action-base btn-save-draft" onclick="alert('Progress secured. Draft application configuration saved successfully!')">Save</button>
+                        <button type="button" class="btn-action-base btn-save-draft"
+                            onclick="alert('Progress secured. Draft application configuration saved successfully!')">Save</button>
                         <button type="submit" class="btn-action-base btn-register-submit">Register</button>
                     </div>
                 </form>
@@ -902,7 +925,7 @@
 
             if (currentSemesterValue) {
                 branchElement.disabled = false;
-                
+
                 // Add initial placeholder option
                 const placeholderOpt = document.createElement("option");
                 placeholderOpt.value = "";
@@ -960,7 +983,7 @@
         function toggleProfileDropdown(event) {
             document.getElementById('profileDropdown').classList.toggle('show');
         }
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (!event.target.matches('#avatarCircle')) {
                 const dropdown = document.getElementById('profileDropdown');
                 if (dropdown && dropdown.classList.contains('show')) {
@@ -969,13 +992,13 @@
             }
         }
         function handleProfileOption(option) { alert(option + ' panel execution.'); }
-        function toggleSubscription() { 
+        function toggleSubscription() {
             const btn = document.getElementById('subscribeBtn');
             btn.classList.toggle('subscribed');
             btn.querySelector('span').textContent = btn.classList.contains('subscribed') ? 'Subscribed' : 'Subscribe';
         }
         function handleFileSelection(input) {
-            if(input.files.length > 0) {
+            if (input.files.length > 0) {
                 document.getElementById('fileDropLabel').textContent = input.files[0].name;
             }
         }
@@ -986,4 +1009,5 @@
     </script>
 
 </body>
+
 </html>

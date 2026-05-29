@@ -20,35 +20,18 @@
             --bg-deep: #030712;
             --bg-card: rgba(13, 21, 45, 0.45);
             --bg-sidebar: rgba(7, 11, 26, 0.65);
-
             --accent-blue: #00f0ff;
             --accent-neon: #7000ff;
             --accent-cyan: #00ffcc;
             --accent-red: #ff2a5f;
             --accent-red-glow: rgba(255, 42, 95, 0.4);
-
-            --right-card-bg: linear-gradient(145deg,
-                    rgba(20, 30, 60, 0.88),
-                    rgba(10, 18, 40, 0.94));
-
-            --right-card-hover: linear-gradient(145deg,
-                    rgba(24, 40, 78, 0.95),
-                    rgba(12, 24, 52, 0.98));
-
-            --right-glow:
-                0 0 20px rgba(0, 240, 255, 0.08),
-                0 0 50px rgba(112, 0, 255, 0.08);
-
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-
+            --neon-glow: rgba(0, 240, 255, 0.3);
             --radius: 24px;
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-
             --glass-border: rgba(255, 255, 255, 0.05);
-
-            --glass-shadow:
-                0 20px 50px rgba(0, 0, 0, 0.6);
+            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
         * {
@@ -61,103 +44,64 @@
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-deep);
-
             background-image:
                 radial-gradient(at 0% 0%, rgba(112, 0, 255, 0.15) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(0, 240, 255, 0.12) 0px, transparent 50%),
                 radial-gradient(at 50% 50%, rgba(255, 42, 95, 0.03) 0px, transparent 50%);
-
             background-attachment: fixed;
-
             color: var(--text-main);
-
             min-height: 100vh;
-
             display: flex;
             flex-direction: column;
-
             overflow-x: hidden;
         }
 
-        /* =========================
-   LAYOUT
-========================= */
-
+        /* Container Layout */
         .dashboard-container {
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 32px;
-
             width: 100%;
             min-height: 100vh;
-
             padding: 24px;
 
             align-items: stretch;
         }
 
-        .sidebar,
-        .main-content {
-            height: 100%;
-        }
-
-        /* =========================
-   SIDEBAR
-========================= */
-
+        /* SIDEBAR STYLE (Glassmorphism Overhaul) */
         .sidebar {
             background: var(--bg-sidebar);
-
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-
             border: 1px solid var(--glass-border);
             border-radius: var(--radius);
-
             padding: 32px 24px;
-
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-
+            box-shadow: var(--glass-shadow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: visible;
-
-            box-shadow:
-                var(--glass-shadow),
-                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            /* Changed to visible so profile dropdown overflows cleanly */
         }
 
         .sidebar::before {
             content: '';
-
             position: absolute;
             top: 0;
             left: -100%;
-
             width: 50%;
             height: 100%;
-
-            background:
-                linear-gradient(to right,
-                    transparent,
-                    rgba(0, 240, 255, 0.05),
-                    transparent);
-
+            background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.05), transparent);
             transform: skewX(-25deg);
-
             transition: 0.75s;
-
             pointer-events: none;
+            max-height: 800;
         }
 
         .sidebar:hover::before {
             left: 120%;
         }
-
-        /* =========================
-   BRAND
-========================= */
 
         .brand-header {
             text-align: center;
@@ -166,113 +110,70 @@
 
         .presentation-tag {
             font-family: 'Space Grotesk', sans-serif;
-
             font-size: 0.7rem;
-            font-weight: 700;
-
             text-transform: uppercase;
             letter-spacing: 4px;
-
             color: var(--accent-cyan);
-
             text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+            font-weight: 700;
         }
 
         .brand-title {
             font-family: 'Syne', sans-serif;
-
             font-size: 1.6rem;
             font-weight: 800;
-
             letter-spacing: 4px;
-
             margin: 8px 0;
-
-            background:
-                linear-gradient(135deg,
-                    #ffffff 30%,
-                    var(--accent-blue) 70%,
-                    var(--accent-cyan));
-
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-blue) 70%, var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-
             filter: drop-shadow(0 4px 15px rgba(0, 240, 255, 0.4));
         }
 
         .brand-tagline {
             font-size: 0.8rem;
-            font-weight: 600;
-
+            color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
-
-            color: var(--text-muted);
-
+            font-weight: 600;
             opacity: 0.7;
         }
-
-        /* =========================
-   TOP CONTROLS
-========================= */
 
         .nav-header-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             margin-bottom: 24px;
-
             position: relative;
         }
 
         .btn-home {
-            background:
-                linear-gradient(135deg,
-                    rgba(255, 255, 255, 0.1),
-                    rgba(255, 255, 255, 0.03));
-
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
             border: 1px solid rgba(255, 255, 255, 0.1);
-
+            backdrop-filter: blur(5px);
             color: white;
-
             padding: 10px 24px;
-
             border-radius: 30px;
-
             font-weight: 600;
-
             cursor: pointer;
-
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
-
-            transition: var(--transition);
-
-            backdrop-filter: blur(5px);
         }
 
         .btn-home:hover,
         .btn-home.active {
             border-color: var(--accent-blue);
-
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-
             transform: translateY(-2px);
         }
 
         .btn-home.active {
-            background:
-                linear-gradient(135deg,
-                    rgba(0, 240, 255, 0.2),
-                    rgba(0, 240, 255, 0.05));
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05));
         }
 
-        /* =========================
-   PROFILE
-========================= */
-
+        /* Profile Wrapper & Dropdown Menu */
         .profile-container {
             position: relative;
         }
@@ -280,201 +181,139 @@
         .avatar-circle {
             width: 44px;
             height: 44px;
-
             border-radius: 50%;
-
-            background:
-                linear-gradient(135deg,
-                    var(--accent-neon),
-                    var(--accent-blue));
-
+            background: linear-gradient(135deg, var(--accent-neon), var(--accent-blue));
             display: flex;
             align-items: center;
             justify-content: center;
-
             font-weight: bold;
             color: white;
-
-            cursor: pointer;
-
-            border: 2px solid transparent;
-
-            transition: var(--transition);
-
             box-shadow: 0 4px 15px rgba(112, 0, 255, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
         }
 
         .avatar-circle:hover,
         .avatar-circle.active {
             transform: scale(1.05);
-
-            border-color: rgba(255, 255, 255, 0.6);
-
             box-shadow: 0 0 20px var(--accent-blue);
+            border-color: rgba(255, 255, 255, 0.6);
         }
 
         .profile-dropdown {
             position: absolute;
             top: 55px;
             right: 0;
-
             width: 220px;
-
             background: rgba(7, 11, 26, 0.95);
-
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-
+            box-shadow: var(--glass-shadow);
             padding: 8px;
-
             display: flex;
             flex-direction: column;
             gap: 4px;
-
             z-index: 100;
-
             opacity: 0;
-            pointer-events: none;
-
             transform: translateY(-10px);
-
+            pointer-events: none;
             transition: var(--transition);
-
-            backdrop-filter: blur(25px);
-
-            box-shadow: var(--glass-shadow);
         }
 
         .profile-dropdown.show {
             opacity: 1;
-
-            pointer-events: auto;
-
             transform: translateY(0);
+            pointer-events: auto;
         }
 
         .dropdown-item {
             padding: 10px 14px;
-
             border-radius: 10px;
-
             color: var(--text-muted);
-
             font-size: 0.9rem;
             font-weight: 500;
-
             cursor: pointer;
-
             display: flex;
             align-items: center;
             gap: 10px;
-
             transition: var(--transition);
         }
 
         .dropdown-item:hover {
             color: white;
-
             background: rgba(255, 255, 255, 0.05);
         }
 
         .dropdown-item i {
+            font-size: 1rem;
             width: 20px;
-
             text-align: center;
         }
 
         .dropdown-item.sign-out {
             color: var(--accent-red);
-
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-
             margin-top: 4px;
+            border-radius: 0 0 10px 10px;
         }
 
         .dropdown-item.sign-out:hover {
             background: var(--accent-red-glow);
-
             color: white;
         }
 
-        /* =========================
-   NAVIGATION
-========================= */
-
+        /* Navigation Links List */
         .navigation-menu {
             list-style: none;
-
             display: flex;
             flex-direction: column;
             gap: 8px;
-
             background: rgba(0, 0, 0, 0.2);
-
             padding: 8px;
-
             border-radius: var(--radius);
-
             border: 1px solid rgba(255, 255, 255, 0.02);
         }
 
         .nav-item {
             padding: 14px 18px;
-
             border-radius: 14px;
-
-            color: var(--text-muted);
-
-            font-weight: 600;
-
             cursor: pointer;
-
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 14px;
-
             border: 1px solid transparent;
-
-            transition: var(--transition);
         }
 
         .nav-item i {
             width: 22px;
-
             text-align: center;
-
             font-size: 1.15rem;
-
             transition: var(--transition);
         }
 
         .nav-item:hover {
             color: white;
-
             background: rgba(255, 255, 255, 0.03);
-
             border-color: rgba(255, 255, 255, 0.05);
-
             padding-left: 24px;
         }
 
         .nav-item:hover i {
             color: var(--accent-blue);
-
             transform: scale(1.1);
         }
 
         .nav-item.active {
             color: #030712;
-
-            background:
-                linear-gradient(90deg,
-                    var(--accent-blue),
-                    var(--accent-cyan));
-
-            font-weight: 700;
-
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
             box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
+            font-weight: 700;
         }
 
         .nav-item.active i {
@@ -482,163 +321,125 @@
         }
 
         .contact-divider {
-            margin: 20px 0 8px;
-
-            padding-left: 18px;
-
+            margin: 20px 0 8px 0;
             font-family: 'Space Grotesk', sans-serif;
-
             font-size: 0.7rem;
-            font-weight: 700;
-
             text-transform: uppercase;
             letter-spacing: 2px;
-
             color: #475569;
+            padding-left: 18px;
+            font-weight: 700;
         }
 
         .contact-info-clickable:hover {
             color: var(--accent-cyan) !important;
-
             background: rgba(0, 255, 204, 0.05) !important;
-
             border-color: rgba(0, 255, 204, 0.1) !important;
         }
 
-        /* =========================
-   FOOTER CONTROLS
-========================= */
-
+        /* Sidebar Footer Controls */
         .sidebar-footer {
             margin-top: 24px;
-            padding-top: 24px;
-
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 12px;
-
             border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 24px;
         }
 
+        /* PREMIUM NEON RED SUBSCRIBE BUTTON STYLE */
         .btn-subscribe {
             flex: 1;
-
-            background:
-                linear-gradient(135deg,
-                    #ff0044,
-                    var(--accent-red));
-
-            border: none;
-            border-radius: 14px;
-
-            padding: 12px;
-
+            background: linear-gradient(135deg, #ff0044, var(--accent-red));
             color: white;
-
-            font-size: 0.8rem;
+            border: none;
+            padding: 12px;
+            border-radius: 14px;
             font-weight: 700;
-
             letter-spacing: 1px;
             text-transform: uppercase;
-
+            font-size: 0.8rem;
             cursor: pointer;
-
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-
+            transition: var(--transition);
+            box-shadow: 0 4px 20px var(--accent-red-glow);
             position: relative;
             overflow: hidden;
+        }
 
-            transition: var(--transition);
-
-            box-shadow: 0 4px 20px var(--accent-red-glow);
+        .btn-subscribe::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            padding: 1.5px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
         }
 
         .btn-subscribe:hover {
             transform: scale(1.03) translateY(-1px);
-
-            background:
-                linear-gradient(135deg,
-                    #ff1a56,
-                    #ff4171);
-
-            box-shadow:
-                0 6px 25px rgba(255, 42, 95, 0.6),
-                0 0 10px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 25px rgba(255, 42, 95, 0.6), 0 0 10px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #ff1a56, #ff4171);
         }
 
         .btn-subscribe.subscribed {
             background: transparent;
-
             border: 2px solid var(--accent-red);
-
             color: var(--accent-red);
-
             box-shadow: inset 0 0 10px var(--accent-red-glow);
+        }
+
+        .btn-subscribe.subscribed:hover {
+            background: var(--accent-red-glow);
+            color: #fff;
         }
 
         .social-icon-btn {
             width: 44px;
             height: 44px;
-
             border-radius: 14px;
-
             background: rgba(255, 255, 255, 0.03);
-
-            border: 1px solid var(--glass-border);
-
-            color: var(--text-main);
-
             display: flex;
             align-items: center;
             justify-content: center;
-
+            color: var(--text-main);
             text-decoration: none;
-
             font-size: 1.25rem;
-
             position: relative;
-
             transition: var(--transition);
+            border: 1px solid var(--glass-border);
         }
 
         .social-icon-btn:hover {
             background: rgba(0, 240, 255, 0.1);
-
             color: var(--accent-blue);
-
-            border-color: rgba(0, 240, 255, 0.3);
-
             transform: translateY(-3px);
-
+            border-color: rgba(0, 240, 255, 0.3);
             box-shadow: 0 10px 20px rgba(0, 240, 255, 0.15);
         }
 
         .notification-badge::after {
             content: '1';
-
             position: absolute;
             top: -4px;
             right: -4px;
-
-            width: 18px;
-            height: 18px;
-
-            border-radius: 50%;
-
             background: var(--accent-red);
-
             color: white;
-
             font-size: 0.65rem;
             font-weight: bold;
-
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-
             box-shadow: 0 0 10px var(--accent-red);
         }
 
@@ -658,326 +459,326 @@
    RIGHT SIDE MAIN CARD
 ========================= */
 
-      /* ================= RIGHT SIDE FACULTY SECTION ================= */
-
-.faculty-section {
-    background: linear-gradient(135deg,
-            rgba(3, 7, 18, 0.96),
-            rgba(2, 15, 32, 0.92));
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 30px;
-    padding: 34px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55);
-    overflow: hidden;
-}
-
-/* Heading */
-.faculty-main-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 3.5rem;
-    text-align: center;
-    margin-bottom: 34px;
-    font-weight: 700;
-    letter-spacing: -2px;
-
-    background: linear-gradient(90deg,
-            #8cf6ff,
-            #67e8ff,
-            #47dfff);
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    text-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
-}
-
-/* Main Layout */
-.faculty-layout {
-    display: grid;
-    grid-template-columns: 340px 1fr;
-    gap: 28px;
-    margin-bottom: 34px;
-    
-}
-
-/* LEFT CARD */
-.faculty-profile-card {
-    background: linear-gradient(180deg,
-            rgba(8, 12, 30, 0.98),
-            rgba(5, 9, 25, 0.95));
-
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 28px;
-
-    padding: 42px 28px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    box-shadow:
-        inset 0 1px 1px rgba(255, 255, 255, 0.05),
-        0 20px 45px rgba(0, 0, 0, 0.45);
-}
-
-/* Avatar */
-.faculty-avatar {
-    width: 165px;
-    height: 165px;
-    border-radius: 50%;
-
-    background: linear-gradient(135deg,
-            #6c2dff,
-            #1ddfff);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 34px;
-
-    font-size: 4.2rem;
-    color: white;
-
-    box-shadow:
-        0 0 35px rgba(0, 240, 255, 0.28),
-        0 0 60px rgba(112, 0, 255, 0.2);
-}
-
-.faculty-name {
-    font-size: 2.15rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 10px;
-    letter-spacing: -1px;
-}
-
-.faculty-role {
-    color: #9ca3af;
-    font-size: 1.05rem;
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
+        /* ================= RIGHT SIDE FACULTY SECTION ================= */
+
+        .faculty-section {
+            background: linear-gradient(135deg,
+                    rgba(3, 7, 18, 0.96),
+                    rgba(2, 15, 32, 0.92));
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 30px;
+            padding: 34px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55);
+            overflow: hidden;
+        }
+
+        /* Heading */
+        .faculty-main-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 34px;
+            font-weight: 700;
+            letter-spacing: -2px;
+
+            background: linear-gradient(90deg,
+                    #8cf6ff,
+                    #67e8ff,
+                    #47dfff);
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+        }
+
+        /* Main Layout */
+        .faculty-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 28px;
+            margin-bottom: 34px;
+
+        }
+
+        /* LEFT CARD */
+        .faculty-profile-card {
+            background: linear-gradient(180deg,
+                    rgba(8, 12, 30, 0.98),
+                    rgba(5, 9, 25, 0.95));
+
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
+
+            padding: 42px 28px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.05),
+                0 20px 45px rgba(0, 0, 0, 0.45);
+        }
+
+        /* Avatar */
+        .faculty-avatar {
+            width: 165px;
+            height: 165px;
+            border-radius: 50%;
+
+            background: linear-gradient(135deg,
+                    #6c2dff,
+                    #1ddfff);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 34px;
+
+            font-size: 4.2rem;
+            color: white;
+
+            box-shadow:
+                0 0 35px rgba(0, 240, 255, 0.28),
+                0 0 60px rgba(112, 0, 255, 0.2);
+        }
+
+        .faculty-name {
+            font-size: 2.15rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .faculty-role {
+            color: #9ca3af;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
 
-/* STATUS */
-.faculty-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+        /* STATUS */
+        .faculty-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
 
-    padding: 12px 28px;
+            padding: 12px 28px;
 
-    border-radius: 40px;
+            border-radius: 40px;
 
-    background: rgba(0, 255, 140, 0.08);
-    border: 1px solid rgba(0, 255, 140, 0.22);
+            background: rgba(0, 255, 140, 0.08);
+            border: 1px solid rgba(0, 255, 140, 0.22);
 
-    color: #00ff9c;
-    font-weight: 700;
-    font-size: 0.95rem;
-}
+            color: #00ff9c;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
 
-.faculty-status-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+        .faculty-status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
 
-    background: #00ff9c;
+            background: #00ff9c;
 
-    box-shadow: 0 0 12px #00ff9c;
-}
+            box-shadow: 0 0 12px #00ff9c;
+        }
 
-/* RIGHT INFO GRID */
-.faculty-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px;
-}
+        /* RIGHT INFO GRID */
+        .faculty-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
 
-/* INFO CARD */
-.faculty-info-card {
-    background: linear-gradient(135deg,
-            rgba(5, 10, 28, 0.98),
-            rgba(4, 18, 36, 0.92));
+        /* INFO CARD */
+        .faculty-info-card {
+            background: linear-gradient(135deg,
+                    rgba(5, 10, 28, 0.98),
+                    rgba(4, 18, 36, 0.92));
 
-    border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.06);
 
-    border-radius: 24px;
+            border-radius: 24px;
 
-    padding: 32px 28px;
+            padding: 32px 28px;
 
-    transition: var(--transition);
+            transition: var(--transition);
 
-    box-shadow:
-        inset 0 1px 1px rgba(255, 255, 255, 0.03),
-        0 10px 25px rgba(0, 0, 0, 0.25);
-}
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.03),
+                0 10px 25px rgba(0, 0, 0, 0.25);
+        }
 
-.faculty-info-card:hover {
-    transform: translateY(-4px);
+        .faculty-info-card:hover {
+            transform: translateY(-4px);
 
-    border-color: rgba(0, 240, 255, 0.16);
+            border-color: rgba(0, 240, 255, 0.16);
 
-    box-shadow:
-        0 18px 35px rgba(0, 0, 0, 0.4),
-        0 0 25px rgba(0, 240, 255, 0.08);
-}
+            box-shadow:
+                0 18px 35px rgba(0, 0, 0, 0.4),
+                0 0 25px rgba(0, 240, 255, 0.08);
+        }
 
-/* LABEL */
-.info-label {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+        /* LABEL */
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
 
-    color: #00ffd0;
+            color: #00ffd0;
 
-    font-size: 1rem;
-    font-weight: 700;
+            font-size: 1rem;
+            font-weight: 700;
 
-    margin-bottom: 22px;
-}
+            margin-bottom: 22px;
+        }
 
-.info-label i {
-    font-size: 1rem;
-}
+        .info-label i {
+            font-size: 1rem;
+        }
 
-/* VALUE */
-.info-value {
-    color: white;
-    font-size: 1.22rem;
-    line-height: 1.6;
-    font-weight: 500;
-}
+        /* VALUE */
+        .info-value {
+            color: white;
+            font-size: 1.22rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
 
-/* CONTACT SECTION */
-.contact-box {
-    background: linear-gradient(135deg,
-            rgba(3, 8, 22, 0.98),
-            rgba(4, 18, 32, 0.95));
+        /* CONTACT SECTION */
+        .contact-box {
+            background: linear-gradient(135deg,
+                    rgba(3, 8, 22, 0.98),
+                    rgba(4, 18, 32, 0.95));
 
-    border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
 
-    border-radius: 30px;
+            border-radius: 30px;
 
-    padding: 34px;
-}
+            padding: 34px;
+        }
 
-.contact-title {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+        .contact-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
 
-    font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
 
-    font-size: 1.8rem;
-    font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 700;
 
-    margin-bottom: 26px;
+            margin-bottom: 26px;
 
-    color: white;
-}
+            color: white;
+        }
 
-.contact-title i {
-    color: white;
-}
+        .contact-title i {
+            color: white;
+        }
 
-/* TEXTAREA */
-.contact-input {
-    width: 100%;
-    height: 130px;
+        /* TEXTAREA */
+        .contact-input {
+            width: 100%;
+            height: 130px;
 
-    border-radius: 24px;
+            border-radius: 24px;
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
 
-    background: linear-gradient(90deg,
-            rgba(5, 10, 25, 0.98),
-            rgba(4, 18, 35, 0.92));
+            background: linear-gradient(90deg,
+                    rgba(5, 10, 25, 0.98),
+                    rgba(4, 18, 35, 0.92));
 
-    padding: 28px;
+            padding: 28px;
 
-    resize: none;
-    outline: none;
+            resize: none;
+            outline: none;
 
-    color: white;
+            color: white;
 
-    font-family: 'Outfit', sans-serif;
-    font-size: 1rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
 
-    transition: var(--transition);
-}
+            transition: var(--transition);
+        }
 
-.contact-input:focus {
-    border-color: rgba(0, 240, 255, 0.25);
+        .contact-input:focus {
+            border-color: rgba(0, 240, 255, 0.25);
 
-    box-shadow:
-        0 0 25px rgba(0, 240, 255, 0.08);
-}
+            box-shadow:
+                0 0 25px rgba(0, 240, 255, 0.08);
+        }
 
-.contact-input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
-}
+        .contact-input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
 
-/* BUTTON AREA */
-.contact-btn-row {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 26px;
-}
+        /* BUTTON AREA */
+        .contact-btn-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 26px;
+        }
 
-/* SEND BUTTON */
-.send-btn {
-    background: linear-gradient(90deg,
-            #00d8ff,
-            #11ffd6);
+        /* SEND BUTTON */
+        .send-btn {
+            background: linear-gradient(90deg,
+                    #00d8ff,
+                    #11ffd6);
 
-    border: none;
+            border: none;
 
-    color: black;
+            color: black;
 
-    padding: 16px 34px;
+            padding: 16px 34px;
 
-    border-radius: 18px;
+            border-radius: 18px;
 
-    display: flex;
-    align-items: center;
-    gap: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
 
-    font-size: 1rem;
-    font-weight: 700;
+            font-size: 1rem;
+            font-weight: 700;
 
-    cursor: pointer;
+            cursor: pointer;
 
-    transition: var(--transition);
+            transition: var(--transition);
 
-    box-shadow:
-        0 10px 25px rgba(0, 240, 255, 0.25);
-}
+            box-shadow:
+                0 10px 25px rgba(0, 240, 255, 0.25);
+        }
 
-.send-btn:hover {
-    transform: translateY(-3px);
+        .send-btn:hover {
+            transform: translateY(-3px);
 
-    box-shadow:
-        0 16px 35px rgba(0, 240, 255, 0.35);
-}
+            box-shadow:
+                0 16px 35px rgba(0, 240, 255, 0.35);
+        }
 
-/* RESPONSIVE */
-@media (max-width: 1100px) {
-    .faculty-layout {
-        grid-template-columns: 1fr;
-    }
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .faculty-layout {
+                grid-template-columns: 1fr;
+            }
 
-    .faculty-info-grid {
-        grid-template-columns: 1fr;
-    }
+            .faculty-info-grid {
+                grid-template-columns: 1fr;
+            }
 
-    .faculty-main-title {
-        font-size: 2.6rem;
-    }
-}
+            .faculty-main-title {
+                font-size: 2.6rem;
+            }
+        }
 
         /* =========================
    FOOTER
@@ -1076,8 +877,8 @@
                 <!-- Utility Controls -->
                 <div class="nav-header-controls">
                     <!-- Home Button (Interactive Click Event Added) -->
-                    <button class="btn-home" onclick="window.location.href='Home.html'">
-                        <i class="fa-solid fa-house-chimney"></i> Home
+                    <button class="btn-home" onclick="window.location.href='club_interface.html'">
+                        <i class="fa-solid fa-house-chimney"></i> Back
                     </button>
 
                     <!-- Profile Container (Now Interactive with dropdown node built in) -->
@@ -1162,135 +963,134 @@
         <!-- MAIN PROFILE SECTION -->
         <!-- MAIN PROFILE SECTION -->
         <!-- RIGHT SIDE -->
-<main class="main-content">
+        <main class="main-content">
 
-    <section class="faculty-section">
+            <section class="faculty-section">
 
-        <!-- TITLE -->
-        <h1 class="faculty-main-title">
-            Faculty Coordinator
-        </h1>
+                <!-- TITLE -->
+                <h1 class="faculty-main-title">
+                    Faculty Coordinator
+                </h1>
 
-        <!-- MAIN GRID -->
-        <div class="faculty-layout">
+                <!-- MAIN GRID -->
+                <div class="faculty-layout">
 
-            <!-- LEFT PROFILE -->
-            <div class="faculty-profile-card">
+                    <!-- LEFT PROFILE -->
+                    <div class="faculty-profile-card">
 
-                <div class="faculty-avatar">
-                    <i class="fa-solid fa-user"></i>
+                        <div class="faculty-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <h2 class="faculty-name">
+                            Dr. A. K. Sharma
+                        </h2>
+
+                        <p class="faculty-role">
+                            Faculty Coordinator • BANDISH Club
+                        </p>
+
+                        <div class="faculty-status">
+                            <span class="faculty-status-dot"></span>
+                            Available
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT GRID -->
+                    <div class="faculty-info-grid">
+
+                        <div class="faculty-info-card">
+                            <div class="info-label">
+                                <i class="fa-solid fa-briefcase"></i>
+                                Designation
+                            </div>
+
+                            <div class="info-value">
+                                Assistant Professor
+                            </div>
+                        </div>
+
+                        <div class="faculty-info-card">
+                            <div class="info-label">
+                                <i class="fa-solid fa-building-columns"></i>
+                                Department
+                            </div>
+
+                            <div class="info-value">
+                                Computer Science Engineering
+                            </div>
+                        </div>
+
+                        <div class="faculty-info-card">
+                            <div class="info-label">
+                                <i class="fa-solid fa-envelope"></i>
+                                Official Email
+                            </div>
+
+                            <div class="info-value">
+                                bandish@mitsgwalior.in
+                            </div>
+                        </div>
+
+                        <div class="faculty-info-card">
+                            <div class="info-label">
+                                <i class="fa-solid fa-phone"></i>
+                                Contact
+                            </div>
+
+                            <div class="info-value">
+                                +91 9876543210
+                            </div>
+                        </div>
+
+                        <div class="faculty-info-card">
+                            <div class="info-label">
+                                <i class="fa-solid fa-calendar-check"></i>
+                                Office Hours
+                            </div>
+
+                            <div class="info-value">
+                                10:00 AM – 4:00 PM
+                            </div>
+                        </div>
+
+                        <div class="faculty-info-card">
+                            <div class="info-label">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Cabin
+                            </div>
+
+                            <div class="info-value">
+                                CSE Block • Room 204
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
-                <h2 class="faculty-name">
-                    Dr. A. K. Sharma
-                </h2>
+                <!-- CONTACT SECTION -->
+                <div class="contact-box">
 
-                <p class="faculty-role">
-                    Faculty Coordinator • BANDISH Club
-                </p>
+                    <h2 class="contact-title">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Contact Coordinator
+                    </h2>
 
-                <div class="faculty-status">
-                    <span class="faculty-status-dot"></span>
-                    Available
+                    <textarea class="contact-input" placeholder="Write your message here..."></textarea>
+
+                    <div class="contact-btn-row">
+                        <button class="send-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </div>
+
                 </div>
 
-            </div>
+            </section>
 
-            <!-- RIGHT GRID -->
-            <div class="faculty-info-grid">
-
-                <div class="faculty-info-card">
-                    <div class="info-label">
-                        <i class="fa-solid fa-briefcase"></i>
-                        Designation
-                    </div>
-
-                    <div class="info-value">
-                        Assistant Professor
-                    </div>
-                </div>
-
-                <div class="faculty-info-card">
-                    <div class="info-label">
-                        <i class="fa-solid fa-building-columns"></i>
-                        Department
-                    </div>
-
-                    <div class="info-value">
-                        Computer Science Engineering
-                    </div>
-                </div>
-
-                <div class="faculty-info-card">
-                    <div class="info-label">
-                        <i class="fa-solid fa-envelope"></i>
-                        Official Email
-                    </div>
-
-                    <div class="info-value">
-                        bandish@mitsgwalior.in
-                    </div>
-                </div>
-
-                <div class="faculty-info-card">
-                    <div class="info-label">
-                        <i class="fa-solid fa-phone"></i>
-                        Contact
-                    </div>
-
-                    <div class="info-value">
-                        +91 9876543210
-                    </div>
-                </div>
-
-                <div class="faculty-info-card">
-                    <div class="info-label">
-                        <i class="fa-solid fa-calendar-check"></i>
-                        Office Hours
-                    </div>
-
-                    <div class="info-value">
-                        10:00 AM – 4:00 PM
-                    </div>
-                </div>
-
-                <div class="faculty-info-card">
-                    <div class="info-label">
-                        <i class="fa-solid fa-location-dot"></i>
-                        Cabin
-                    </div>
-
-                    <div class="info-value">
-                        CSE Block • Room 204
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- CONTACT SECTION -->
-        <div class="contact-box">
-
-            <h2 class="contact-title">
-                <i class="fa-solid fa-paper-plane"></i>
-                Contact Coordinator
-            </h2>
-
-            <textarea class="contact-input"
-                placeholder="Write your message here..."></textarea>
-
-            <div class="contact-btn-row">
-                <button class="send-btn">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    Send Message
-                </button>
-            </div>
-
-        </div>
-
-    </section>
-
-</main>
+        </main>
     </div>
 
     <!-- GLOBAL FRAME FOOTER -->
