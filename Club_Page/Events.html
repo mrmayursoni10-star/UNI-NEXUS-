@@ -1,89 +1,1425 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bandish - Live Events Archive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <title>UNI~NEXUS presents BANDISH - Music Club Portal</title>
+    <!-- Google Fonts for World-Class Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Premium UI Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --bg: #05050a;
-            --card-bg: rgba(20, 20, 35, 0.6);
-            --accent: #00f0ff;
-            --accent-glow: rgba(0, 240, 255, 0.3);
-            --text: #f1f5f9;
-            --text-muted: #64748b;
+            /* Cosmic Cyberpunk Deep Luxury Theme */
+            --bg-deep: #030712;
+            --bg-card: rgba(13, 21, 45, 0.45);
+            --bg-sidebar: rgba(7, 11, 26, 0.65);
+            --accent-blue: #00f0ff;
+            --accent-neon: #7000ff;
+            --accent-cyan: #00ffcc;
+            --accent-red: #ff2a5f;
+            --accent-red-glow: rgba(255, 42, 95, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --neon-glow: rgba(0, 240, 255, 0.3);
+            --radius: 24px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
         body {
             font-family: 'Outfit', sans-serif;
-            background: var(--bg);
-            background-image: radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 40%);
-            color: var(--text);
+            background-color: var(--bg-deep);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(112, 0, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 240, 255, 0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(255, 42, 95, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
             min-height: 100vh;
-            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
-        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; letter-spacing: -1px; }
-        h1 span { color: var(--accent); }
-        .search-box { position: relative; width: 300px; }
-        .search-box input {
-            width: 100%; padding: 12px 16px 12px 40px;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px; color: white; outline: none; transition: all 0.3s;
+
+        /* Container Layout */
+       .dashboard-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px;
+
+    align-items: stretch;
+}
+
+        /* SIDEBAR STYLE (Glassmorphism Overhaul) */
+        .sidebar {
+            background: var(--bg-sidebar);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--glass-shadow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: visible;
+            /* Changed to visible so profile dropdown overflows cleanly */
         }
-        .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
-        .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .card {
-            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 20px; padding: 30px; backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.05), transparent);
+            transform: skewX(-25deg);
+            transition: 0.75s;
+            pointer-events: none;
+            max-height: 800;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .icon { width: 50px; height: 50px; background: rgba(0,240,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent); margin-bottom: 20px; }
-        .card h3 { font-size: 1.4rem; margin-bottom: 10px; }
-        .card p { color: var(--text-muted); line-height: 1.6; }
+
+        .sidebar:hover::before {
+            left: 120%;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .presentation-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+            font-weight: 700;
+        }
+
+        .brand-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin: 8px 0;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-blue) 70%, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 15px rgba(0, 240, 255, 0.4));
+        }
+
+        .brand-tagline {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+
+        .nav-header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .btn-home {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-home:hover,
+        .btn-home.active {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-home.active {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05));
+        }
+
+        /* Profile Wrapper & Dropdown Menu */
+        .profile-container {
+            position: relative;
+        }
+
+        .avatar-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-neon), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 15px rgba(112, 0, 255, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .avatar-circle:hover,
+        .avatar-circle.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent-blue);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            width: 220px;
+            background: rgba(7, 11, 26, 0.95);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .profile-dropdown.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-item i {
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-item.sign-out {
+            color: var(--accent-red);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 4px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .dropdown-item.sign-out:hover {
+            background: var(--accent-red-glow);
+            color: white;
+        }
+
+        /* Navigation Links List */
+        .navigation-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .nav-item {
+            padding: 14px 18px;
+            border-radius: 14px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid transparent;
+        }
+
+        .nav-item i {
+            width: 22px;
+            text-align: center;
+            font-size: 1.15rem;
+            transition: var(--transition);
+        }
+
+        .nav-item:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.05);
+            padding-left: 24px;
+        }
+
+        .nav-item:hover i {
+            color: var(--accent-blue);
+            transform: scale(1.1);
+        }
+
+        .nav-item.active {
+            color: #030712;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
+            font-weight: 700;
+        }
+
+        .nav-item.active i {
+            color: #030712;
+        }
+
+        .contact-divider {
+            margin: 20px 0 8px 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #475569;
+            padding-left: 18px;
+            font-weight: 700;
+        }
+
+        .contact-info-clickable:hover {
+            color: var(--accent-cyan) !important;
+            background: rgba(0, 255, 204, 0.05) !important;
+            border-color: rgba(0, 255, 204, 0.1) !important;
+        }
+
+        /* Sidebar Footer Controls */
+        .sidebar-footer {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 24px;
+        }
+
+        /* PREMIUM NEON RED SUBSCRIBE BUTTON STYLE */
+        .btn-subscribe {
+            flex: 1;
+            background: linear-gradient(135deg, #ff0044, var(--accent-red));
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px var(--accent-red-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-subscribe::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            padding: 1.5px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .btn-subscribe:hover {
+            transform: scale(1.03) translateY(-1px);
+            box-shadow: 0 6px 25px rgba(255, 42, 95, 0.6), 0 0 10px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #ff1a56, #ff4171);
+        }
+
+        .btn-subscribe.subscribed {
+            background: transparent;
+            border: 2px solid var(--accent-red);
+            color: var(--accent-red);
+            box-shadow: inset 0 0 10px var(--accent-red-glow);
+        }
+
+        .btn-subscribe.subscribed:hover {
+            background: var(--accent-red-glow);
+            color: #fff;
+        }
+
+        .social-icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1.25rem;
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
+        }
+
+        .social-icon-btn:hover {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-blue);
+            transform: translateY(-3px);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.15);
+        }
+
+        .notification-badge::after {
+            content: '1';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px var(--accent-red);
+        }
+
+        /* MAIN CONTENT SECTION */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            width: 100%;
+        }
+        .sidebar,
+.main-content {
+    height: 100%;
+}
+
+      
+
+        /* Added */
+        /* --- EVENTS SECTION OVERHAUL --- */
+        /* --- EVENTS CONTAINER OVERHAUL --- */
+        /* Update the main container layout */
+        .events-section-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Set a viewport height for 3 items and enable sleek scrolling */
+
+
+        /* Custom Premium Cyberpunk Scrollbar */
+        .event-row-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .event-row-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+        }
+
+        .event-row-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-blue));
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        .event-row-container::-webkit-scrollbar-thumb:hover {
+            background: #ffffff;
+        }
+
+        /* Toolbar Layout: Align Search Left, Filters Right */
+        .events-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 24px;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            padding: 10px 20px;
+            width: 100%;
+            max-width: 380px;
+            transition: var(--transition);
+        }
+
+        .search-wrapper:focus-within {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+        }
+
+        .search-label-neon {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-right: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: rgba(148, 163, 184, 0.4);
+        }
+
+        .filter-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-filter {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-filter:hover,
+        .btn-filter.active {
+            border-color: var(--accent-cyan);
+            color: white;
+            background: rgba(0, 255, 204, 0.05);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+        }
+
+        /* Row-Based Cards for Events Layout */
+        .event-row-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            /* Dynamic max-height fits ~3 items comfortably before scrolling triggers */
+            max-height: 750px;
+            overflow-y: auto;
+            padding-right: 12px;
+            /* Space for custom scrollbar */
+            scroll-behavior: smooth;
+        }
+
+        .event-item-row {
+            background: rgba(7, 11, 26, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            /* Fixed image boundary, fluid copy section */
+            grid-template-columns: 380px 1fr;
+            gap: 32px;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .event-item-row:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 240, 255, 0.2);
+            background: rgba(7, 11, 26, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Image Frame Block */
+        .event-media-block {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 180px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .event-media-block img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .event-item-row:hover .event-media-block img {
+            transform: scale(1.06);
+        }
+
+        /* Structural Details Container */
+        .event-details-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            gap: 16px;
+        }
+
+        .event-info-header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .event-item-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.3px;
+        }
+
+        .event-item-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Footer Action Elements */
+        .event-actions-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .tag-popularity {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            background: rgba(0, 255, 204, 0.05);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-details-action {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: var(--transition);
+        }
+
+        .btn-details-action:hover {
+            background: white;
+            color: var(--bg-deep);
+            border-color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .event-item-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 18px;
+            }
+
+            .event-media-block {
+                height: 180px;
+            }
+        }
+
+        /* AUTOMATIC SLIDER STYLES */
+        .stage-viewport {
+            width: 100%;
+            height: 460px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .slider-strip {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-frame {
+            width: 33.333%;
+            height: 100%;
+            position: relative;
+        }
+
+        .stage-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: scale(1);
+            transition: transform 8s linear;
+        }
+
+        /* Slow panning effect active on current frame */
+        .stage-viewport:hover .stage-image {
+            transform: scale(1.08);
+        }
+
+        .stage-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.4) 40%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Navigation controls */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(3, 7, 18, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .slider-arrow:hover {
+            background: var(--accent-blue);
+            color: var(--bg-deep);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px var(--accent-blue);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .arrow-left {
+            left: 24px;
+        }
+
+        .arrow-right {
+            right: 24px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--accent-blue);
+            width: 28px;
+            border-radius: 6px;
+            box-shadow: 0 0 12px var(--accent-blue);
+        }
+
+        /* DYNAMIC EVENT INFO CONTAINER DESIGN */
+        .event-info-panel {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: 16px;
+            position: relative;
+            min-height: 120px;
+        }
+
+        .dynamic-content-wrapper {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dynamic-content-wrapper.fade-out {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .info-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        .info-event-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .info-event-badge {
+            font-size: 0.75rem;
+            padding: 6px 16px;
+            border-radius: 30px;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            color: var(--accent-blue);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-details-grid {
+            display: flex;
+            gap: 32px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .info-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-detail-item i {
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+        }
+
+        /* Description Container */
+        .description-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .description-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+            letter-spacing: -0.3px;
+        }
+
+        .description-text {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        .description-highlight {
+            color: transparent;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            font-weight: 700;
+        }
+
+        /* FOOTER BRANDING */
+        .global-footer {
+            text-align: center;
+            padding: 32px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(3, 7, 18, 0.9);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .footer-heart {
+            color: var(--accent-red);
+            animation: pulse 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+            display: inline-block;
+            margin: 0 6px;
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 5px var(--accent-red));
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.25);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 16px;
+            }
+
+            .sidebar {
+                padding: 24px;
+            }
+
+            .stage-viewport {
+                height: 360px;
+            }
+
+            .info-details-grid {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <h1><span>//</span> Club Events Archive</h1>
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="eventSearch" placeholder="Search events..." onkeyup="filterEvents()">
+
+    <div class="dashboard-container">
+
+        <!-- SIDEBAR INTERFACE -->
+        <aside class="sidebar">
+            <div>
+                <!-- Brand Meta -->
+                <div class="brand-header">
+                    <span class="presentation-tag">UNI~NEXUS Presents</span>
+                    <h1 class="brand-title">BANDISH</h1>
+                    <p class="brand-tagline">// Harmony Unleashed</p>
+                </div>
+
+                <!-- Utility Controls -->
+                <div class="nav-header-controls">
+                    <!-- Home Button (Interactive Click Event Added) -->
+                    <button class="btn-home" onclick="window.location.href='Home.html'">
+                        <i class="fa-solid fa-house-chimney"></i> Home
+                    </button>
+
+                    <!-- Profile Container (Now Interactive with dropdown node built in) -->
+                    <div class="profile-container" id="profileContainer">
+                        <div class="avatar-circle" id="avatarCircle" title="User Menu"
+                            onclick="toggleProfileDropdown(event)">M</div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="dropdown-item" onclick="handleProfileOption('My Profile')">
+                                <i class="fa-solid fa-user-gear"></i> My Profile
+                            </div>
+                            <div class="dropdown-item" onclick="handleProfileOption('Settings')">
+                                <i class="fa-solid fa-sliders"></i> Settings
+                            </div>
+                            <div class="dropdown-item sign-out" onclick="handleProfileOption('Sign Out')">
+                                <i class="fa-solid fa-power-off"></i> Sign Out
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Links List -->
+                <ul class="navigation-menu">
+
+                    <li class="nav-item active" onclick="window.location.href='Events.html'">
+                        <i class="fa-solid fa-calendar-star"></i> Events
+                    </li>
+
+                    <li class="nav-item" onclick="window.location.href='Upcomings.html'">
+                        <i class="fa-solid fa-bolt"></i> Upcoming
+                    </li>
+
+                    <li class="nav-item" onclick="window.location.href='Domains.html'">
+                        <i class="fa-solid fa-guitars"></i> Domains
+                    </li>
+
+                    <li class="nav-item" onclick="window.location.href='Recruitment.html'">
+                        <i class="fa-solid fa-user-plus"></i> Recruitment
+                    </li>
+
+                    <li class="nav-item" onclick="window.location.href='Achievements.html'">
+                        <i class="fa-solid fa-trophy-award"></i> Achievements
+                    </li>
+
+                    <li class="nav-item" onclick="window.location.href='Team.html'">
+                        <i class="fa-solid fa-users"></i> Team Members
+                    </li>
+
+                    <li class="nav-item" onclick="window.location.href='Coordinator.html'">
+                        <i class="fa-solid fa-user-tie"></i> Coordinator
+                    </li>
+
+                    <div class="contact-divider">Direct Registry</div>
+
+                    <li class="nav-item contact-info-clickable" onclick="window.location.href='tel:123xxxxxxx'">
+                        <i class="fa-solid fa-phone-volume"></i> 123xxxxxxx
+                    </li>
+
+                    <li class="nav-item contact-info-clickable" onclick="window.location.href='mailto:abcd@club.com'">
+                        <i class="fa-solid fa-envelope-open-text"></i> abcd@club.com
+                    </li>
+
+                </ul>
             </div>
-        </div>
-        <div class="grid" id="eventsGrid">
-            <div class="card">
-                <div class="icon"><i class="fa-solid fa-guitar"></i></div>
-                <h3>Unplugged Nights</h3>
-                <p>An acoustic evening featuring raw, soulful vocal solos and minimalistic instrumental arrangements under the open sky.</p>
+
+            <!-- Footer Action Controls (Featuring the Extraordinary Neon Red Subscribe Switch) -->
+            <div class="sidebar-footer">
+                <button class="btn-subscribe" id="subscribeBtn" onclick="toggleSubscription()">
+                    <i class="fa-solid fa-bell"></i> <span>Subscribe</span>
+                </button>
+                <a href="https://instagram.com" target="_blank" class="social-icon-btn"
+                    title="Live Instagram Feed Link">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <button class="social-icon-btn notification-badge" title="Live Alerts Center"
+                    onclick="alert('System alert: Bandish Registrations are processing via UNI~NEXUS gateway.')">
+                    <i class="fa-solid fa-envelope"></i>
+                </button>
             </div>
-            <div class="card">
-                <div class="icon"><i class="fa-solid fa-drum"></i></div>
-                <h3>Rockfest Showdown</h3>
-                <p>Our annual high-voltage inter-college competition celebrating hard rock, heavy metal, and lightning guitar solos.</p>
-            </div>
-            <div class="card">
-                <div class="icon"><i class="fa-solid fa-sliders"></i></div>
-                <h3>Symphony Workshops</h3>
-                <p>Interactive composition bootcamps covering digital sound design, audio sampling, and foundational music theory structures.</p>
-            </div>
-        </div>
+        </aside>
+
+        <!-- MAIN MEDIA SHOWCASE WRAPPER -->
+        <main class="main-content">
+
+            <section class="events-section-card">
+
+                <div class="events-toolbar">
+                    <div class="search-wrapper">
+                        <span class="search-label-neon">Search</span>
+                        <input type="text" id="eventSearch" class="search-input"
+                            placeholder="Find rhythms, sets or syncs...">
+                    </div>
+
+                    <div class="filter-wrapper">
+                        <button class="btn-filter active"><i class="fa-solid fa-layer-group"></i> All Sets</button>
+                        <button class="btn-filter"><i class="fa-solid fa-fire-flame-curved"></i> Trending</button>
+                        <button class="btn-filter"><i class="fa-solid fa-guitar"></i> Acoustic</button>
+                    </div>
+                </div>
+
+                <!-- Active Events List Container (6 Cards Expanded) -->
+                <div class="event-row-container">
+
+                    <!-- Live Record Card 1 -->
+                    <article class="event-item-row">
+                        <div class="event-media-block">
+                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop"
+                                alt="Neon Symphony Arena">
+                            <div class="stage-overlay"></div>
+                        </div>
+                        <div class="event-details-block">
+                            <div class="event-info-header">
+                                <h3 class="event-item-name">Neon Symphony '26</h3>
+                                <p class="event-item-desc">An immersive electronic and classical synthesis event
+                                    bridging local indie instrumentalists into modern synthesized arrangements under
+                                    full cosmic laser design layouts.</p>
+                            </div>
+                            <div class="event-actions-row">
+                                <span class="tag-popularity"><i class="fa-solid fa-bolt"></i> 9.4k Tracking</span>
+                                <button class="btn-details-action"
+                                    onclick="alert('Pulling live server set coordinates...')">View Details</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Live Record Card 2 -->
+                    <article class="event-item-row">
+                        <div class="event-media-block">
+                            <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=1200&auto=format&fit=crop"
+                                alt="Mixer Deck Station">
+                            <div class="stage-overlay"></div>
+                        </div>
+                        <div class="event-details-block">
+                            <div class="event-info-header">
+                                <h3 class="event-item-name">Echoes of the Underground</h3>
+                                <p class="event-item-desc">A deep-dive showcase covering raw percussion arrangements,
+                                    garage metal fusion ensembles, and radical experimental bass design frameworks
+                                    curated across regional music loops.</p>
+                            </div>
+                            <div class="event-actions-row">
+                                <span class="tag-popularity"><i class="fa-solid fa-star"></i> High Demand</span>
+                                <button class="btn-details-action"
+                                    onclick="alert('Pulling live server set coordinates...')">View Details</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Live Record Card 3 -->
+                    <article class="event-item-row">
+                        <div class="event-media-block">
+                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1200&auto=format&fit=crop"
+                                alt="Cyberpunk Mixing Console deck">
+                            <div class="stage-overlay"></div>
+                        </div>
+                        <div class="event-details-block">
+                            <div class="event-info-header">
+                                <h3 class="event-item-name">Synthetic Resonance</h3>
+                                <p class="event-item-desc">A late-night industrial synth-wave marathon featuring custom
+                                    modular synthesizer hardware, immersive sub-bass frequencies, and generative neural
+                                    net visual mappings.</p>
+                            </div>
+                            <div class="event-actions-row">
+                                <span class="tag-popularity"><i class="fa-solid fa-bolt"></i> 5.2k Tracking</span>
+                                <button class="btn-details-action"
+                                    onclick="alert('Pulling live server set coordinates...')">View Details</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Live Record Card 4 -->
+                    <article class="event-item-row">
+                        <div class="event-media-block">
+                            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1200&auto=format&fit=crop"
+                                alt="Rhythm Grid Concert">
+                            <div class="stage-overlay"></div>
+                        </div>
+                        <div class="event-details-block">
+                            <div class="event-info-header">
+                                <h3 class="event-item-name">Acoustic Glitch Sessions</h3>
+                                <p class="event-item-desc">An experimental unplugged session where raw wooden
+                                    instrumentation is filtered live through granular delays and real-time electronic
+                                    modulation engines.</p>
+                            </div>
+                            <div class="event-actions-row">
+                                <span class="tag-popularity"><i class="fa-solid fa-heart"></i> Staff Pick</span>
+                                <button class="btn-details-action"
+                                    onclick="alert('Pulling live server set coordinates...')">View Details</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Live Record Card 5 -->
+                    <article class="event-item-row">
+                        <div class="event-media-block">
+                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop"
+                                alt="Laser show performance">
+                            <div class="stage-overlay"></div>
+                        </div>
+                        <div class="event-details-block">
+                            <div class="event-info-header">
+                                <h3 class="event-item-name">Hyperpop Convergence</h3>
+                                <p class="event-item-desc">A high-velocity showcase charting the chaotic limits of pop
+                                    music fusion, crushing futuristic baseline design textures, and maximum overdrive
+                                    pitch melodies.</p>
+                            </div>
+                            <div class="event-actions-row">
+                                <span class="tag-popularity"><i class="fa-solid fa-fire"></i> Trending</span>
+                                <button class="btn-details-action"
+                                    onclick="alert('Pulling live server set coordinates...')">View Details</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Live Record Card 6 -->
+                    <article class="event-item-row">
+                        <div class="event-media-block">
+                            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=1200&auto=format&fit=crop"
+                                alt="Crowd at stadium event">
+                            <div class="stage-overlay"></div>
+                        </div>
+                        <div class="event-details-block">
+                            <div class="event-info-header">
+                                <h3 class="event-item-name">Chamber Ambient Syncs</h3>
+                                <p class="event-item-desc">A deep sound bath event exploring spatial audio panning
+                                    layouts, slow-evolving drone pads, and minimalist string movements for an ultra-calm
+                                    atmospheric night.</p>
+                            </div>
+                            <div class="event-actions-row">
+                                <span class="tag-popularity"><i class="fa-solid fa-face-smile-beam"></i> Free
+                                    Entry</span>
+                                <button class="btn-details-action"
+                                    onclick="alert('Pulling live server set coordinates...')">View Details</button>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+        </main>
     </div>
+
+    <!-- GLOBAL FRAME FOOTER -->
+    <footer class="global-footer">
+        <span>@U~N Made By <span class="footer-heart"><i class="fa-solid fa-heartbeat"></i></span> Team Delta</span>
+    </footer>
+
+    <!-- INTERACTIVE BEHAVIORAL SCRIPTING -->
     <script>
-        function filterEvents() {
-            let input = document.getElementById('eventSearch').value.toLowerCase();
-            let cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                let title = card.querySelector('h3').innerText.toLowerCase();
-                card.style.display = title.includes(input) ? "" : "none";
-            });
+        // Interactive state switcher for navigation menu nodes
+        function handleNavClick(element, contextText) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('homeBtn').classList.remove('active');
+
+            if (element) {
+                element.classList.add('active');
+            }
+            console.log(`Switched interface layer to focus: ${contextText}`);
         }
+
+        // Home Button functional handler
+        function handleHomeClick() {
+            // Remove active tags from side menu layout list items
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+            // Apply theme highlights to home element
+            document.getElementById('homeBtn').classList.add('active');
+
+            console.log("Navigating back to main base home system index layer.");
+            alert("Welcome back to the Nexus Core Dashboard overview framework.");
+        }
+
+        // Profile Menu Component Overlay Toggles
+        function toggleProfileDropdown(event) {
+            event.stopPropagation(); // Prevents instant closing from outer context click trigger listener
+            const dropdown = document.getElementById('profileDropdown');
+            const avatar = document.getElementById('avatarCircle');
+
+            dropdown.classList.toggle('show');
+            avatar.classList.toggle('active');
+        }
+
+        // Dropdown Items Handler
+        function handleProfileOption(option) {
+            console.log(`Selected account function route: ${option}`);
+            alert(`Opening client parameters window for: ${option}`);
+
+            // Soft reset view state
+            closeProfileDropdown();
+        }
+
+        function closeProfileDropdown() {
+            document.getElementById('profileDropdown').classList.remove('show');
+            document.getElementById('avatarCircle').classList.remove('active');
+        }
+
+        // Universal Document Close Listener (Hides overlay dropdown smoothly when clicking into main viewport context workspace)
+        document.addEventListener('click', function (event) {
+            const container = document.getElementById('profileContainer');
+            if (!container.contains(event.target)) {
+                closeProfileDropdown();
+            }
+        });
+
+        // Subscription State Handler Toggle 
+        function toggleSubscription() {
+            const btn = document.getElementById('subscribeBtn');
+            const txt = btn.querySelector('span');
+            const icon = btn.querySelector('i');
+
+            if (!btn.classList.contains('subscribed')) {
+                btn.classList.add('subscribed');
+                txt.textContent = 'Subscribed!';
+                icon.className = 'fa-solid fa-heart-circle-check';
+                alert('Success! Connected with the UNI~NEXUS notification core.');
+            } else {
+                btn.classList.remove('subscribed');
+                txt.textContent = 'Subscribe';
+                icon.className = 'fa-solid fa-bell';
+            }
+        }
+
+        // --- DATA OBJECT ARRAY FOR SYNCHRONIZED SLIDER ---
+        const eventData = [
+            {
+                title: "Tulsi Utsav '24 Live Concert",
+                badge: "Featured Live",
+                date: "October 14, 2024",
+                venue: "Main Auditorium, MITS Campus",
+                type: "Acoustic & Fusion Ensemble"
+            },
+            {
+                title: "Nexus Sound Stage Auditions",
+                badge: "Recruitment Live",
+                date: "September 08, 2025",
+                venue: "OAT Amphitheatre Complex",
+                type: "Vocal & Instrumental Trials"
+            },
+            {
+                title: "Cyber Beats Rhythm Festival",
+                badge: "Electronic Arena",
+                date: "February 18, 2026",
+                venue: "Nexus Central Studio Block",
+                type: "Synthwave & Electronic Production"
+            }
+        ];
+
+        // --- SLIDER & INFO METADATA MECHANICS ENGINE ---
+        let currentSlideIndex = 0;
+        const totalSlides = eventData.length;
+
+        const sliderStrip = document.getElementById('sliderStrip');
+        const dots = document.querySelectorAll('.dot');
+        const infoWrapper = document.getElementById('infoWrapper');
+
+        // Target dynamic content slots
+        const eventTitleSlot = document.getElementById('eventTitle');
+        const eventBadgeSlot = document.getElementById('eventBadge');
+        const eventDateSlot = document.getElementById('eventDate');
+        const eventVenueSlot = document.getElementById('eventVenue');
+        const eventTypeSlot = document.getElementById('eventType');
+
+        let autoSlideTimer = setInterval(() => changeSlide(1), 5000);
+
+        function updateSliderTrack() {
+            sliderStrip.style.transform = `translateX(-${currentSlideIndex * 33.3333}%)`;
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlideIndex);
+            });
+
+            infoWrapper.classList.add('fade-out');
+
+            setTimeout(() => {
+                const currentData = eventData[currentSlideIndex];
+
+                eventTitleSlot.textContent = currentData.title;
+                eventBadgeSlot.textContent = currentData.badge;
+                eventDateSlot.textContent = currentData.date;
+                eventVenueSlot.textContent = currentData.venue;
+                eventTypeSlot.textContent = currentData.type;
+
+                infoWrapper.classList.remove('fade-out');
+            }, 300);
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= totalSlides) {
+                currentSlideIndex = 0;
+            } else if (currentSlideIndex < 0) {
+                currentSlideIndex = totalSlides - 1;
+            }
+            updateSliderTrack();
+            resetSliderTimer();
+        }
+
+        function gotoSlide(index) {
+            currentSlideIndex = index;
+            updateSliderTrack();
+            resetSliderTimer();
+        }
+
+        function resetSliderTimer() {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = setInterval(() => changeSlide(1), 5000);
+        }
+        // Added
+
+
+
     </script>
 </body>
+
 </html>
