@@ -57,16 +57,16 @@
         }
 
         /* Container Layout */
-       .dashboard-container {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 32px;
-    width: 100%;
-    min-height: 100vh;
-    padding: 24px;
-
-    align-items: stretch;
-}
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            width: 100%;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 24px;
+            align-items: stretch;
+        }
 
         /* SIDEBAR STYLE (Glassmorphism Overhaul) */
         .sidebar {
@@ -450,12 +450,13 @@
             gap: 32px;
             width: 100%;
         }
-        .sidebar,
-.main-content {
-    height: 100%;
-}
 
-      
+        .sidebar,
+        .main-content {
+            height: 100%;
+        }
+
+
 
         /* Added */
         /* --- EVENTS SECTION OVERHAUL --- */
@@ -1019,9 +1020,11 @@
                             <div class="dropdown-item" onclick="handleProfileOption('My Profile')">
                                 <i class="fa-solid fa-user-gear"></i> My Profile
                             </div>
+
                             <div class="dropdown-item" onclick="handleProfileOption('Settings')">
                                 <i class="fa-solid fa-sliders"></i> Settings
                             </div>
+
                             <div class="dropdown-item sign-out" onclick="handleProfileOption('Sign Out')">
                                 <i class="fa-solid fa-power-off"></i> Sign Out
                             </div>
@@ -1291,13 +1294,29 @@
         }
 
         // Dropdown Items Handler
-        function handleProfileOption(option) {
-            console.log(`Selected account function route: ${option}`);
-            alert(`Opening client parameters window for: ${option}`);
+       function handleProfileOption(option) {
 
-            // Soft reset view state
+            if (option === 'My Profile') {
+                window.location.href = '../Profile/Profile.html';
+            }
+
+            else if (option === 'Settings') {
+                window.location.href = 'Settings.html';
+            }
+
+            else if (option === 'Sign Out') {
+
+                // Clear login data if stored
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Redirect to login page
+                window.location.href = 'Login.html';
+            }
+
             closeProfileDropdown();
         }
+
 
         function closeProfileDropdown() {
             document.getElementById('profileDropdown').classList.remove('show');

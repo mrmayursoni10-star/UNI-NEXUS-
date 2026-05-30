@@ -12,26 +12,24 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap"
         rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
+            /* Cosmic Cyberpunk Deep Luxury Theme */
             --bg-deep: #030712;
             --bg-card: rgba(13, 21, 45, 0.45);
             --bg-sidebar: rgba(7, 11, 26, 0.65);
-
             --accent-blue: #00f0ff;
             --accent-neon: #7000ff;
             --accent-cyan: #00ffcc;
             --accent-red: #ff2a5f;
-
+            --accent-red-glow: rgba(255, 42, 95, 0.4);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-
+            --neon-glow: rgba(0, 240, 255, 0.3);
             --radius: 24px;
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-
             --glass-border: rgba(255, 255, 255, 0.05);
             --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
@@ -46,43 +44,63 @@
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-deep);
-
             background-image:
                 radial-gradient(at 0% 0%, rgba(112, 0, 255, 0.15) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(0, 240, 255, 0.12) 0px, transparent 50%),
                 radial-gradient(at 50% 50%, rgba(255, 42, 95, 0.03) 0px, transparent 50%);
-
             background-attachment: fixed;
-
             color: var(--text-main);
             min-height: 100vh;
-            overflow: hidden; /* Prevents double scrollbars on the body */
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
 
+        /* Container Layout */
         .dashboard-container {
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 32px;
             width: 100%;
-            height: 100vh; /* Fixed container height to enable inner scrolling */
+            min-height: 100vh;
+            margin: 0 auto;
             padding: 24px;
+            align-items: stretch;
         }
 
-        /* ================= SIDEBAR ================= */
-
+        /* SIDEBAR STYLE (Glassmorphism Overhaul) */
         .sidebar {
             background: var(--bg-sidebar);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius);
             padding: 32px 24px;
-
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: var(--glass-shadow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: visible;
+            /* Changed to visible so profile dropdown overflows cleanly */
+        }
 
-            box-shadow: var(--glass-shadow);
-            height: 100%; /* Keeps sidebar locked to container height */
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.05), transparent);
+            transform: skewX(-25deg);
+            transition: 0.75s;
+            pointer-events: none;
+            max-height: 800;
+        }
+
+        .sidebar:hover::before {
+            left: 120%;
         }
 
         .brand-header {
@@ -93,27 +111,32 @@
         .presentation-tag {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 0.7rem;
+            text-transform: uppercase;
             letter-spacing: 4px;
             color: var(--accent-cyan);
-            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
             font-weight: 700;
         }
 
         .brand-title {
             font-family: 'Syne', sans-serif;
-            font-size: 1.7rem;
-            margin: 8px 0;
+            font-size: 1.6rem;
+            font-weight: 800;
             letter-spacing: 4px;
-            background: linear-gradient(135deg, #fff 30%, var(--accent-blue), var(--accent-cyan));
+            margin: 8px 0;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-blue) 70%, var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 15px rgba(0, 240, 255, 0.4));
         }
 
         .brand-tagline {
-            color: var(--text-muted);
             font-size: 0.8rem;
+            color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.7;
         }
 
         .nav-header-controls {
@@ -121,25 +144,38 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
+            position: relative;
         }
 
         .btn-home {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
             color: white;
-            padding: 10px 22px;
+            padding: 10px 24px;
             border-radius: 30px;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .btn-home:hover {
+        .btn-home:hover,
+        .btn-home.active {
             border-color: var(--accent-blue);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-home.active {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05));
+        }
+
+        /* Profile Wrapper & Dropdown Menu */
+        .profile-container {
+            position: relative;
         }
 
         .avatar-circle {
@@ -151,18 +187,94 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 15px rgba(112, 0, 255, 0.4);
             cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
         }
 
+        .avatar-circle:hover,
+        .avatar-circle.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent-blue);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            width: 220px;
+            background: rgba(7, 11, 26, 0.95);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .profile-dropdown.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-item i {
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-item.sign-out {
+            color: var(--accent-red);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 4px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .dropdown-item.sign-out:hover {
+            background: var(--accent-red-glow);
+            color: white;
+        }
+
+        /* Navigation Links List */
         .navigation-menu {
             list-style: none;
             display: flex;
             flex-direction: column;
             gap: 8px;
-
             background: rgba(0, 0, 0, 0.2);
             padding: 8px;
             border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
 
         .nav-item {
@@ -170,86 +282,175 @@
             border-radius: 14px;
             cursor: pointer;
             color: var(--text-muted);
-
+            font-weight: 600;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 14px;
+            border: 1px solid transparent;
+        }
 
+        .nav-item i {
+            width: 22px;
+            text-align: center;
+            font-size: 1.15rem;
             transition: var(--transition);
         }
 
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
             color: white;
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.05);
+            padding-left: 24px;
+        }
+
+        .nav-item:hover i {
+            color: var(--accent-blue);
+            transform: scale(1.1);
         }
 
         .nav-item.active {
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
             color: #030712;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
             font-weight: 700;
+        }
+
+        .nav-item.active i {
+            color: #030712;
         }
 
         .contact-divider {
-            margin: 20px 0 8px;
-            font-size: 0.75rem;
-            color: #64748b;
-            padding-left: 18px;
-            letter-spacing: 2px;
+            margin: 20px 0 8px 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #475569;
+            padding-left: 18px;
+            font-weight: 700;
         }
 
+        .contact-info-clickable:hover {
+            color: var(--accent-cyan) !important;
+            background: rgba(0, 255, 204, 0.05) !important;
+            border-color: rgba(0, 255, 204, 0.1) !important;
+        }
+
+        /* Sidebar Footer Controls */
         .sidebar-footer {
             margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 24px;
         }
 
+        /* PREMIUM NEON RED SUBSCRIBE BUTTON STYLE */
         .btn-subscribe {
             flex: 1;
-            border: none;
             background: linear-gradient(135deg, #ff0044, var(--accent-red));
             color: white;
+            border: none;
             padding: 12px;
             border-radius: 14px;
             font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             transition: var(--transition);
+            box-shadow: 0 4px 20px var(--accent-red-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-subscribe::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            padding: 1.5px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
         }
 
         .btn-subscribe:hover {
-            transform: translateY(-2px);
+            transform: scale(1.03) translateY(-1px);
+            box-shadow: 0 6px 25px rgba(255, 42, 95, 0.6), 0 0 10px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #ff1a56, #ff4171);
+        }
+
+        .btn-subscribe.subscribed {
+            background: transparent;
+            border: 2px solid var(--accent-red);
+            color: var(--accent-red);
+            box-shadow: inset 0 0 10px var(--accent-red-glow);
+        }
+
+        .btn-subscribe.subscribed:hover {
+            background: var(--accent-red-glow);
+            color: #fff;
         }
 
         .social-icon-btn {
             width: 44px;
             height: 44px;
             border-radius: 14px;
-
+            background: rgba(255, 255, 255, 0.03);
             display: flex;
             align-items: center;
             justify-content: center;
-
+            color: var(--text-main);
             text-decoration: none;
-            color: white;
-
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 1.25rem;
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
         }
 
-        /* ================= MAIN CONTENT (SCROLL EFFECT APPLIED) ================= */
+        .social-icon-btn:hover {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-blue);
+            transform: translateY(-3px);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.15);
+        }
 
+        .notification-badge::after {
+            content: '1';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px var(--accent-red);
+        }
+
+        /* ================= MAIN CONTENT ================= */
         .main-content {
             width: 100%;
             height: 100%;
-            overflow-y: auto; /* Enables vertical scrolling exclusively for the right section */
-            padding-right: 8px; /* Extra padding space so scrollbar doesn't clip your cards */
+            overflow-y: auto;
+            padding-right: 8px;
         }
 
-        /* Customizable Elegant Cyberpunk Scrollbar styles for the right side */
         .main-content::-webkit-scrollbar {
             width: 6px;
         }
@@ -278,10 +479,8 @@
             background: var(--bg-card);
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(18px);
-
             border-radius: 28px;
             padding: 28px;
-
             box-shadow: var(--glass-shadow);
         }
 
@@ -289,13 +488,10 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.7rem;
             font-weight: 700;
-
             margin-bottom: 24px;
-
             display: flex;
             align-items: center;
             gap: 12px;
-
             color: white;
         }
 
@@ -305,46 +501,41 @@
 
         .domain-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
         }
 
+        /* ================= ENHANCED DOMAIN CARD ================= */
         .domain-card {
             position: relative;
-
-            background: rgba(0, 0, 0, 0.45);
-
+            background: rgba(5, 10, 25, 0.7);
             border-radius: 24px;
-            padding: 22px;
-
-            border: 1px solid rgba(255, 255, 255, 0.05);
-
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             overflow: hidden;
-
             transition: var(--transition);
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 320px;
         }
 
         .domain-card::before {
             content: "";
             position: absolute;
             inset: 0;
-            background:
-                linear-gradient(135deg,
-                    rgba(0, 240, 255, 0.08),
-                    transparent 40%);
-
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.08), transparent 50%);
             opacity: 0;
             transition: var(--transition);
+            pointer-events: none;
         }
 
         .domain-card:hover {
             transform: translateY(-6px);
-            border-color: rgba(0, 240, 255, 0.25);
-
+            border-color: rgba(0, 240, 255, 0.3);
             box-shadow:
-                0 15px 35px rgba(0, 0, 0, 0.45),
-                0 0 25px rgba(0, 240, 255, 0.12);
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(0, 240, 255, 0.15);
         }
 
         .domain-card:hover::before {
@@ -355,82 +546,158 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .domain-icon {
-            width: 56px;
-            height: 56px;
-
-            border-radius: 18px;
-
-            background: rgba(255, 255, 255, 0.06);
-
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
             display: flex;
             align-items: center;
             justify-content: center;
-
-            font-size: 1.35rem;
-
+            font-size: 1.4rem;
             color: var(--accent-blue);
-
             border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.02);
+        }
+
+        .domain-card:nth-child(2n) .domain-icon {
+            color: var(--accent-cyan);
+        }
+
+        .domain-card:nth-child(3n) .domain-icon {
+            color: var(--accent-red);
         }
 
         .domain-count {
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: var(--accent-cyan);
-
             border: 1px solid rgba(0, 255, 204, 0.2);
-
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 30px;
-
-            background: rgba(0, 255, 204, 0.05);
-
+            background: rgba(0, 255, 204, 0.04);
             font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .domain-body {
+            margin-bottom: 20px;
+            flex-grow: 1;
         }
 
         .domain-name {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: white;
+            letter-spacing: -0.3px;
         }
 
         .domain-lead {
             color: var(--text-muted);
-            margin-bottom: 16px;
-            line-height: 1.5;
-            font-size: 0.96rem;
+            line-height: 1.6;
+            font-size: 0.92rem;
+            font-weight: 400;
+        }
+
+        /* ================= MEMBERS PANEL INSIDE CARD ================= */
+        .member-toggle {
+            margin: 16px 0 0 0;
+            padding: 12px 16px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--accent-blue);
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .member-toggle:hover {
+            background: rgba(255, 255, 255, 0.07);
+            color: white;
+        }
+
+        .member-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .member-toggle.open i {
+            transform: rotate(180deg);
+            color: var(--accent-cyan);
+        }
+
+        .member-list {
+            display: none;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .member-list.show {
+            display: flex;
+        }
+
+        .member-chip {
+            padding: 6px 12px;
+            border-radius: 30px;
+            background: rgba(0, 240, 255, 0.06);
+            border: 1px solid rgba(0, 240, 255, 0.12);
+            color: #e2e8f0;
+            font-size: 0.78rem;
+            transition: var(--transition);
+        }
+
+        .member-chip:hover {
+            background: rgba(0, 255, 204, 0.1);
+            border-color: var(--accent-cyan);
+            color: white;
+            transform: translateY(-1px);
         }
 
         .domain-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .lead-badge {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .lead-avatar {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-
             background: linear-gradient(135deg, var(--accent-neon), var(--accent-blue));
-
             display: flex;
             align-items: center;
             justify-content: center;
-
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 700;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .lead-info {
+            display: flex;
+            flex-direction: column;
         }
 
         .lead-name {
@@ -439,46 +706,65 @@
             font-weight: 600;
         }
 
-        .view-btn {
-            border: none;
-            background: rgba(255, 255, 255, 0.05);
+        .category-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;
+            margin-bottom: 4px;
+        }
 
-            border: 1px solid rgba(255, 255, 255, 0.08);
-
+        .category-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             color: white;
-
-            padding: 10px 18px;
+            padding: 12px 24px;
             border-radius: 14px;
-
             cursor: pointer;
             transition: var(--transition);
-
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
-        .view-btn:hover {
-            background: white;
-            color: black;
+        .category-btn:hover {
+            border-color: var(--accent-blue);
+            background: rgba(0, 240, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
         }
 
-        .global-footer {
-            text-align: center;
-            padding: 28px;
-            color: var(--text-muted);
+        .category-page {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
         }
 
-        .footer-heart {
-            color: var(--accent-red);
+        .active-category {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 1024px) {
             body {
-                overflow: auto; /* Fallback to natural layout scroll if page breaks stack natively on mobile dimensions */
+                overflow: auto;
             }
+
             .dashboard-container {
                 grid-template-columns: 1fr;
                 height: auto;
             }
+
             .main-content {
                 height: auto;
                 overflow-y: visible;
@@ -489,18 +775,81 @@
             .domain-grid {
                 grid-template-columns: 1fr;
             }
+
+            .category-controls {
+                justify-content: space-between;
+                width: 100%;
+            }
+        }
+
+        .global-footer {
+            text-align: center;
+            padding: 32px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(3, 7, 18, 0.9);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .footer-heart {
+            color: var(--accent-red);
+            animation: pulse 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+            display: inline-block;
+            margin: 0 6px;
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 5px var(--accent-red));
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.25);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 16px;
+            }
+
+            .sidebar {
+                padding: 24px;
+            }
+
+            .stage-viewport {
+                height: 360px;
+            }
+
+            .info-details-grid {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
+
 
 <body>
 
     <div class="dashboard-container">
 
         <aside class="sidebar">
-
             <div>
-
                 <div class="brand-header">
                     <span class="presentation-tag">UNI~NEXUS Presents</span>
                     <h1 class="brand-title">BANDISH</h1>
@@ -508,532 +857,755 @@
                 </div>
 
                 <div class="nav-header-controls">
-
                     <button class="btn-home" onclick="window.location.href='club_interface.html'">
-                        <i class="fa-solid fa-house"></i>
-                        Back
+                        <i class="fa-solid fa-house-chimney"></i> Back
                     </button>
 
-                    <div class="avatar-circle">M</div>
+                    <div class="profile-container" id="profileContainer">
+                        <div class="avatar-circle" id="avatarCircle" title="User Menu"
+                            onclick="toggleProfileDropdown(event)">M</div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="dropdown-item" onclick="handleProfileOption('My Profile')">
+                                <i class="fa-solid fa-user-gear"></i> My Profile
+                            </div>
+
+                            <div class="dropdown-item" onclick="handleProfileOption('Settings')">
+                                <i class="fa-solid fa-sliders"></i> Settings
+                            </div>
+
+                            <div class="dropdown-item sign-out" onclick="handleProfileOption('Sign Out')">
+                                <i class="fa-solid fa-power-off"></i> Sign Out
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <ul class="navigation-menu">
+                  <ul class="navigation-menu">
 
-                    <li class="nav-item" onclick="window.location.href='Events.html'">
-                        <i class="fa-solid fa-calendar-star"></i>
-                        Events
+                    <li class="nav-item " onclick="window.location.href='Events.html'">
+                        <i class="fa-solid fa-calendar-star"></i> Events
                     </li>
 
-                    <li class="nav-item">
-                        <i class="fa-solid fa-bolt"></i>
-                        Upcoming
+                    <li class="nav-item" onclick="window.location.href='Upcomings.html'">
+                        <i class="fa-solid fa-bolt"></i> Upcoming
                     </li>
 
-                    <li class="nav-item active">
-                        <i class="fa-solid fa-guitars"></i>
-                        Domains
+                    <li class="nav-item active" onclick="window.location.href='Domains.html'">
+                        <i class="fa-solid fa-guitars"></i> Domains
                     </li>
 
-                    <li class="nav-item">
-                        <i class="fa-solid fa-user-plus"></i>
-                        Recruitment
+                    <li class="nav-item" onclick="window.location.href='Recruitment.html'">
+                        <i class="fa-solid fa-user-plus"></i> Recruitment
                     </li>
 
-                    <li class="nav-item">
-                        <i class="fa-solid fa-trophy"></i>
-                        Achievements
+                    <li class="nav-item" onclick="window.location.href='Achievements.html'">
+                        <i class="fa-solid fa-trophy-award"></i> Achievements
                     </li>
 
-                    <li class="nav-item">
-                        <i class="fa-solid fa-users"></i>
-                        Team Members
+                    <li class="nav-item" onclick="window.location.href='Team.html'">
+                        <i class="fa-solid fa-users"></i> Team Members
                     </li>
 
-                    <li class="nav-item">
-                        <i class="fa-solid fa-user-tie"></i>
-                        Coordinator
+                    <li class="nav-item" onclick="window.location.href='Coordinator.html'">
+                        <i class="fa-solid fa-user-tie"></i> Coordinator
                     </li>
 
                     <div class="contact-divider">Direct Registry</div>
 
-                    <li class="nav-item">
-                        <i class="fa-solid fa-phone"></i>
-                        123xxxxxxx
+                    <li class="nav-item contact-info-clickable" onclick="window.location.href='tel:123xxxxxxx'">
+                        <i class="fa-solid fa-phone-volume"></i> 123xxxxxxx
                     </li>
 
-                    <li class="nav-item">
-                        <i class="fa-solid fa-envelope"></i>
-                        abcd@club.com
+                    <li class="nav-item contact-info-clickable" onclick="window.location.href='mailto:abcd@club.com'">
+                        <i class="fa-solid fa-envelope-open-text"></i> abcd@club.com
                     </li>
 
                 </ul>
-
             </div>
 
             <div class="sidebar-footer">
-
-                <button class="btn-subscribe">
-                    Subscribe
+                <button class="btn-subscribe" id="subscribeBtn" onclick="toggleSubscription()">
+                    <i class="fa-solid fa-bell"></i> <span>Subscribe</span>
                 </button>
-
-                <a href="#" class="social-icon-btn">
+                <a href="https://instagram.com" target="_blank" class="social-icon-btn"
+                    title="Live Instagram Feed Link">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
-
-                <button class="social-icon-btn">
+                <button class="social-icon-btn notification-badge" title="Live Alerts Center"
+                    onclick="alert('System alert: Bandish Registrations are processing via UNI~NEXUS gateway.')">
                     <i class="fa-solid fa-envelope"></i>
                 </button>
-
             </div>
-
         </aside>
 
         <main class="main-content">
-
             <div class="domain-wrapper">
 
-                <section class="domain-section">
+                <div class="category-controls">
+                    <button class="category-btn" onclick="previousCategory()">
+                        <i class="fa-solid fa-chevron-left"></i> Previous
+                    </button>
+                    <button class="category-btn" onclick="nextCategory()">
+                        Next <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
 
+                <section class="domain-section category-page active-category">
                     <h2 class="domain-section-title">
-                        <i class="fa-solid fa-waveform"></i>
-                        Club Performance Domains
+                        <i class="fa-solid fa-waveform-lines"></i> Club Performance Domains
                     </h2>
 
                     <div class="domain-grid">
-
-                        <div class="domain-card" onclick="openDomain('Vocalists')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-microphone-lines"></i>
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+                                    <span class="domain-count">24 Members</span>
                                 </div>
-
-                                <div class="domain-count">
-                                    24 Members
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Vocalists</h3>
+                                    <p class="domain-lead">Core pristine singers specializing and performing classical
+                                        compositions, hard rock, modern indie, and fusion vocals.</p>
+                                </div>
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span> <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="member-list">
+                                    <span class="member-chip">Rahul</span><span class="member-chip">Aman</span>
+                                    <span class="member-chip">Priya</span><span class="member-chip">Sneha</span>
+                                    <span class="member-chip">Karan</span><span class="member-chip">Riya</span>
+                                    <span class="member-chip">Ankit</span><span class="member-chip">Shivam</span>
                                 </div>
                             </div>
-
-                            <div class="domain-name">Vocalists</div>
-
-                            <div class="domain-lead">
-                                Lead: Aryan Sharma • Core singers performing classical, rock, indie & fusion vocals.
-                            </div>
-
                             <div class="domain-footer">
-
                                 <div class="lead-badge">
-                                    <div class="lead-avatar">A</div>
-                                    <div class="lead-name">Aryan</div>
+                                    <div class="lead-avatar"
+                                        style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));">
+                                        A</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Aryan Sharma</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">Domain Lead</small>
+                                    </div>
                                 </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
                             </div>
-
                         </div>
 
-                        <div class="domain-card" onclick="openDomain('Instrumentalists')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-guitar"></i>
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon"><i class="fa-solid fa-guitar"></i></div>
+                                    <span class="domain-count">16 Members</span>
                                 </div>
-
-                                <div class="domain-count">
-                                    18 Members
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Instrumentalists</h3>
+                                    <p class="domain-lead">Electric guitarists, classical pianists, heavy drummers, and
+                                        live stage ambient instrumental experts.</p>
+                                </div>
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span> <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="member-list">
+                                    <span class="member-chip">Kabir</span><span class="member-chip">Rohan</span>
+                                    <span class="member-chip">Isha</span><span class="member-chip">Tanmay</span>
+                                    <span class="member-chip">Mehak</span><span class="member-chip">Arjun</span>
                                 </div>
                             </div>
-
-                            <div class="domain-name">Instrumentalists</div>
-
-                            <div class="domain-lead">
-                                Lead: Vihaan • Guitarists, pianists, drummers & live stage instrumental experts.
-                            </div>
-
                             <div class="domain-footer">
-
                                 <div class="lead-badge">
-                                    <div class="lead-avatar">V</div>
-                                    <div class="lead-name">Vihaan</div>
+                                    <div class="lead-avatar"
+                                        style="background: linear-gradient(135deg, var(--accent-neon), var(--accent-red));">
+                                        V</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Vihaan Singh</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">Domain Lead</small>
+                                    </div>
                                 </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
                             </div>
-
                         </div>
 
-                        <div class="domain-card" onclick="openDomain('Rappers')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-headphones"></i>
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon"><i class="fa-solid fa-bolt"></i></div>
+                                    <span class="domain-count">8 Members</span>
                                 </div>
-
-                                <div class="domain-count">
-                                    12 Members
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Rappers</h3>
+                                    <p class="domain-lead">Underground raw rap cyphers, rhythmic battle sessions, and
+                                        intricate fast lyrical showcases.</p>
+                                </div>
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span> <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="member-list">
+                                    <span class="member-chip">Yash</span><span class="member-chip">Sarthak</span>
+                                    <span class="member-chip">Abhi</span><span class="member-chip">Divya</span>
                                 </div>
                             </div>
-
-                            <div class="domain-name">Rappers</div>
-
-                            <div class="domain-lead">
-                                Lead: Krish • Underground rap cyphers, battle sessions & lyrical showcases.
-                            </div>
-
                             <div class="domain-footer">
-
                                 <div class="lead-badge">
-                                    <div class="lead-avatar">K</div>
-                                    <div class="lead-name">Krish</div>
+                                    <div class="lead-avatar"
+                                        style="background: linear-gradient(135deg, var(--accent-orange), var(--accent-red));">
+                                        K</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Krish Mehta</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">Domain Lead</small>
+                                    </div>
                                 </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
                             </div>
-
                         </div>
 
-                        <div class="domain-card" onclick="openDomain('Beatboxers')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-volume-high"></i>
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon"><i class="fa-solid fa-drum"></i></div>
+                                    <span class="domain-count">22 Members</span>
                                 </div>
-
-                                <div class="domain-count">
-                                    10 Members
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Beatboxers</h3>
+                                    <p class="domain-lead">Vocal percussion rhythm creators specializing in
+                                        multi-instrument live loops and heavy bass patterns.</p>
+                                </div>
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span> <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="member-list">
+                                    <span class="member-chip">Rishi</span><span class="member-chip">Nikhil</span>
+                                    <span class="member-chip">Varun</span><span class="member-chip">Pranav</span>
                                 </div>
                             </div>
-
-                            <div class="domain-name">Beatboxers</div>
-
-                            <div class="domain-lead">
-                                Lead: Daksh • Rhythm creators specializing in live loop and bass patterns.
-                            </div>
-
                             <div class="domain-footer">
-
                                 <div class="lead-badge">
-                                    <div class="lead-avatar">D</div>
-                                    <div class="lead-name">Daksh</div>
+                                    <div class="lead-avatar"
+                                        style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-neon));">
+                                        D</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Daksh Verma</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">Domain Lead</small>
+                                    </div>
                                 </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
                             </div>
-
                         </div>
 
-                        <div class="domain-card" onclick="openDomain('Music Production')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-sliders"></i>
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon"><i class="fa-solid fa-sliders"></i></div>
+                                    <span class="domain-count">20 Members</span>
                                 </div>
-
-                                <div class="domain-count">
-                                    9 Members
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Music Production</h3>
+                                    <p class="domain-lead">DAW studio production, spatial mixing, frequency mastering,
+                                        and digital live sound engineering.</p>
+                                </div>
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span> <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="member-list">
+                                    <span class="member-chip">Aditya</span><span class="member-chip">Shreya</span>
+                                    <span class="member-chip">Ritvik</span><span class="member-chip">Dev</span>
                                 </div>
                             </div>
-
-                            <div class="domain-name">Music Production</div>
-
-                            <div class="domain-lead">
-                                Lead: Harsh • Studio production, mixing, mastering and sound engineering.
-                            </div>
-
                             <div class="domain-footer">
-
                                 <div class="lead-badge">
-                                    <div class="lead-avatar">H</div>
-                                    <div class="lead-name">Harsh</div>
+                                    <div class="lead-avatar"
+                                        style="background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));">
+                                        H</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Harsh Patel</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">Domain Lead</small>
+                                    </div>
                                 </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
                             </div>
-
                         </div>
 
-                        <div class="domain-card" onclick="openDomain('Classical Music')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-music"></i>
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon"><i class="fa-solid fa-music"></i></div>
+                                    <span class="domain-count">18 Members</span>
                                 </div>
-
-                                <div class="domain-count">
-                                    15 Members
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Classical Music</h3>
+                                    <p class="domain-lead">Pure Indian traditional Hindustani/Carnatic semi-classical
+                                        vocal and acoustic instrumental arrangements.</p>
+                                </div>
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span> <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="member-list">
+                                    <span class="member-chip">Ananya</span><span class="member-chip">Madhur</span>
+                                    <span class="member-chip">Vani</span><span class="member-chip">Gaurav</span>
                                 </div>
                             </div>
-
-                            <div class="domain-name">Classical Music</div>
-
-                            <div class="domain-lead">
-                                Lead: Meera • Indian classical vocal and instrumental performance team.
-                            </div>
-
                             <div class="domain-footer">
-
                                 <div class="lead-badge">
-                                    <div class="lead-avatar">M</div>
-                                    <div class="lead-name">Meera</div>
+                                    <div class="lead-avatar"
+                                        style="background: linear-gradient(135deg, var(--accent-red), var(--accent-orange));">
+                                        M</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Meera Iyer</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">Domain Lead</small>
+                                    </div>
                                 </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </section>
 
-                <section class="domain-section">
-
+                <section class="domain-section category-page">
                     <h2 class="domain-section-title">
-                        <i class="fa-solid fa-layer-group"></i>
-                        Club Managing Domains
+                        <i class="fa-solid fa-layer-group"></i> Club Managing Domains
                     </h2>
 
                     <div class="domain-grid">
-
-                        <div class="domain-card" onclick="openDomain('Technical')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-code"></i>
+                        <!-- Technical -->
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon">
+                                        <i class="fa-solid fa-code"></i>
+                                    </div>
+                                    <span class="domain-count">12 Members</span>
                                 </div>
 
-                                <div class="domain-count">
-                                    14 Members
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Technical</h3>
+                                    <p class="domain-lead">
+                                        Developing and maintaining club websites, registration portals,
+                                        databases, event management systems and digital infrastructure.
+                                    </p>
                                 </div>
-                            </div>
 
-                            <div class="domain-name">Technical</div>
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
 
-                            <div class="domain-lead">
-                                Lead: Raghav • Website, backend, automation and technical event systems.
+                                <div class="member-list">
+                                    <span class="member-chip">Sameer</span>
+                                    <span class="member-chip">Tushar</span>
+                                    <span class="member-chip">Neha</span>
+                                    <span class="member-chip">Prateek</span>
+                                </div>
                             </div>
 
                             <div class="domain-footer">
-
                                 <div class="lead-badge">
-                                    <div class="lead-avatar">R</div>
-                                    <div class="lead-name">Raghav</div>
+                                    <div class="lead-avatar"
+                                        style="background: linear-gradient(135deg, var(--accent-neon), var(--accent-cyan));">
+                                        S
+                                    </div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Siddharth Sen</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">
+                                            Domain Lead
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- PR & Marketing -->
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon">
+                                        <i class="fa-solid fa-bullhorn"></i>
+                                    </div>
+                                    <span class="domain-count">13 Members</span>
                                 </div>
 
-                                <button class="view-btn">
-                                    Explore
-                                </button>
+                                <div class="domain-body">
+                                    <h3 class="domain-name">PR & Marketing</h3>
+                                    <p class="domain-lead">
+                                        Managing club branding, promotional campaigns, media outreach,
+                                        sponsorship communications, audience engagement and public relations
+                                        to expand the club's visibility across campus and beyond.
+                                    </p>
+                                </div>
 
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+
+                                <div class="member-list">
+                                    <span class="member-chip">Ananya</span>
+                                    <span class="member-chip">Aarush</span>
+                                    <span class="member-chip">Ritika</span>
+                                    <span class="member-chip">Yuvraj</span>
+                                    <span class="member-chip">Khushi</span>
+                                    <span class="member-chip">Priyansh</span>
+                                </div>
                             </div>
 
+                            <div class="domain-footer">
+                                <div class="lead-badge">
+                                    <div class="lead-avatar"
+                                        style="background: linear-gradient(135deg, #ff8a00, #ff2a5f);">
+                                        P
+                                    </div>
+
+                                    <div class="lead-info">
+                                        <span class="lead-name">Priya Malhotra</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">
+                                            Domain Lead
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="domain-card" onclick="openDomain('PR & Marketing')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-bullhorn"></i>
+                        <!-- Videography -->
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon">
+                                        <i class="fa-solid fa-video"></i>
+                                    </div>
+                                    <span class="domain-count">10 Members</span>
                                 </div>
 
-                                <div class="domain-count">
-                                    16 Members
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Videography</h3>
+                                    <p class="domain-lead">
+                                        Capturing performances, producing promotional videos,
+                                        creating aftermovies and managing all visual storytelling projects.
+                                    </p>
                                 </div>
-                            </div>
 
-                            <div class="domain-name">PR & Marketing</div>
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
 
-                            <div class="domain-lead">
-                                Lead: Siya • Branding, promotions and external outreach campaigns.
+                                <div class="member-list">
+                                    <span class="member-chip">Aryan</span>
+                                    <span class="member-chip">Priyanshu</span>
+                                    <span class="member-chip">Ritika</span>
+                                    <span class="member-chip">Anushka</span>
+                                </div>
                             </div>
 
                             <div class="domain-footer">
-
-                                <div class="lead-badge">
-                                    <div class="lead-avatar">S</div>
-                                    <div class="lead-name">Siya</div>
-                                </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="domain-card" onclick="openDomain('Event Management')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-calendar-check"></i>
-                                </div>
-
-                                <div class="domain-count">
-                                    22 Members
-                                </div>
-                            </div>
-
-                            <div class="domain-name">Event Management</div>
-
-                            <div class="domain-lead">
-                                Lead: Tanmay • Complete handling of stage, logistics and crowd coordination.
-                            </div>
-
-                            <div class="domain-footer">
-
-                                <div class="lead-badge">
-                                    <div class="lead-avatar">T</div>
-                                    <div class="lead-name">Tanmay</div>
-                                </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="domain-card" onclick="openDomain('Social Media')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-hashtag"></i>
-                                </div>
-
-                                <div class="domain-count">
-                                    11 Members
-                                </div>
-                            </div>
-
-                            <div class="domain-name">Social Media</div>
-
-                            <div class="domain-lead">
-                                Lead: Kavya • Reels, campaigns, engagement and social branding systems.
-                            </div>
-
-                            <div class="domain-footer">
-
-                                <div class="lead-badge">
-                                    <div class="lead-avatar">K</div>
-                                    <div class="lead-name">Kavya</div>
-                                </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="domain-card" onclick="openDomain('Photography')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-camera-retro"></i>
-                                </div>
-
-                                <div class="domain-count">
-                                    13 Members
-                                </div>
-                            </div>
-
-                            <div class="domain-name">Photography</div>
-
-                            <div class="domain-lead">
-                                Lead: Yash • DSLR capture, concert photography and visual framing.
-                            </div>
-
-                            <div class="domain-footer">
-
-                                <div class="lead-badge">
-                                    <div class="lead-avatar">Y</div>
-                                    <div class="lead-name">Yash</div>
-                                </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="domain-card" onclick="openDomain('Videography')">
-
-                            <div class="domain-top">
-                                <div class="domain-icon">
-                                    <i class="fa-solid fa-video"></i>
-                                </div>
-
-                                <div class="domain-count">
-                                    8 Members
-                                </div>
-                            </div>
-
-                            <div class="domain-name">Videography</div>
-
-                            <div class="domain-lead">
-                                Lead: Arpit • Cinematic edits, aftermovies and live capture systems.
-                            </div>
-
-                            <div class="domain-footer">
-
                                 <div class="lead-badge">
                                     <div class="lead-avatar">A</div>
-                                    <div class="lead-name">Arpit</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Aarav Mehta</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">
+                                            Domain Lead
+                                        </small>
+                                    </div>
                                 </div>
-
-                                <button class="view-btn">
-                                    Explore
-                                </button>
-
                             </div>
-
                         </div>
 
+                        <!-- Photography -->
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon">
+                                        <i class="fa-solid fa-camera"></i>
+                                    </div>
+                                    <span class="domain-count">8 Members</span>
+                                </div>
+
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Photography</h3>
+                                    <p class="domain-lead">
+                                        Covering club events, concerts and workshops through professional
+                                        photography while maintaining the club media archive.
+                                    </p>
+                                </div>
+
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+
+                                <div class="member-list">
+                                    <span class="member-chip">Kunal</span>
+                                    <span class="member-chip">Pallavi</span>
+                                    <span class="member-chip">Vansh</span>
+                                    <span class="member-chip">Rohit</span>
+                                </div>
+                            </div>
+
+                            <div class="domain-footer">
+                                <div class="lead-badge">
+                                    <div class="lead-avatar">N</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Neha Sharma</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">
+                                            Domain Lead
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documentation -->
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon">
+                                        <i class="fa-solid fa-file-lines"></i>
+                                    </div>
+                                    <span class="domain-count">14 Members</span>
+                                </div>
+
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Documentation</h3>
+                                    <p class="domain-lead">
+                                        Maintaining event records, meeting reports, project documentation,
+                                        achievements and official club archives.
+                                    </p>
+                                </div>
+
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+
+                                <div class="member-list">
+                                    <span class="member-chip">Riya</span>
+                                    <span class="member-chip">Harsh</span>
+                                    <span class="member-chip">Muskan</span>
+                                    <span class="member-chip">Saurabh</span>
+                                </div>
+                            </div>
+
+                            <div class="domain-footer">
+                                <div class="lead-badge">
+                                    <div class="lead-avatar">R</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Ritika Kapoor</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">
+                                            Domain Lead
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Graphic Design -->
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon">
+                                        <i class="fa-solid fa-palette"></i>
+                                    </div>
+                                    <span class="domain-count">11 Members</span>
+                                </div>
+
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Graphic Design</h3>
+                                    <p class="domain-lead">
+                                        Designing posters, banners, social media creatives,
+                                        merchandise artwork and maintaining the club's visual identity.
+                                    </p>
+                                </div>
+
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+
+                                <div class="member-list">
+                                    <span class="member-chip">Yash</span>
+                                    <span class="member-chip">Diya</span>
+                                    <span class="member-chip">Aman</span>
+                                    <span class="member-chip">Khushi</span>
+                                </div>
+                            </div>
+
+                            <div class="domain-footer">
+                                <div class="lead-badge">
+                                    <div class="lead-avatar">Y</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Yash Verma</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">
+                                            Domain Lead
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Media & Content Creation -->
+                        <div class="domain-card">
+                            <div>
+                                <div class="domain-top">
+                                    <div class="domain-icon">
+                                        <i class="fa-solid fa-hashtag"></i>
+                                    </div>
+                                    <span class="domain-count">16 Members</span>
+                                </div>
+
+                                <div class="domain-body">
+                                    <h3 class="domain-name">Social Media & Content Creation</h3>
+                                    <p class="domain-lead">
+                                        Managing social media platforms, creating engaging content,
+                                        promoting events and increasing the club's online presence.
+                                    </p>
+                                </div>
+
+                                <div class="member-toggle" onclick="toggleMembers(this)">
+                                    <span>Roster Members</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+
+                                <div class="member-list">
+                                    <span class="member-chip">Abhishek</span>
+                                    <span class="member-chip">Sakshi</span>
+                                    <span class="member-chip">Tanmay</span>
+                                    <span class="member-chip">Rohan</span>
+                                </div>
+                            </div>
+
+                            <div class="domain-footer">
+                                <div class="lead-badge">
+                                    <div class="lead-avatar">T</div>
+                                    <div class="lead-info">
+                                        <span class="lead-name">Tanmay Gupta</span>
+                                        <small style="color: var(--text-muted); font-size: 0.75rem;">
+                                            Domain Lead
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </section>
 
             </div>
-
-            <footer class="global-footer">
-                @U~N Made By
-                <span class="footer-heart">
-                    <i class="fa-solid fa-heartbeat"></i>
-                </span>
-                Team Delta
-            </footer>
-
         </main>
-
     </div>
+    <footer class="global-footer">
+        <span>@U~N Made By <span class="footer-heart"><i class="fa-solid fa-heartbeat"></i></span> Team Delta</span>
+    </footer>
 
     <script>
-        function openDomain(domainName) {
-            alert(domainName + " domain opened.");
+        function handleNavClick(element, contextText) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('homeBtn').classList.remove('active');
+
+            if (element) {
+                element.classList.add('active');
+            }
+            console.log(`Switched interface layer to focus: ${contextText}`);
+        }
+
+        // Home Button functional handler
+        function handleHomeClick() {
+            // Remove active tags from side menu layout list items
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+            // Apply theme highlights to home element
+            document.getElementById('homeBtn').classList.add('active');
+
+            console.log("Navigating back to main base home system index layer.");
+            alert("Welcome back to the Nexus Core Dashboard overview framework.");
+        }
+
+        // Profile Menu Component Overlay Toggles
+        function toggleProfileDropdown(event) {
+            event.stopPropagation(); // Prevents instant closing from outer context click trigger listener
+            const dropdown = document.getElementById('profileDropdown');
+            const avatar = document.getElementById('avatarCircle');
+
+            dropdown.classList.toggle('show');
+            avatar.classList.toggle('active');
+        }
+
+        // Dropdown Items Handler
+        function handleProfileOption(option) {
+
+            if (option === 'My Profile') {
+                window.location.href = '../Profile/Profile.html';
+            }
+
+            else if (option === 'Settings') {
+                window.location.href = 'Settings.html';
+            }
+
+            else if (option === 'Sign Out') {
+
+                // Clear login data if stored
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Redirect to login page
+                window.location.href = 'Login.html';
+            }
+
+            closeProfileDropdown();
+        }
+
+        function closeProfileDropdown() {
+            document.getElementById('profileDropdown').classList.remove('show');
+            document.getElementById('avatarCircle').classList.remove('active');
+        }
+
+        // Universal Document Close Listener (Hides overlay dropdown smoothly when clicking into main viewport context workspace)
+        document.addEventListener('click', function (event) {
+            const container = document.getElementById('profileContainer');
+            if (!container.contains(event.target)) {
+                closeProfileDropdown();
+            }
+        });
+
+        // Subscription State Handler Toggle 
+        function toggleSubscription() {
+            const btn = document.getElementById('subscribeBtn');
+            const txt = btn.querySelector('span');
+            const icon = btn.querySelector('i');
+
+            if (!btn.classList.contains('subscribed')) {
+                btn.classList.add('subscribed');
+                txt.textContent = 'Subscribed!';
+                icon.className = 'fa-solid fa-heart-circle-check';
+                alert('Success! Connected with the UNI~NEXUS notification core.');
+            } else {
+                btn.classList.remove('subscribed');
+                txt.textContent = 'Subscribe';
+                icon.className = 'fa-solid fa-bell';
+            }
+        }
+        // Tab Page Switching Engine
+        let currentCategoryIndex = 0;
+        const categories = document.querySelectorAll('.category-page');
+
+        function showCategory(index) {
+            categories.forEach((cat, i) => {
+                if (i === index) {
+                    cat.classList.add('active-category');
+                } else {
+                    cat.classList.remove('active-category');
+                }
+            });
+        }
+
+        function nextCategory() {
+            currentCategoryIndex = (currentCategoryIndex + 1) % categories.length;
+            showCategory(currentCategoryIndex);
+        }
+
+        function previousCategory() {
+            currentCategoryIndex = (currentCategoryIndex - 1 + categories.length) % categories.length;
+            showCategory(currentCategoryIndex);
+        }
+
+        // Accordion Multi-instance Dropdown Logic
+        function toggleMembers(element) {
+            element.classList.toggle('open');
+            const targetList = element.nextElementSibling;
+            if (targetList && targetList.classList.contains('member-list')) {
+                targetList.classList.toggle('show');
+            }
         }
     </script>
-
 </body>
 
 </html>

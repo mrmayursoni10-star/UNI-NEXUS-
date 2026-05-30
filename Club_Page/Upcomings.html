@@ -7,11 +7,13 @@
     <title>UNI~NEXUS presents BANDISH - Music Club Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-          :root {
+        :root {
             /* Cosmic Cyberpunk Deep Luxury Theme */
             --bg-deep: #030712;
             --bg-card: rgba(13, 21, 45, 0.45);
@@ -53,16 +55,16 @@
         }
 
         /* Container Layout */
-       .dashboard-container {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 32px;
-    width: 100%;
-    min-height: 100vh;
-    padding: 24px;
-
-    align-items: stretch;
-}
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            width: 100%;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 24px;
+            align-items: stretch;
+        }
 
         /* SIDEBAR STYLE (Glassmorphism Overhaul) */
         .sidebar {
@@ -438,6 +440,8 @@
             justify-content: center;
             box-shadow: 0 0 10px var(--accent-red);
         }
+
+
         /* MAIN MASTER CONTENT CAROUSEL */
         .main-content {
             display: flex;
@@ -446,10 +450,11 @@
             overflow: hidden;
             position: relative;
         }
-             .sidebar,
-.main-content {
-    height: 100%;
-}
+
+        .sidebar,
+        .main-content {
+            height: 100%;
+        }
 
         /* Dynamic Stage Window view wrapper */
         .master-carousel-viewport {
@@ -562,8 +567,13 @@
             box-shadow: 0 0 20px var(--accent-blue);
         }
 
-        .arrow-left { left: 40px; }
-        .arrow-right { right: 40px; }
+        .arrow-left {
+            left: 40px;
+        }
+
+        .arrow-right {
+            right: 40px;
+        }
 
         /* Unified Pagination Tracking Container */
         .slider-indicators-container {
@@ -727,7 +737,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.06);
             margin: 16px 0;
             position: relative;
         }
@@ -735,7 +745,7 @@
         .qr-procedural-graphics {
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000),
                 linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
             background-size: 16px 16px;
@@ -756,8 +766,15 @@
             outline: 6px solid #000;
         }
 
-        .qr-procedural-graphics::before { top: 2px; left: 2px; }
-        .qr-procedural-graphics::after { bottom: 2px; left: 2px; }
+        .qr-procedural-graphics::before {
+            top: 2px;
+            left: 2px;
+        }
+
+        .qr-procedural-graphics::after {
+            bottom: 2px;
+            left: 2px;
+        }
 
         .qr-secondary-anchor {
             position: absolute;
@@ -819,9 +836,115 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.25); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.25);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        /* TOOL BAR */
+
+        .event-tools {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        #showEventsBtn {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 18px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #showEventsBtn:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(0, 240, 255, .3);
+        }
+
+        /* EVENTS PANEL */
+
+        #eventsPanel {
+            display: none;
+            margin-bottom: 20px;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+
+        #eventsPanel.show {
+            display: block;
+        }
+
+        #eventsPanel h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        #eventsPanel ul {
+            list-style: none;
+        }
+
+        #eventsPanel li {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .05);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        #eventsPanel li:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-cyan);
+            transform: translateX(6px);
+            box-shadow: 0 0 15px rgba(0, 240, 255, .2);
+        }
+
+        /* SCROLL TOP BUTTON */
+
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 999;
+            color: white;
+            background: linear-gradient(135deg,
+                    var(--accent-blue),
+                    var(--accent-cyan));
+            box-shadow: 0 0 20px rgba(0, 240, 255, .4);
+            display: none;
+            transition: var(--transition);
+        }
+
+        #scrollTopBtn:hover {
+            transform: translateY(-5px);
         }
 
         /* RESPONSIVE ENHANCEMENTS */
@@ -829,6 +952,7 @@
             .details-split-grid {
                 grid-template-columns: 1fr;
             }
+
             .qr-terminal-sheet {
                 min-height: auto;
             }
@@ -840,18 +964,27 @@
                 gap: 24px;
                 padding: 16px;
             }
+
             .sidebar {
                 padding: 24px;
             }
+
             .stage-viewport {
                 height: 300px;
             }
+
             .slider-arrow {
                 width: 40px;
                 height: 40px;
             }
-            .arrow-left { left: 15px; }
-            .arrow-right { right: 15px; }
+
+            .arrow-left {
+                left: 15px;
+            }
+
+            .arrow-right {
+                right: 15px;
+            }
         }
     </style>
 </head>
@@ -860,21 +993,27 @@
 
     <div class="dashboard-container">
 
+        <!-- SIDEBAR INTERFACE -->
         <aside class="sidebar">
             <div>
+                <!-- Brand Meta -->
                 <div class="brand-header">
                     <span class="presentation-tag">UNI~NEXUS Presents</span>
                     <h1 class="brand-title">BANDISH</h1>
                     <p class="brand-tagline">// Harmony Unleashed</p>
                 </div>
 
+                <!-- Utility Controls -->
                 <div class="nav-header-controls">
+                    <!-- Home Button (Interactive Click Event Added) -->
                     <button class="btn-home" onclick="window.location.href='club_interface.html'">
-                        <i class="fa-solid fa-house-chimney"></i> Back
+                        <i class="fa-solid fa-house-chimney"></i> Black
                     </button>
 
+                    <!-- Profile Container (Now Interactive with dropdown node built in) -->
                     <div class="profile-container" id="profileContainer">
-                        <div class="avatar-circle" id="avatarCircle" title="User Menu" onclick="toggleProfileDropdown(event)">M</div>
+                        <div class="avatar-circle" id="avatarCircle" title="User Menu"
+                            onclick="toggleProfileDropdown(event)">M</div>
                         <div class="profile-dropdown" id="profileDropdown">
                             <div class="dropdown-item" onclick="handleProfileOption('My Profile')">
                                 <i class="fa-solid fa-user-gear"></i> My Profile
@@ -889,61 +1028,103 @@
                     </div>
                 </div>
 
+                <!-- Navigation Links List -->
                 <ul class="navigation-menu">
-                    <li class="nav-item active" onclick="window.location.href='Events.html'">
+
+                    <li class="nav-item " onclick="window.location.href='Events.html'">
                         <i class="fa-solid fa-calendar-star"></i> Events
                     </li>
-                    <li class="nav-item" onclick="window.location.href='Upcomings.html'">
+
+                    <li class="nav-item active" onclick="window.location.href='Upcomings.html'">
                         <i class="fa-solid fa-bolt"></i> Upcoming
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Domains.html'">
                         <i class="fa-solid fa-guitars"></i> Domains
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Recruitment.html'">
                         <i class="fa-solid fa-user-plus"></i> Recruitment
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Achievements.html'">
                         <i class="fa-solid fa-trophy-award"></i> Achievements
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Team.html'">
                         <i class="fa-solid fa-users"></i> Team Members
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Coordinator.html'">
                         <i class="fa-solid fa-user-tie"></i> Coordinator
                     </li>
 
                     <div class="contact-divider">Direct Registry</div>
+
                     <li class="nav-item contact-info-clickable" onclick="window.location.href='tel:123xxxxxxx'">
                         <i class="fa-solid fa-phone-volume"></i> 123xxxxxxx
                     </li>
+
                     <li class="nav-item contact-info-clickable" onclick="window.location.href='mailto:abcd@club.com'">
                         <i class="fa-solid fa-envelope-open-text"></i> abcd@club.com
                     </li>
+
                 </ul>
             </div>
 
+            <!-- Footer Action Controls (Featuring the Extraordinary Neon Red Subscribe Switch) -->
             <div class="sidebar-footer">
                 <button class="btn-subscribe" id="subscribeBtn" onclick="toggleSubscription()">
                     <i class="fa-solid fa-bell"></i> <span>Subscribe</span>
                 </button>
-                <a href="https://instagram.com" target="_blank" class="social-icon-btn" title="Live Instagram Feed Link">
+                <a href="https://instagram.com" target="_blank" class="social-icon-btn"
+                    title="Live Instagram Feed Link">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
-                <button class="social-icon-btn notification-badge" title="Live Alerts Center" onclick="alert('System alert: Bandish Registrations are processing via UNI~NEXUS gateway.')">
+                <button class="social-icon-btn notification-badge" title="Live Alerts Center"
+                    onclick="alert('System alert: Bandish Registrations are processing via UNI~NEXUS gateway.')">
                     <i class="fa-solid fa-envelope"></i>
                 </button>
             </div>
         </aside>
 
         <main class="main-content">
-            
+
+
             <button class="slider-arrow arrow-left" onclick="changeSlide(-1)">
                 <i class="fa-solid fa-chevron-left"></i>
             </button>
             <button class="slider-arrow arrow-right" onclick="changeSlide(1)">
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
+            <div class="event-tools">
 
+                <button id="showEventsBtn">
+                    <i class="fa-solid fa-list"></i>
+                    Upcoming Events
+                </button>
+
+            </div>
+
+            <div id="eventsPanel">
+
+                <h3>Upcoming Events Registry</h3>
+
+                <ul>
+                    <li onclick="jumpToSlide(0)">
+                        Bandish Mega Symphony
+                    </li>
+
+                    <li onclick="jumpToSlide(1)">
+                        Rock Distortion Battle
+                    </li>
+
+                    <li onclick="jumpToSlide(2)">
+                        Electronic Horizon Lounge
+                    </li>
+                </ul>
+
+            </div>
             <div class="master-carousel-viewport" id="masterCarouselViewport">
 
                 <div class="event-master-slide">
@@ -952,7 +1133,8 @@
                             <h2 class="showcase-title">Event Showcase // Echoes Live</h2>
                         </div>
                         <div class="stage-viewport">
-                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop" alt="Bandish Stage Performance Live" class="stage-image">
+                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop"
+                                alt="Bandish Stage Performance Live" class="stage-image">
                             <div class="stage-overlay"></div>
                         </div>
                     </section>
@@ -987,7 +1169,9 @@
                                 <p>Scan code or access link directly</p>
                             </div>
                             <div class="qr-matrix-envelope">
-                                <div class="qr-procedural-graphics"><div class="qr-secondary-anchor"></div></div>
+                                <div class="qr-procedural-graphics">
+                                    <div class="qr-secondary-anchor"></div>
+                                </div>
                             </div>
                             <button class="btn-terminal-action" onclick="window.open('https://whatsapp.com', '_blank')">
                                 <i class="fa-brands fa-whatsapp"></i> Connect Hub
@@ -1002,7 +1186,8 @@
                             <h2 class="showcase-title">Event Showcase // Sonic Pulse</h2>
                         </div>
                         <div class="stage-viewport">
-                            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1200&auto=format&fit=crop" alt="Live Concert Stage crowd" class="stage-image">
+                            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1200&auto=format&fit=crop"
+                                alt="Live Concert Stage crowd" class="stage-image">
                             <div class="stage-overlay"></div>
                         </div>
                     </section>
@@ -1037,7 +1222,9 @@
                                 <p>Scan code or access link directly</p>
                             </div>
                             <div class="qr-matrix-envelope">
-                                <div class="qr-procedural-graphics"><div class="qr-secondary-anchor"></div></div>
+                                <div class="qr-procedural-graphics">
+                                    <div class="qr-secondary-anchor"></div>
+                                </div>
                             </div>
                             <button class="btn-terminal-action" onclick="window.open('https://whatsapp.com', '_blank')">
                                 <i class="fa-brands fa-whatsapp"></i> Battle Feed
@@ -1052,7 +1239,8 @@
                             <h2 class="showcase-title">Event Showcase // Neon Mix</h2>
                         </div>
                         <div class="stage-viewport">
-                            <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=1200&auto=format&fit=crop" alt="Music Mixer Lights" class="stage-image">
+                            <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=1200&auto=format&fit=crop"
+                                alt="Music Mixer Lights" class="stage-image">
                             <div class="stage-overlay"></div>
                         </div>
                     </section>
@@ -1087,7 +1275,9 @@
                                 <p>Scan code or access link directly</p>
                             </div>
                             <div class="qr-matrix-envelope">
-                                <div class="qr-procedural-graphics"><div class="qr-secondary-anchor"></div></div>
+                                <div class="qr-procedural-graphics">
+                                    <div class="qr-secondary-anchor"></div>
+                                </div>
                             </div>
                             <button class="btn-terminal-action" onclick="window.open('https://whatsapp.com', '_blank')">
                                 <i class="fa-brands fa-whatsapp"></i> RSVP Registry
@@ -1101,9 +1291,12 @@
             <div class="slider-indicators-container" id="sliderIndicatorsContainer"></div>
         </main>
     </div>
+    <button id="scrollTopBtn">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
     <footer class="global-footer">
-       @U~N Made By <span class="footer-heart"><i class="fa-solid fa-heart"></i></span> Team Delta
+        @U~N Made By <span class="footer-heart"><i class="fa-solid fa-heart"></i></span> Team Delta
     </footer>
 
     <script>
@@ -1111,7 +1304,7 @@
         const masterViewport = document.getElementById('masterCarouselViewport');
         const masterSlides = document.querySelectorAll('.event-master-slide');
         const indicatorsContainer = document.getElementById('sliderIndicatorsContainer');
-        
+
         let currentSlideIndex = 0;
         const totalSlidesCount = masterSlides.length;
 
@@ -1127,23 +1320,30 @@
         const trackingDots = document.querySelectorAll('.dot');
 
         function jumpToSlide(targetIndex) {
+
             currentSlideIndex = targetIndex;
-            
-            // Transform matrix calculation wrapper for smooth translation offset shifting
-            masterViewport.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
-            
-            // Sync dot indicator nodes status
-            trackingDots.forEach(dotNode => dotNode.classList.remove('active'));
-            trackingDots[currentSlideIndex].classList.add('active');
+
+            masterViewport.style.transform =
+                `translateX(-${currentSlideIndex * 100}%)`;
+
+            trackingDots.forEach(dot =>
+                dot.classList.remove('active'));
+
+            trackingDots[currentSlideIndex]
+                .classList.add('active');
+
+            document
+                .getElementById('eventsPanel')
+                .classList.remove('show');
         }
 
         function changeSlide(directionStep) {
             let nextIndex = currentSlideIndex + directionStep;
-            
+
             // Infinite loop wrapping checks
             if (nextIndex >= totalSlidesCount) nextIndex = 0;
             if (nextIndex < 0) nextIndex = totalSlidesCount - 1;
-            
+
             jumpToSlide(nextIndex);
         }
 
@@ -1160,16 +1360,35 @@
             dropdown.classList.toggle('show');
         }
 
-        function handleProfileOption(optionName) {
-            alert(`Accessing Profile Route Secure Link: ${optionName}`);
-            document.getElementById('profileDropdown').classList.remove('show');
+         function handleProfileOption(option) {
+
+            if (option === 'My Profile') {
+                window.location.href = '../Profile/Profile.html';
+            }
+
+            else if (option === 'Settings') {
+                window.location.href = 'Settings.html';
+            }
+
+            else if (option === 'Sign Out') {
+
+                // Clear login data if stored
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Redirect to login page
+                window.location.href = 'Login.html';
+            }
+
+            closeProfileDropdown();
         }
+
 
         /* Subscription Action Handlers */
         function toggleSubscription() {
             const subBtn = document.getElementById('subscribeBtn');
             const subText = subBtn.querySelector('span');
-            
+
             if (subBtn.classList.contains('subscribed')) {
                 subBtn.classList.remove('subscribed');
                 subText.innerText = "Subscribe";
@@ -1186,6 +1405,47 @@
         window.addEventListener('click', () => {
             document.getElementById('profileDropdown').classList.remove('show');
         });
+
+        /* SHOW UPCOMING EVENTS PANEL */
+
+        document
+            .getElementById('showEventsBtn')
+            .addEventListener('click', () => {
+
+                document
+                    .getElementById('eventsPanel')
+                    .classList.toggle('show');
+
+            });
+
+
+        /* AUTO SCROLL TO TOP */
+
+        const scrollBtn =
+            document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+
+            if (window.scrollY > 250) {
+                scrollBtn.style.display = 'flex';
+                scrollBtn.style.alignItems = 'center';
+                scrollBtn.style.justifyContent = 'center';
+            }
+            else {
+                scrollBtn.style.display = 'none';
+            }
+
+        });
+
+        scrollBtn.addEventListener('click', () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+        });
     </script>
 </body>
+
 </html>

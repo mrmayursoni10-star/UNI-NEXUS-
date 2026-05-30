@@ -59,13 +59,13 @@
         /* Container Layout */
         .dashboard-container {
             display: grid;
-            grid-template-columns: 310px 1fr;
+            grid-template-columns: 280px 1fr;
             gap: 32px;
-            max-width: 1440px;
             width: 100%;
+            min-height: 100vh;
             margin: 0 auto;
-            padding: 32px;
-            flex: 1;
+            padding: 24px;
+            align-items: stretch;
         }
 
         /* SIDEBAR STYLE (Glassmorphism Overhaul) */
@@ -96,6 +96,7 @@
             transform: skewX(-25deg);
             transition: 0.75s;
             pointer-events: none;
+            max-height: 800;
         }
 
         .sidebar:hover::before {
@@ -796,7 +797,7 @@
                 <!-- Utility Controls -->
                 <div class="nav-header-controls">
                     <!-- Home Button (Interactive Click Event Added) -->
-                    <button class="btn-home" onclick="window.location.href='Home.html'">
+                    <button  class="btn-home" onclick="window.location.href='../Home/Home.html'">
                         <i class="fa-solid fa-house-chimney"></i> Home
                     </button>
 
@@ -808,9 +809,11 @@
                             <div class="dropdown-item" onclick="handleProfileOption('My Profile')">
                                 <i class="fa-solid fa-user-gear"></i> My Profile
                             </div>
+
                             <div class="dropdown-item" onclick="handleProfileOption('Settings')">
                                 <i class="fa-solid fa-sliders"></i> Settings
                             </div>
+
                             <div class="dropdown-item sign-out" onclick="handleProfileOption('Sign Out')">
                                 <i class="fa-solid fa-power-off"></i> Sign Out
                             </div>
@@ -821,7 +824,7 @@
                 <!-- Navigation Links List -->
                 <ul class="navigation-menu">
 
-                    <li class="nav-item active" onclick="window.location.href='Events.html'">
+                    <li class="nav-item" onclick="window.location.href='Events.html'">
                         <i class="fa-solid fa-calendar-star"></i> Events
                     </li>
 
@@ -900,7 +903,7 @@
                     <div class="slider-strip" id="sliderStrip">
                         <!-- Frame 1 -->
                         <div class="slide-frame">
-                            <img src="bandish.webp" alt="Bandish Stage Performance Live" class="stage-image">
+                            <img src="Images/bandish.webp" alt="Bandish Stage Performance Live" class="stage-image">
                             <div class="stage-overlay"></div>
                         </div>
                         <!-- Frame 2 -->
@@ -1006,10 +1009,25 @@
 
         // Dropdown Items Handler
         function handleProfileOption(option) {
-            console.log(`Selected account function route: ${option}`);
-            alert(`Opening client parameters window for: ${option}`);
 
-            // Soft reset view state
+            if (option === 'My Profile') {
+                window.location.href = '../Profile/Profile.html';
+            }
+
+            else if (option === 'Settings') {
+                window.location.href = 'Settings.html';
+            }
+
+            else if (option === 'Sign Out') {
+
+                // Clear login data if stored
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Redirect to login page
+                window.location.href = 'Login.html';
+            }
+
             closeProfileDropdown();
         }
 

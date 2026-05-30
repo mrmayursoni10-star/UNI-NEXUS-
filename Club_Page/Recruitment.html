@@ -61,8 +61,8 @@
             gap: 32px;
             width: 100%;
             min-height: 100vh;
+            margin: 0 auto;
             padding: 24px;
-
             align-items: stretch;
         }
 
@@ -742,9 +742,10 @@
                     </div>
                 </div>
 
-                <ul class="navigation-menu">
+                  <ul class="navigation-menu">
+
                     <li class="nav-item" onclick="window.location.href='Events.html'">
-                        <i class="fa-solid fa-calendar-day"></i> Events
+                        <i class="fa-solid fa-calendar-star"></i> Events
                     </li>
 
                     <li class="nav-item" onclick="window.location.href='Upcomings.html'">
@@ -752,15 +753,15 @@
                     </li>
 
                     <li class="nav-item" onclick="window.location.href='Domains.html'">
-                        <i class="fa-solid fa-guitar"></i> Domains
+                        <i class="fa-solid fa-guitars"></i> Domains
                     </li>
 
-                    <li class="nav-item active" onclick="window.location.href='Recruitment.html'">
+                    <li class="nav-item  active" onclick="window.location.href='Recruitment.html'">
                         <i class="fa-solid fa-user-plus"></i> Recruitment
                     </li>
 
                     <li class="nav-item" onclick="window.location.href='Achievements.html'">
-                        <i class="fa-solid fa-trophy"></i> Achievements
+                        <i class="fa-solid fa-trophy-award"></i> Achievements
                     </li>
 
                     <li class="nav-item" onclick="window.location.href='Team.html'">
@@ -780,6 +781,7 @@
                     <li class="nav-item contact-info-clickable" onclick="window.location.href='mailto:abcd@club.com'">
                         <i class="fa-solid fa-envelope-open-text"></i> abcd@club.com
                     </li>
+
                 </ul>
             </div>
 
@@ -991,7 +993,29 @@
                 }
             }
         }
-        function handleProfileOption(option) { alert(option + ' panel execution.'); }
+         function handleProfileOption(option) {
+
+            if (option === 'My Profile') {
+                window.location.href = '../Profile/Profile.html';
+            }
+
+            else if (option === 'Settings') {
+                window.location.href = 'Settings.html';
+            }
+
+            else if (option === 'Sign Out') {
+
+                // Clear login data if stored
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Redirect to login page
+                window.location.href = 'Login.html';
+            }
+
+            closeProfileDropdown();
+        }
+
         function toggleSubscription() {
             const btn = document.getElementById('subscribeBtn');
             btn.classList.toggle('subscribed');

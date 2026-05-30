@@ -7,7 +7,9 @@
     <title>UNI~NEXUS presents BANDISH - Music Club Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -58,9 +60,10 @@
             grid-template-columns: 280px 1fr;
             gap: 32px;
             width: 100%;
-            flex: 1;
+            min-height: 100vh;
+            margin: 0 auto;
             padding: 24px;
-            align-items: start;
+            align-items: stretch;
         }
 
         /* SIDEBAR STYLE (Glassmorphism Overhaul) */
@@ -77,7 +80,7 @@
             box-shadow: var(--glass-shadow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: visible;
-            min-height: calc(100vh - 48px);
+            /* Changed to visible so profile dropdown overflows cleanly */
         }
 
         .sidebar::before {
@@ -91,7 +94,7 @@
             transform: skewX(-25deg);
             transition: 0.75s;
             pointer-events: none;
-            max-height: 800px;
+            max-height: 800;
         }
 
         .sidebar:hover::before {
@@ -478,71 +481,164 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* ===== WORLD CLASS CLUB HEAD CARDS ===== */
+
         .head-card {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 16px;
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(145deg,
+                    rgba(255, 255, 255, 0.05),
+                    rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 24px;
             display: flex;
-            gap: 20px;
             align-items: center;
-            transition: var(--transition);
+            gap: 24px;
+            transition: all .45s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .head-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg,
+                    rgba(0, 240, 255, 0.08),
+                    transparent 40%,
+                    rgba(112, 0, 255, 0.06));
+            opacity: 0;
+            transition: .4s;
         }
 
         .head-card:hover {
-            border-color: var(--accent-blue);
-            box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.1);
-            transform: translateX(4px);
+            transform: translateY(-8px);
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, .5),
+                0 0 30px rgba(0, 240, 255, .15);
+        }
+
+        .head-card:hover::before {
+            opacity: 1;
         }
 
         .head-image-wrapper {
-            width: 110px;
-            height: 110px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px dashed var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 600;
+            position: relative;
+            width: 140px;
+            height: 140px;
+            border-radius: 24px;
             overflow: hidden;
             flex-shrink: 0;
+            padding: 3px;
+            background: linear-gradient(135deg,
+                    var(--accent-blue),
+                    var(--accent-neon),
+                    var(--accent-cyan));
         }
 
         .head-image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 21px;
+        }
+
+        .head-image-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, .35);
         }
 
         .head-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
             flex: 1;
+            position: relative;
+            z-index: 2;
         }
 
         .head-role {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .head-role::before {
+            content: '★';
             color: var(--accent-cyan);
-            margin-bottom: 4px;
+            margin-right: 10px;
         }
 
         .head-field {
-            font-size: 0.9rem;
+            font-size: .95rem;
+            margin-bottom: 8px;
             color: var(--text-main);
-            display: flex;
-            gap: 6px;
         }
 
         .head-field span {
-            color: var(--text-muted);
-            font-weight: 600;
-            min-width: 60px;
+            color: var(--accent-blue);
+            font-weight: 700;
+            display: inline-block;
+            width: 75px;
+        }
+
+        .profile-badge {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: rgba(0, 240, 255, .12);
+            border: 1px solid rgba(0, 240, 255, .3);
+            color: var(--accent-cyan);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .profile-socials {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .profile-socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .05);
+            color: white;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .profile-socials a:hover {
+            transform: translateY(-3px);
+            color: var(--accent-blue);
+            background: rgba(0, 240, 255, .12);
+        }
+
+        .club-heads-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            text-align: center;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg,
+                    white,
+                    var(--accent-blue),
+                    var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* GLOBAL FOOTER BRANDING */
@@ -568,9 +664,20 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.25); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.25);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
         }
 
         /* RESPONSIVE ENHANCEMENTS */
@@ -580,6 +687,7 @@
                 gap: 24px;
                 padding: 16px;
             }
+
             .sidebar {
                 min-height: auto;
                 padding: 24px;
@@ -587,26 +695,31 @@
         }
     </style>
 </head>
-
 <body>
 
     <div class="dashboard-container">
 
+        <!-- SIDEBAR INTERFACE -->
         <aside class="sidebar">
             <div>
+                <!-- Brand Meta -->
                 <div class="brand-header">
                     <span class="presentation-tag">UNI~NEXUS Presents</span>
                     <h1 class="brand-title">BANDISH</h1>
                     <p class="brand-tagline">// Harmony Unleashed</p>
                 </div>
 
+                <!-- Utility Controls -->
                 <div class="nav-header-controls">
+                    <!-- Home Button (Interactive Click Event Added) -->
                     <button class="btn-home" onclick="window.location.href='club_interface.html'">
-                        <i class="fa-solid fa-house-chimney"></i> Back
+                        <i class="fa-solid fa-house-chimney"></i> Black
                     </button>
 
+                    <!-- Profile Container (Now Interactive with dropdown node built in) -->
                     <div class="profile-container" id="profileContainer">
-                        <div class="avatar-circle" id="avatarCircle" title="User Menu" onclick="toggleProfileDropdown(event)">M</div>
+                        <div class="avatar-circle" id="avatarCircle" title="User Menu"
+                            onclick="toggleProfileDropdown(event)">M</div>
                         <div class="profile-dropdown" id="profileDropdown">
                             <div class="dropdown-item" onclick="handleProfileOption('My Profile')">
                                 <i class="fa-solid fa-user-gear"></i> My Profile
@@ -621,47 +734,61 @@
                     </div>
                 </div>
 
+                <!-- Navigation Links List -->
                 <ul class="navigation-menu">
-                    <li class="nav-item active" onclick="window.location.href='Events.html'">
+
+                    <li class="nav-item " onclick="window.location.href='Events.html'">
                         <i class="fa-solid fa-calendar-star"></i> Events
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Upcomings.html'">
                         <i class="fa-solid fa-bolt"></i> Upcoming
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Domains.html'">
                         <i class="fa-solid fa-guitars"></i> Domains
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Recruitment.html'">
                         <i class="fa-solid fa-user-plus"></i> Recruitment
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Achievements.html'">
                         <i class="fa-solid fa-trophy-award"></i> Achievements
                     </li>
-                    <li class="nav-item" onclick="window.location.href='Team.html'">
+
+                    <li class="nav-item active" onclick="window.location.href='Team.html'">
                         <i class="fa-solid fa-users"></i> Team Members
                     </li>
+
                     <li class="nav-item" onclick="window.location.href='Coordinator.html'">
                         <i class="fa-solid fa-user-tie"></i> Coordinator
                     </li>
 
                     <div class="contact-divider">Direct Registry</div>
+
                     <li class="nav-item contact-info-clickable" onclick="window.location.href='tel:123xxxxxxx'">
                         <i class="fa-solid fa-phone-volume"></i> 123xxxxxxx
                     </li>
+
                     <li class="nav-item contact-info-clickable" onclick="window.location.href='mailto:abcd@club.com'">
                         <i class="fa-solid fa-envelope-open-text"></i> abcd@club.com
                     </li>
+
                 </ul>
             </div>
 
+            <!-- Footer Action Controls (Featuring the Extraordinary Neon Red Subscribe Switch) -->
             <div class="sidebar-footer">
                 <button class="btn-subscribe" id="subscribeBtn" onclick="toggleSubscription()">
                     <i class="fa-solid fa-bell"></i> <span>Subscribe</span>
                 </button>
-                <a href="https://instagram.com" target="_blank" class="social-icon-btn" title="Live Instagram Feed Link">
+                <a href="https://instagram.com" target="_blank" class="social-icon-btn"
+                    title="Live Instagram Feed Link">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
-                <button class="social-icon-btn notification-badge" title="Live Alerts Center" onclick="alert('System alert: Bandish Registrations are processing via UNI~NEXUS gateway.')">
+                <button class="social-icon-btn notification-badge" title="Live Alerts Center"
+                    onclick="alert('System alert: Bandish Registrations are processing via UNI~NEXUS gateway.')">
                     <i class="fa-solid fa-envelope"></i>
                 </button>
             </div>
@@ -669,36 +796,90 @@
 
         <main class="main-content">
             <div class="details-split-grid">
-                
+
                 <div class="meta-details-sheet">
                     <h2 class="club-heads-title">Club Heads</h2>
-                    
+
                     <div class="head-card">
-                        <div class="head-image-wrapper">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="President">
+
+                        <div class="profile-badge">
+                            Executive
                         </div>
+
+                        <div class="head-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"
+                                alt="President">
+                        </div>
+
                         <div class="head-info">
+
                             <h3 class="head-role">President</h3>
-                            <div class="head-field"><span>Name</span> : Jane Doe</div>
-                            <div class="head-field"><span>Branch</span> : Computer Science</div>
-                            <div class="head-field"><span>Year</span> : 4th Year</div>
-                            <div class="head-field"><span>Email</span> : president@club.com</div>
-                        </div>
-                    </div>
 
+                            <div class="head-field">
+                                <span>Name</span> Jane Doe
+                            </div>
+
+                            <div class="head-field">
+                                <span>Branch</span> Computer Science
+                            </div>
+
+                            <div class="head-field">
+                                <span>Year</span> 4th Year
+                            </div>
+
+                            <div class="head-field">
+                                <span>Email</span> president@club.com
+                            </div>
+
+                            <div class="profile-socials">
+                                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                            </div>
+
+                        </div>
+
+                    </div>
                     <div class="head-card">
-                        <div class="head-image-wrapper">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Vice President">
-                        </div>
-                        <div class="head-info">
-                            <h3 class="head-role">Vice President</h3>
-                            <div class="head-field"><span>Name</span> : John Smith</div>
-                            <div class="head-field"><span>Branch</span> : Electronics Eng.</div>
-                            <div class="head-field"><span>Year</span> : 3rd Year</div>
-                            <div class="head-field"><span>Email</span> : vp@club.com</div>
-                        </div>
-                    </div>
 
+                        <div class="profile-badge">
+                            Leadership
+                        </div>
+
+                        <div class="head-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+                                alt="Vice President">
+                        </div>
+
+                        <div class="head-info">
+
+                            <h3 class="head-role">Vice President</h3>
+
+                            <div class="head-field">
+                                <span>Name</span> John Smith
+                            </div>
+
+                            <div class="head-field">
+                                <span>Branch</span> Electronics Eng.
+                            </div>
+
+                            <div class="head-field">
+                                <span>Year</span> 3rd Year
+                            </div>
+
+                            <div class="head-field">
+                                <span>Email</span> vp@club.com
+                            </div>
+
+                            <div class="profile-socials">
+                                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </main>
@@ -720,9 +901,27 @@
         }
 
         // Dropdown Items selection log execution
-        function handleProfileOption(optionName) {
-            console.log(`Navigating to Option: ${optionName}`);
-            alert(`Profile option routing: "${optionName}" context action initialized.`);
+          function handleProfileOption(option) {
+
+            if (option === 'My Profile') {
+                window.location.href = '../Profile/Profile.html';
+            }
+
+            else if (option === 'Settings') {
+                window.location.href = 'Settings.html';
+            }
+
+            else if (option === 'Sign Out') {
+
+                // Clear login data if stored
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Redirect to login page
+                window.location.href = 'Login.html';
+            }
+
+            closeProfileDropdown();
         }
 
         // Toggle Subscription Switch State
@@ -732,7 +931,7 @@
             const icon = btn.querySelector('i');
 
             btn.classList.toggle('subscribed');
-            
+
             if (btn.classList.contains('subscribed')) {
                 label.textContent = 'Subscribed';
                 icon.className = 'fa-solid fa-bell-slash';
@@ -743,7 +942,7 @@
         }
 
         // Close Dropdown UI when clicking elsewhere outside context boundaries
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (!event.target.matches('.avatar-circle') && !event.target.matches('.profile-dropdown *')) {
                 const dropdowns = document.getElementsByClassName("profile-dropdown");
                 const avatars = document.getElementsByClassName("avatar-circle");
