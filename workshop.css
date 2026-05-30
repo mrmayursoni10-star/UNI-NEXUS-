@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #000, #020024, #090979);
+    color: white;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 40px;
+}
+
+header h1 {
+    color: #00eaff;
+    text-shadow: 0 0 10px #00eaff;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    display: flex;
+    gap: 20px;
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0,234,255,0.3);
+}
+
+/* POSTER */
+.poster img {
+    width: 180px;
+    height: 240px;
+    border-radius: 8px;
+}
+
+/* DETAILS */
+.details h2 {
+    color: #00eaff;
+}
+
+/* ACTIONS */
+.actions {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* BUTTONS */
+button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* SPECIFIC BUTTONS */
+.attend {
+    background: #00eaff;
+    color: black;
+}
+
+.view {
+    background: transparent;
+    border: 1px solid #00eaff;
+    color: #00eaff;
+}
+
+/* STATUS */
+.status {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+/* STATUS COLORS */
+.done {
+    background: #00ff99;
+    color: black;
+}
+
+.pending {
+    background: orange;
+    color: black;
+}
+
+.upcoming {
+    background: #00eaff;
+    color: black;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .poster img {
+        width: 100%;
+        height: auto;
+    }
+}
