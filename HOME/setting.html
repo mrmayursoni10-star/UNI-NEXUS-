@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | UNI-NEXUS</title>
+
+    
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at top,#111827 0%,#0a0f1f 50%,#050816 100%);
+    color:white;
+}
+
+.settings-page{
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar{
+    width:280px;
+    padding:25px;
+    background:rgba(17,24,39,.7);
+    backdrop-filter:blur(15px);
+    border-right:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+    font-size:32px;
+    font-weight:900;
+    letter-spacing:-1.2px;
+    margin-bottom:25px;
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    background:linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #dbeafe 20%,
+        #7dd3fc 55%,
+        #38bdf8 75%,
+        #0ea5e9 100%
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+
+    filter:
+    drop-shadow(0 4px 12px rgba(56,189,248,.25))
+    drop-shadow(0 0 20px rgba(56,189,248,.15));
+}
+.uni{
+    color:#eef7ff;
+}
+
+.nexus{
+    color:#38bdf8;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:25px;
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+.logo img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+    border-radius:12px;
+    transition:all .3s ease;
+}
+
+.logo img:hover{
+    transform:scale(1.08);
+}
+.logo h2{
+    font-size:32px;
+    font-weight:900;
+    letter-spacing:-1.2px;
+    margin:0;
+}
+
+.uni{
+    color:#eef7ff;
+}
+
+.nexus{
+    color:#38bdf8;
+}
+body,
+.sidebar,
+.card,
+.nav-item,
+.back-btn,
+.setting-row,
+button{
+    transition:all .3s ease;
+}
+.back-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 14px;
+    margin-bottom:20px;
+
+    text-decoration:none;
+    color:#cbd5e1;
+
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+
+    transition:all .3s ease;
+}
+
+.back-btn:hover{
+    background:rgba(59,130,246,.12);
+    border-color:rgba(59,130,246,.3);
+    color:#60a5fa;
+
+    transform:translateX(-4px);
+
+    box-shadow:0 0 15px rgba(59,130,246,.15);
+}
+
+.nav-item{
+    width:100%;
+    text-align:left;
+    padding:14px;
+    margin-bottom:8px;
+    border:none;
+    background:transparent;
+    color:white;
+    border-radius:12px;
+    cursor:pointer;
+    transition:all .3s ease;
+}
+
+.nav-item:hover,
+.nav-item.active{
+    background:rgba(59,130,246,.15);
+    color:#60a5fa;
+    transform:translateX(5px);
+}
+
+.logout-btn{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#dc2626;
+    color:white;
+    cursor:pointer;
+}
+.logout-btn:hover{
+    background:#ef4444;
+    box-shadow:0 0 15px rgba(239,68,68,.4);
+    transform:translateY(-2px);
+}
+.content{
+    flex:1;
+    padding:40px;
+}
+
+.section{
+    display:none;
+}
+
+.active-section{
+    display:block;
+}
+
+.card{
+    margin-top:20px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:25px;
+}
+
+.setting-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.setting-row:last-child{
+    border-bottom:none;
+}
+
+button{
+    background:#2563eb;
+    border:none;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:all .3s ease;
+}
+
+button:hover{
+    background:#3b82f6;
+    transform:translateY(-2px);
+    box-shadow:0 0 15px rgba(59,130,246,.5);
+}
+
+.readonly{
+    color:#94a3b8;
+}
+
+.switch{
+    position:relative;
+    width:58px;
+    height:30px;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#374151;
+    border-radius:50px;
+    cursor:pointer;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:22px;
+    height:22px;
+    left:4px;
+    top:4px;
+    background:white;
+    border-radius:50%;
+    transition:.3s;
+}
+
+.switch input:checked + .slider{
+    background:#2563eb;
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(28px);
+}
+.light-theme{
+    background:#f8fafc;
+    color:#111827;
+}
+
+.light-theme .sidebar{
+    background:rgba(255,255,255,.9);
+    border-right:1px solid #e5e7eb;
+}
+
+.light-theme .card{
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    color:#111827;
+}
+
+.light-theme .nav-item{
+    color:#374151;
+}
+
+.light-theme .back-btn{
+    color:#374151;
+}
+
+.light-theme .readonly{
+    color:#64748b;
+}
+
+.light-theme .setting-row{
+    border-bottom:1px solid #e5e7eb;
+}
+
+</style>
+</head>
+<body>
+
+<div class="settings-page">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+    <img src="uninexus_logo.png" alt="UNI-NEXUS Logo">
+    <h5>
+        <span class="uni">UNI</span><span class="nexus">~NEXUS</span>
+    </h5>
+</div>
+
+        <a href="home.html" class="back-btn">
+    <span>←</span>
+    <span>Back</span>
+</a>
+
+        <nav>
+            <button class="nav-item active" data-section="profile">👤 Profile</button>
+            <button class="nav-item" data-section="appearance">🎨 Appearance</button>
+            <button class="nav-item" data-section="notifications">🔔 Notifications</button>
+            <button class="nav-item" data-section="memberships">🏫 Memberships</button>
+            <button class="nav-item" data-section="privacy">🛡️ Privacy & Security</button>
+            <button class="nav-item" data-section="records">📄 Records</button>
+            <button class="nav-item" data-section="support">💬 Support</button>
+            <button class="nav-item" data-section="about">ℹ️ About</button>
+        </nav>
+
+        <button class="logout-btn">🚪 Logout</button>
+
+    </aside>
+
+    <main class="content">
+
+        <!-- Profile -->
+        <section class="section active-section" id="profile">
+            <h1>Profile Settings</h1>
+
+            <div class="card">
+                <div class="setting-row">
+                    <span>Display Name</span>
+                    <button>Edit</button>
+                </div>
+
+                <div class="setting-row">
+                    <span>Profile Picture</span>
+                    <button>Change</button>
+                </div>
+
+                <div class="setting-row">
+                    <span>Username</span>
+                    <span class="readonly">@username</span>
+                </div>
+
+                <div class="setting-row">
+                    <span>Email</span>
+                    <span class="readonly">example@email.com</span>
+                </div>
+
+                <div class="setting-row">
+                    <span>Password</span>
+                    <button>Change</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appearance -->
+        <section class="section" id="appearance">
+    <h1>Appearance</h1>
+
+    <div class="card">
+        <div class="setting-row">
+
+            <span id="themeLabel">🌙 Dark Mode</span>
+
+            <label class="switch">
+                <input type="checkbox" id="themeToggle" checked>
+                <span class="slider"></span>
+            </label>
+
+        </div>
+    </div>
+</section>
+
+        <!-- Notifications -->
+        <section class="section" id="notifications">
+            <h1>Notifications</h1>
+
+            <div class="card">
+                <div class="setting-row"><span>Event Notifications</span><input type="checkbox" checked></div>
+                <div class="setting-row"><span>Club Announcements</span><input type="checkbox" checked></div>
+                <div class="setting-row"><span>Membership Updates</span><input type="checkbox" checked></div>
+                <div class="setting-row"><span>Email Notifications</span><input type="checkbox"></div>
+            </div>
+        </section>
+
+        <!-- Memberships -->
+        <section class="section" id="memberships">
+            <h1>Memberships</h1>
+
+            <div class="card">
+                <div class="setting-row"><span>My Joined Clubs</span><button>View</button></div>
+                <div class="setting-row"><span>Membership Status</span><button>View</button></div>
+                <div class="setting-row"><span>Participation History</span><button>View</button></div>
+            </div>
+        </section>
+
+        <!-- Privacy -->
+        <section class="section" id="privacy">
+            <h1>Privacy & Security</h1>
+
+            <div class="card">
+                <div class="setting-row"><span>Login Activity</span><button>View</button></div>
+                <div class="setting-row"><span>Privacy Settings</span><button>Manage</button></div>
+            </div>
+        </section>
+
+        <!-- Records -->
+        <section class="section" id="records">
+            <h1>Records</h1>
+
+            <div class="card">
+                <div class="setting-row"><span>Certificates</span><button>View</button></div>
+                <div class="setting-row"><span>Event Registrations</span><button>View</button></div>
+                <div class="setting-row"><span>Achievements & Badges</span><button>View</button></div>
+            </div>
+        </section>
+
+        <!-- Support -->
+        <section class="section" id="support">
+            <h1>Help & Support</h1>
+
+            <div class="card">
+                <div class="setting-row"><span>Contact Us</span></div>
+                <div class="setting-row"><span>Report a Problem</span></div>
+                <div class="setting-row"><span>Feedback</span></div>
+                <div class="setting-row"><span>FAQ</span></div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="section" id="about">
+            <h1>About</h1>
+
+            <div class="card">
+                <div class="setting-row"><span>About UNI-NEXUS</span></div>
+                <div class="setting-row"><span>Terms & Conditions</span></div>
+                <div class="setting-row"><span>Privacy Policy</span></div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+const navItems = document.querySelectorAll(".nav-item");
+const sections = document.querySelectorAll(".section");
+
+navItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        navItems.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        sections.forEach(sec =>
+            sec.classList.remove("active-section")
+        );
+
+        item.classList.add("active");
+
+        const sectionId = item.dataset.section;
+
+        document
+            .getElementById(sectionId)
+            .classList.add("active-section");
+    });
+});
+
+const themeToggle = document.getElementById("themeToggle");
+const themeLabel = document.getElementById("themeLabel");
+
+themeToggle.addEventListener("change", () => {
+
+    if(themeToggle.checked){
+        themeLabel.textContent = "🌙 Dark Mode";
+    } else {
+        themeLabel.textContent = "☀️ Light Mode";
+    }
+
+});
+
+const savedTheme = localStorage.getItem("theme");
+
+if(savedTheme === "light"){
+    document.body.classList.add("light-theme");
+    themeToggle.checked = false;
+}
+</script>
+
+</body>
+</html>
